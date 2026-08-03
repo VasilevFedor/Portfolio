@@ -138,23 +138,25 @@ function Writing() {
           <li key={a.slug}>
             <Link
               href={a.href ?? `/writing/${a.slug}`}
-              className="group flex items-center justify-between gap-6 rounded-2xl bg-card p-5"
+              className="group flex items-center gap-5 rounded-2xl bg-card p-5 sm:gap-7 sm:p-6"
             >
-              <div className="max-w-[650px]">
-                <h3 className="font-medium text-foreground">{a.title}</h3>
-                <p className="mt-1 text-sm leading-6 text-muted">
-                  {a.description}
-                </p>
-              </div>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/img/paper.svg"
                 alt=""
                 aria-hidden="true"
-                width={56}
-                height={56}
-                className="size-14 shrink-0 rotate-[15deg] transition-transform duration-300 ease-out group-hover:rotate-0"
+                width={72}
+                height={72}
+                className="size-16 shrink-0 rotate-[15deg] transition-transform duration-300 ease-out group-hover:rotate-0 sm:size-[72px]"
               />
+              <div className="max-w-[650px]">
+                <h3 className="text-lg font-medium leading-snug text-foreground">
+                  {a.title}
+                </h3>
+                <p className="mt-1 text-sm leading-6 text-muted">
+                  {a.description}
+                </p>
+              </div>
             </Link>
           </li>
         ))}

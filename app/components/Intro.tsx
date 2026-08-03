@@ -7,15 +7,26 @@ const REVEAL_MS = 900; // iris-open duration (matches globals.css)
 
 type Phase = "counting" | "revealing" | "done";
 
+// Module-scoped so the intro plays once per page load and NOT on every
+// client-side navigation back to "/". Resets on a full reload.
+let hasIntroPlayed = false;
+
 /**
  * Boot sequence: a full-screen counter ticks 1 → 100, then the page irises
  * open from the centre (Star-Wars style) as the preloader fades away.
  */
 export default function Intro({ children }: { children: React.ReactNode }) {
-  const [phase, setPhase] = useState<Phase>("counting");
+  const [phase, setPhase] = useState<Phase>(() =>
+    hasIntroPlayed ? "done" : "counting",
+  );
   const [count, setCount] = useState(1);
 
   useEffect(() => {
+    if (hasIntroPlayed) return;
+    // Mark as played the moment it starts, so navigating away mid-intro and
+    // coming back does not replay it. Only a full reload shows it again.
+    hasIntroPlayed = true;
+
     const reduce = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
@@ -55,6 +66,10 @@ export default function Intro({ children }: { children: React.ReactNode }) {
       >
         {children}
       </div>
+
+      {/* Expanding ring that traces the reveal so the circular wipe reads
+          clearly even on a dark-on-dark background. */}
+      {phase === "revealing" && <span className="iris-ring" aria-hidden="true" />}
 
       {phase !== "done" && (
         <div className="preloader" data-hiding={phase !== "counting"}>
