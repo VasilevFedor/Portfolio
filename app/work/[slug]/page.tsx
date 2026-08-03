@@ -4,11 +4,14 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getProject, projects } from "../../data";
 
-// ozon-ai has a dedicated route (app/work/ozon-ai/page.tsx) that takes
-// precedence, so exclude it here to avoid a route conflict at build time.
+// ozon-ai and search-boosting have dedicated routes (app/work/<slug>/page.tsx)
+// that take precedence, so exclude them here to avoid a route conflict at build
+// time.
+const dedicated = new Set(["ozon-ai", "search-boosting"]);
+
 export function generateStaticParams() {
   return projects
-    .filter((p) => p.slug !== "ozon-ai")
+    .filter((p) => !dedicated.has(p.slug))
     .map((p) => ({ slug: p.slug }));
 }
 
