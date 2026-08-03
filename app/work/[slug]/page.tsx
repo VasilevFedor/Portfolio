@@ -4,8 +4,12 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getProject, projects } from "../../data";
 
+// ozon-ai has a dedicated route (app/work/ozon-ai/page.tsx) that takes
+// precedence, so exclude it here to avoid a route conflict at build time.
 export function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }));
+  return projects
+    .filter((p) => p.slug !== "ozon-ai")
+    .map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({
