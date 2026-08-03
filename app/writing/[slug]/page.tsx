@@ -3,8 +3,12 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { articles, getArticle } from "../../data";
 
+// ozon-search-ai has a dedicated route (app/writing/ozon-search-ai/page.tsx)
+// that takes precedence, so exclude it here to avoid a route conflict.
 export function generateStaticParams() {
-  return articles.map((a) => ({ slug: a.slug }));
+  return articles
+    .filter((a) => a.slug !== "ozon-search-ai")
+    .map((a) => ({ slug: a.slug }));
 }
 
 export async function generateMetadata({
