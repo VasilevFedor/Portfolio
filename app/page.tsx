@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import ThemeToggle from "./components/ThemeToggle";
 import LocalTime from "./components/LocalTime";
 import Cat from "./components/Cat";
 import Intro from "./components/Intro";
@@ -39,7 +38,6 @@ function SiteHeader() {
         <a href="#writing" className="transition-colors hover:text-foreground">
           writing
         </a>
-        <ThemeToggle />
       </nav>
     </header>
   );
