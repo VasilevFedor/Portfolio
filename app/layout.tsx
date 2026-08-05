@@ -24,19 +24,6 @@ export const metadata: Metadata = {
   },
 };
 
-// Set the theme before paint to avoid a flash of the wrong theme.
-const themeInit = `
-(function () {
-  try {
-    var stored = localStorage.getItem('theme');
-    var dark = stored ? stored === 'dark' : true; // default to dark
-    document.documentElement.classList.toggle('dark', dark);
-  } catch (e) {
-    document.documentElement.classList.add('dark');
-  }
-})();
-`;
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -45,11 +32,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      suppressHydrationWarning
       className={`h-full antialiased ${wordmarkSerif.variable}`}
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
         {/* If JS is disabled, scroll-reveal elements must still be visible. */}
         <noscript>
           <style>{`.reveal{opacity:1 !important;transform:none !important}.iris{clip-path:none !important}.preloader{display:none !important}`}</style>
