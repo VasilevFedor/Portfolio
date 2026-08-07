@@ -4,6 +4,8 @@ import LocalTime from "./components/LocalTime";
 import Cat from "./components/Cat";
 import Intro from "./components/Intro";
 import Signature from "./components/Signature";
+import SiteHeader from "./components/SiteHeader";
+import GlassOrb from "./components/GlassOrb";
 import { articles, projects, social } from "./data";
 
 export default function Home() {
@@ -23,76 +25,20 @@ export default function Home() {
   );
 }
 
-function SiteHeader() {
-  return (
-    <header className="sticky top-0 z-10 -mx-6 flex items-center justify-between px-6 py-5 backdrop-blur-md">
-      <Link
-        href="/"
-        className="font-wordmark text-[28px] italic leading-none tracking-tight text-foreground"
-      >
-        fedor.
-      </Link>
-      <nav className="flex items-center gap-6 text-sm text-muted">
-        <a href="#work" className="transition-colors hover:text-foreground">
-          work
-        </a>
-        <a href="#writing" className="transition-colors hover:text-foreground">
-          writing
-        </a>
-      </nav>
-    </header>
-  );
-}
-
 function Hero() {
   return (
-    <section className="rise pt-10">
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <Image
-            src="/img/avatar.jpg"
-            alt="Fedor Vasiliev"
-            width={48}
-            height={48}
-            priority
-            className="size-12 rounded-full object-cover"
-          />
-          <div>
-            <h1 className="text-base font-medium text-foreground">
-              Fedor Vasiliev
-            </h1>
-            <p className="text-sm text-muted">
-              Senior product designer with 5+ years of experience
-            </p>
-          </div>
-        </div>
-        <p className="hidden shrink-0 items-center gap-2 pt-1 text-sm text-muted sm:flex">
-          <LocalTime />
-          <Cat />
-        </p>
-      </div>
-
-      <div className="mt-8 max-w-[650px] space-y-5 text-[15px] leading-7 text-body">
-        <p>
-          I currently work at <Accent>Ozon</Accent> as a Senior product
-          designer, where I led design of promotional mechanics and campaigns.
-        </p>
-        <p>
-          I&apos;m also a co-founder of <Accent>Stonks</Accent> — an app that
-          helps build financial literacy.
-        </p>
-        <p>
-          What I enjoy most is taking projects from 0 to 1 — I have an
-          entrepreneurial mindset and like owning a problem end-to-end, from
-          early concept through to shipped result.
-        </p>
-        <p className="text-muted">
-          You can find me on{" "}
-          <Social href={social.linkedin}>LinkedIn</Social>,{" "}
-          <Social href={social.x}>X</Social> or reach via{" "}
-          <Social href={social.email}>email</Social>.
-        </p>
-      </div>
+    <section className="rise flex flex-col items-center pt-10 text-center">
+      <GlassOrb src="/img/avatar.jpg" alt="Fedor Vasiliev" size={80} />
+      <h1 className="mt-7 text-5xl font-medium leading-[1.03] tracking-tight text-foreground sm:text-6xl">
+        Fedor Vasiliev
+      </h1>
+      <p className="mt-4 max-w-[540px] text-lg leading-snug text-muted sm:text-xl">
+        Senior product designer with an eye on details
+      </p>
+      <p className="mt-3 flex items-center gap-2 text-sm text-muted">
+        <LocalTime />
+        <Cat />
+      </p>
     </section>
   );
 }
@@ -105,17 +51,19 @@ function Work() {
         {projects.map((p) => (
           <li key={p.slug}>
             <Link href={`/work/${p.slug}`} className="group block">
-              <div className="relative aspect-[16/9] overflow-hidden rounded-[32px] bg-card">
+              <div className="relative aspect-[16/9] overflow-hidden rounded-[32px] bg-card transition-transform duration-300 ease-[var(--ease-out-strong)] group-hover:-translate-y-1">
                 <Image
                   src={p.image}
                   alt={p.title}
                   fill
                   sizes="(max-width: 800px) 100vw, 800px"
-                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                  className="object-cover"
                 />
               </div>
               <div className="mt-4">
-                <h3 className="font-medium text-foreground">{p.title}</h3>
+                <h3 className="font-medium text-foreground underline decoration-transparent decoration-1 underline-offset-4 transition-colors duration-200 group-hover:decoration-border-subtle">
+                  {p.title}
+                </h3>
                 <p className="mt-1 max-w-[650px] text-sm leading-6 text-muted">
                   {p.description}
                 </p>
@@ -193,28 +141,5 @@ function Contact() {
 
       <Signature className="mt-12 text-[17px]" />
     </section>
-  );
-}
-
-function Accent({ children }: { children: React.ReactNode }) {
-  return <span className="font-medium text-foreground">{children}</span>;
-}
-
-function Social({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) {
-  const external = href.startsWith("http");
-  return (
-    <a
-      href={href}
-      {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
-      className="text-foreground underline decoration-border-subtle underline-offset-4 transition-colors hover:decoration-foreground"
-    >
-      {children}
-    </a>
   );
 }
