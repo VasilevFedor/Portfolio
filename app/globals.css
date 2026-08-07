@@ -47,6 +47,48 @@ h2 {
   letter-spacing: -0.022em;
 }
 
+/* ── Browser surfaces ──────────────────────────────────────────────────────
+   The parts we don't draw still carry the design: selection, focus ring, and
+   scrollbar are themed from tokens instead of shipping browser defaults. */
+::selection {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
+}
+
+/* Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+/* WebKit / Chromium */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border: 2px solid var(--background);
+  background-clip: padding-box;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+  border: 2px solid var(--background);
+  background-clip: padding-box;
+}
+
 /* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -96,6 +138,43 @@ h2 {
   .reveal {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* ── Glass orb (WebGL) ─────────────────────────────────────────────────── */
+.glass-orb {
+  position: relative;
+  display: inline-block;
+  flex: none;
+  /* Round contact shadow — follows the composited alpha, tinted from tokens. */
+  filter: drop-shadow(
+    0 5px 10px color-mix(in srgb, var(--foreground) 20%, transparent)
+  );
+}
+
+.glass-orb canvas {
+  position: relative;
+  z-index: 1;
+}
+
+/* Fallback avatar: sits under the (transparent-cornered) canvas, so it shows
+   through until WebGL takes over — and stays put if WebGL is unavailable. */
+.glass-orb-fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: 9999px;
+  object-fit: cover;
+  transition: opacity 0.4s var(--ease-out-strong);
+}
+
+.glass-orb-fallback[data-hidden="true"] {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-orb-fallback {
+    transition: none;
   }
 }
 
