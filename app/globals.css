@@ -1,18 +1,20 @@
 @import "tailwindcss";
 
-/* Light theme only. */
+/* Light theme only. Colour tokens — single source of truth. */
 :root {
   color-scheme: light;
-  --background: #ffffff;
-  --foreground: #16161a;
-  --muted: #6b6b74;
-  --card: #f5f5f7;
-  --border: rgba(0, 0, 0, 0.08);
+  --background: rgb(242, 242, 242); /* page background */
+  --border: rgb(214, 214, 218); /* hairlines, dividers */
+  --card: rgb(255, 255, 255); /* surface / cards */
+  --body: rgb(48, 48, 52); /* Text Body — paragraphs */
+  --muted: rgb(110, 110, 115); /* Text Muted — secondary */
+  --foreground: rgb(20, 20, 22); /* Text Strong — headings, accents */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-body: var(--body);
   --color-muted: var(--muted);
   --color-card: var(--card);
   --color-border-subtle: var(--border);
@@ -102,6 +104,34 @@ h2 {
   font-family: var(--font-wordmark), Georgia, "Times New Roman", serif;
 }
 
+/* ── Handwritten sign-off ──────────────────────────────────────────────── */
+.font-signature {
+  font-family: var(--font-signature), "Segoe Script", cursive;
+}
+
+/* Write-on reveal: the name is clipped away from the right, then the clip
+   retreats left→right so the cursive appears as if being written. Negative
+   left/right insets give strokes a little room so tails aren't shaved. The
+   transition lives on the base rule so the first paint (hidden) never flashes;
+   flipping data-shown animates it. */
+.signature {
+  display: inline-block;
+  color: var(--muted);
+  clip-path: inset(-0.1em 100% -0.15em -0.1em);
+  transition: clip-path 1.7s cubic-bezier(0.5, 0, 0.35, 1);
+}
+
+.signature[data-shown="true"] {
+  clip-path: inset(-0.1em -0.1em -0.15em -0.1em);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signature {
+    clip-path: none;
+    transition: none;
+  }
+}
+
 /* ── Intro: number counter + Star-Wars iris reveal ─────────────────────── */
 
 /* Full-screen preloader that sits above the page while numbers count up. */
@@ -143,36 +173,6 @@ h2 {
   }
   to {
     clip-path: circle(140% at 50% 50%);
-  }
-}
-
-/* A bright expanding ring pinned to the centre. It makes the circular
-   reveal legible even when the page and preloader share the same colour. */
-.iris-ring {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  z-index: 60;
-  width: 40px;
-  height: 40px;
-  margin: -20px 0 0 -20px;
-  border-radius: 9999px;
-  border: 2.5px solid var(--foreground);
-  box-shadow:
-    0 0 22px 2px color-mix(in srgb, var(--foreground) 45%, transparent),
-    inset 0 0 12px color-mix(in srgb, var(--foreground) 30%, transparent);
-  pointer-events: none;
-  animation: iris-ring 0.85s var(--ease-out-strong) forwards;
-}
-
-@keyframes iris-ring {
-  from {
-    transform: scale(0.2);
-    opacity: 0.95;
-  }
-  to {
-    transform: scale(55);
-    opacity: 0;
   }
 }
 

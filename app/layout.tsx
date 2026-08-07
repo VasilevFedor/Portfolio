@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Instrument_Serif } from "next/font/google";
+import { Instrument_Serif, Dancing_Script } from "next/font/google";
 import "./globals.css";
 
 // Elegant serif used for the "fedor." wordmark in the header.
@@ -8,6 +8,14 @@ const wordmarkSerif = Instrument_Serif({
   style: ["normal", "italic"],
   subsets: ["latin"],
   variable: "--font-wordmark",
+  display: "swap",
+});
+
+// Cursive used for the handwritten "Fedor Vasilev" sign-off.
+const signatureScript = Dancing_Script({
+  weight: ["600"],
+  subsets: ["latin"],
+  variable: "--font-signature",
   display: "swap",
 });
 
@@ -32,7 +40,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`h-full antialiased ${wordmarkSerif.variable}`}
+      className={`h-full antialiased ${wordmarkSerif.variable} ${signatureScript.variable}`}
     >
       <head>
         {/* If JS is disabled, scroll-reveal elements must still be visible. */}

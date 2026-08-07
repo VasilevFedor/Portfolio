@@ -68,7 +68,7 @@ export default function OzonSearchAiArticle() {
 
       <article className="pb-28">
         {/* Lead */}
-        <div className="mt-12 space-y-5 text-[17px] leading-[1.75] text-foreground/85">
+        <div className="mt-12 space-y-5 text-[17px] leading-[1.75] text-body">
           <p>
             We design Seller Center — a powerful tool for all Ozon sellers. Our
             interface covers every stage of selling on the marketplace: from
@@ -242,7 +242,7 @@ export default function OzonSearchAiArticle() {
               key={lead}
               as="li"
               delay={i * 50}
-              className="flex gap-3 text-[17px] leading-[1.7] text-foreground/85"
+              className="flex gap-3 text-[17px] leading-[1.7] text-body"
             >
               <span
                 aria-hidden="true"
@@ -432,7 +432,7 @@ function Section({
       >
         {title}
       </Heading>
-      <div className="mt-4 space-y-5 text-[17px] leading-[1.75] text-foreground/85">
+      <div className="mt-4 space-y-5 text-[17px] leading-[1.75] text-body">
         {children}
       </div>
     </Reveal>
@@ -441,7 +441,7 @@ function Section({
 
 function Prose({ children }: { children: React.ReactNode }) {
   return (
-    <Reveal className="mt-6 space-y-5 text-[17px] leading-[1.75] text-foreground/85">
+    <Reveal className="mt-6 space-y-5 text-[17px] leading-[1.75] text-body">
       {children}
     </Reveal>
   );
@@ -457,7 +457,7 @@ function PatternCard({
   return (
     <Reveal className="rounded-2xl border border-border-subtle bg-card p-6">
       <span className="text-sm font-medium text-muted">{n}</span>
-      <p className="mt-2 text-[15px] leading-7 text-foreground/85">{children}</p>
+      <p className="mt-2 text-[15px] leading-7 text-body">{children}</p>
     </Reveal>
   );
 }
