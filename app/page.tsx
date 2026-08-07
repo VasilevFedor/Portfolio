@@ -3,6 +3,7 @@ import Link from "next/link";
 import LocalTime from "./components/LocalTime";
 import Cat from "./components/Cat";
 import Intro from "./components/Intro";
+import Signature from "./components/Signature";
 import { articles, projects, social } from "./data";
 
 export default function Home() {
@@ -71,7 +72,7 @@ function Hero() {
         </p>
       </div>
 
-      <div className="mt-8 max-w-[650px] space-y-5 text-[15px] leading-7 text-foreground/85">
+      <div className="mt-8 max-w-[650px] space-y-5 text-[15px] leading-7 text-body">
         <p>
           I currently work at <Accent>Ozon</Accent> as a Senior product
           designer, where I led design of promotional mechanics and campaigns.
@@ -104,7 +105,7 @@ function Work() {
         {projects.map((p) => (
           <li key={p.slug}>
             <Link href={`/work/${p.slug}`} className="group block">
-              <div className="relative aspect-[16/9] overflow-hidden rounded-2xl bg-card">
+              <div className="relative aspect-[16/9] overflow-hidden rounded-[32px] bg-card">
                 <Image
                   src={p.image}
                   alt={p.title}
@@ -136,22 +137,22 @@ function Writing() {
           <li key={a.slug}>
             <Link
               href={a.href ?? `/writing/${a.slug}`}
-              className="group flex items-center gap-5 rounded-2xl bg-card p-5 sm:gap-7 sm:p-6"
+              className="group relative flex min-h-[140px] items-center overflow-hidden rounded-[28px] bg-card py-6 pl-[152px] pr-6 sm:pr-10"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/img/paper.svg"
                 alt=""
                 aria-hidden="true"
-                width={72}
-                height={72}
-                className="size-16 shrink-0 rotate-[15deg] transition-transform duration-300 ease-out group-hover:rotate-0 sm:size-[72px]"
+                width={112}
+                height={112}
+                className="pointer-events-none absolute bottom-4 left-5 size-28 drop-shadow-[0_12px_26px_rgba(0,0,0,0.14)] transition-transform duration-300 ease-out group-hover:-translate-y-1"
               />
-              <div className="max-w-[650px]">
-                <h3 className="text-lg font-medium leading-snug text-foreground">
+              <div className="max-w-[560px]">
+                <h3 className="text-[22px] font-medium leading-tight tracking-tight text-foreground">
                   {a.title}
                 </h3>
-                <p className="mt-1 text-sm leading-6 text-muted">
+                <p className="mt-2 text-[17px] font-medium leading-snug text-muted">
                   {a.description}
                 </p>
               </div>
@@ -166,7 +167,7 @@ function Writing() {
 function Contact() {
   return (
     <section className="mt-28">
-      <h2 className="max-w-[650px] text-2xl font-medium leading-snug tracking-tight">
+      <h2 className="max-w-[650px] text-[44px] font-medium leading-[1.1] tracking-tight">
         Let&apos;s connect — I&apos;m open to new opportunities
       </h2>
       <p className="mt-4 max-w-[650px] text-[15px] leading-7 text-muted">
@@ -189,6 +190,8 @@ function Contact() {
           LinkedIn
         </a>
       </div>
+
+      <Signature className="mt-12 text-[17px]" />
     </section>
   );
 }
