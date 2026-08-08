@@ -1,9 +1,9 @@
-import Image from "next/image";
 import type { Metadata } from "next";
 import Intro from "../components/Intro";
 import SiteHeader from "../components/SiteHeader";
 import Signature from "../components/Signature";
-import { social } from "../data";
+import FallingOrbs from "../components/FallingOrbs";
+import { aboutOrbPhotos, social } from "../data";
 
 export const metadata: Metadata = {
   title: "About — Fedor Vasiliev",
@@ -14,29 +14,19 @@ export const metadata: Metadata = {
 export default function About() {
   return (
     <Intro>
-      <div className="mx-auto flex min-h-screen w-full max-w-[800px] flex-col px-6">
+      {/* Glass orbs rain down and settle behind the text (background layer). */}
+      <FallingOrbs
+        photos={aboutOrbPhotos}
+        className="pointer-events-none fixed inset-0 -z-10"
+      />
+      <div className="mx-auto flex h-screen w-full max-w-[800px] flex-col overflow-hidden px-6">
         <SiteHeader />
 
         <main className="flex-1 pb-24">
           <section className="rise pt-10">
-            <div className="flex items-center gap-3">
-              <Image
-                src="/img/avatar.jpg"
-                alt="Fedor Vasiliev"
-                width={56}
-                height={56}
-                priority
-                className="size-14 rounded-full object-cover"
-              />
-              <div>
-                <h1 className="text-2xl font-medium tracking-tight text-foreground">
-                  About
-                </h1>
-                <p className="text-sm text-muted">
-                  Fedor Vasiliev — Senior product designer
-                </p>
-              </div>
-            </div>
+            <h1 className="text-4xl font-medium tracking-tight text-foreground">
+              Hi, I&apos;m Fedor
+            </h1>
 
             <div className="mt-8 max-w-[650px] space-y-5 text-[15px] leading-7 text-body">
               <p>
