@@ -19,6 +19,23 @@ export const social = {
   email: "mailto:vasilevf250@gmail.com",
 };
 
+// Photos shown inside the falling glass orbs on /about. Any remaining orbs
+// (see ABOUT_ORB_COUNT in FallingOrbs) render as empty glass.
+export const aboutOrbPhotos: string[] = [
+  "/img/orbs/me-a.jpg",
+  "/img/orbs/me-or.jpg",
+  "/img/orbs/thai.jpg",
+  "/img/orbs/villa.jpg",
+  "/img/orbs/boat.jpg",
+  "/img/orbs/bicycle.jpg",
+  "/img/orbs/tc.jpg",
+  "/img/orbs/statue.jpg",
+  "/img/orbs/temple.jpg",
+  "/img/orbs/temple2.jpg",
+  "/img/orbs/me.jpg",
+  "/img/orbs/monk.jpg",
+];
+
 export const projects: Project[] = [
   {
     slug: "ozon-ai",
