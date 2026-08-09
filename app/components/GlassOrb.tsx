@@ -18,6 +18,8 @@ type GlassOrbProps = {
   /** Rendered diameter in CSS px. */
   size?: number;
   className?: string;
+  /** Magnetically pull the orb toward the cursor when it comes close. */
+  magnetic?: boolean;
 };
 
 export default function GlassOrb({
@@ -25,8 +27,11 @@ export default function GlassOrb({
   alt,
   size = 80,
   className = "",
+  magnetic = false,
 }: GlassOrbProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const orbRef = useRef<HTMLDivElement>(null);
   // Once WebGL is live and the photo has uploaded, hide the <img> fallback.
   const [webglActive, setWebglActive] = useState(false);
 
@@ -134,12 +139,94 @@ export default function GlassOrb({
     };
   }, [src, size]);
 
-  return (
+  // Magnetic follow: pull the orb toward the cursor while it's near, spring back
+  // to center when it leaves. Moves only `transform`; disabled for touch/reduced.
+  useEffect(() => {
+    if (!magnetic) return;
+    const wrap = wrapRef.current;
+    const orb = orbRef.current;
+    if (!wrap || !orb) return;
+
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      !window.matchMedia("(hover: hover) and (pointer: fine)").matches
+    ) {
+      return; // no effect — orb stays centered
+    }
+
+    const TRIGGER = 150 + size / 2; // 150px from the orb's edge → from its center
+    const STRENGTH = 0.3;
+    const MAX = 60;
+    const EASE = 0.15;
+
+    let cursorX = 0;
+    let cursorY = 0;
+    let curX = 0;
+    let curY = 0;
+    let raf = 0;
+    let running = false;
+
+    const clamp = (v: number) => Math.max(-MAX, Math.min(MAX, v));
+
+    const frame = () => {
+      const r = wrap.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const dx = cursorX - cx;
+      const dy = cursorY - cy;
+      const near = Math.hypot(dx, dy) < TRIGGER;
+      const targetX = near ? clamp(dx * STRENGTH) : 0;
+      const targetY = near ? clamp(dy * STRENGTH) : 0;
+
+      curX += (targetX - curX) * EASE;
+      curY += (targetY - curY) * EASE;
+
+      // Settled and idle → snap to center and stop until the next move.
+      if (
+        !near &&
+        Math.abs(curX) < 0.1 &&
+        Math.abs(curY) < 0.1
+      ) {
+        curX = 0;
+        curY = 0;
+        orb.style.transform = "translate3d(0,0,0)";
+        running = false;
+        raf = 0;
+        return;
+      }
+
+      orb.style.transform = `translate3d(${curX.toFixed(2)}px, ${curY.toFixed(2)}px, 0)`;
+      raf = requestAnimationFrame(frame);
+    };
+
+    const wake = () => {
+      if (running) return;
+      running = true;
+      raf = requestAnimationFrame(frame);
+    };
+
+    const onMove = (e: MouseEvent) => {
+      cursorX = e.clientX;
+      cursorY = e.clientY;
+      wake();
+    };
+
+    window.addEventListener("mousemove", onMove, { passive: true });
+
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      if (raf) cancelAnimationFrame(raf);
+      orb.style.transform = "";
+    };
+  }, [magnetic, size]);
+
+  const orb = (
     <div
+      ref={orbRef}
       role="img"
       aria-label={alt}
       className={`glass-orb ${className}`}
-      style={{ width: size, height: size }}
+      style={{ width: size, height: size, willChange: magnetic ? "transform" : undefined }}
     >
       <canvas
         ref={canvasRef}
@@ -156,6 +243,18 @@ export default function GlassOrb({
         className="glass-orb-fallback"
         data-hidden={webglActive}
       />
+    </div>
+  );
+
+  if (!magnetic) return orb;
+
+  // Untransformed wrapper — a stable box to measure the rest-center from while
+  // the inner .glass-orb is being translated. `flex` (not inline-block) so no
+  // inline descender space is reserved below the orb, which would inflate the
+  // gap to the text beneath it.
+  return (
+    <div ref={wrapRef} style={{ display: "flex" }}>
+      {orb}
     </div>
   );
 }

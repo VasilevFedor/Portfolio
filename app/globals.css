@@ -266,84 +266,59 @@ html {
   }
 }
 
-/* ── Cat: awake blinks & glances, asleep floats z's ────────────────────── */
+/* ── Eyes: glance left/right, blink now and then ───────────────────────── */
 
-/* Eyes: a slow left/right glance with an occasional blink baked in. */
-.cat-eyes {
+/* Pupils drift side to side on a slow loop. */
+.eyes-pupils {
   transform-box: fill-box;
   transform-origin: center;
-  animation: cat-glance 6s ease-in-out infinite;
+  animation: eyes-glance 5s ease-in-out infinite;
 }
 
-@keyframes cat-glance {
+/* Pupils rest against the right edge (as drawn). Keep the glance small so they
+   stay hugging that edge and never drift toward the centre. */
+@keyframes eyes-glance {
   0%,
-  18% {
+  20% {
     transform: translateX(0);
   }
-  30%,
+  32%,
   48% {
-    transform: translateX(0.9px);
+    transform: translateX(0.6px);
   }
-  60%,
-  78% {
-    transform: translateX(-0.9px);
+  62%,
+  80% {
+    transform: translateX(-0.6px);
   }
-  90%,
+  92%,
   100% {
     transform: translateX(0);
   }
 }
 
-.cat-eyes-lids {
+/* A quick vertical squash of the whole pair reads as an occasional blink. Its
+   period differs from the glance so the two never lock into a pattern. */
+.eyes-blink {
   transform-box: fill-box;
   transform-origin: center;
-  animation: cat-blink 4.2s ease-in-out infinite;
+  animation: eyes-blink 5.6s ease-in-out infinite;
 }
 
-@keyframes cat-blink {
+@keyframes eyes-blink {
   0%,
-  92%,
+  93%,
   100% {
     transform: scaleY(1);
   }
-  95%,
-  97% {
+  96%,
+  97.5% {
     transform: scaleY(0.1);
   }
 }
 
-/* Sleeping z's rise and fade, staggered. */
-.cat-z {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: cat-z-float 2.8s ease-in-out infinite;
-}
-
-.cat-z-2 {
-  animation-delay: 1.4s;
-}
-
-@keyframes cat-z-float {
-  0% {
-    opacity: 0;
-    transform: translate(0, 1px) scale(0.7);
-  }
-  25% {
-    opacity: 1;
-  }
-  70% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translate(2px, -6px) scale(1);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .cat-eyes,
-  .cat-eyes-lids,
-  .cat-z {
+  .eyes-pupils,
+  .eyes-blink {
     animation: none;
   }
 }
