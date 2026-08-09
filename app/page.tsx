@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import LocalTime from "./components/LocalTime";
-import Cat from "./components/Cat";
+import Eyes from "./components/Eyes";
 import Intro from "./components/Intro";
-import Signature from "./components/Signature";
+import SocialLinks from "./components/SocialLinks";
 import SiteHeader from "./components/SiteHeader";
 import GlassOrb from "./components/GlassOrb";
-import { articles, projects, social } from "./data";
+import { articles, projects } from "./data";
 
 export default function Home() {
   return (
@@ -28,16 +28,16 @@ export default function Home() {
 function Hero() {
   return (
     <section className="rise flex flex-col items-center pt-10 text-center">
-      <GlassOrb src="/img/avatar.jpg" alt="Fedor Vasiliev" size={80} />
-      <h1 className="mt-7 text-5xl font-medium leading-[1.03] tracking-tight text-foreground sm:text-6xl">
+      <GlassOrb src="/img/avatar.jpg" alt="Fedor Vasiliev" size={80} magnetic />
+      <h1 className="mt-6 text-[24px] font-medium leading-tight tracking-tight text-foreground">
         Fedor Vasiliev
       </h1>
-      <p className="mt-4 max-w-[540px] text-lg leading-snug text-muted sm:text-xl">
+      <p className="mt-1 max-w-[540px] text-[18px] leading-snug text-muted">
         Senior product designer with an eye on details
       </p>
-      <p className="mt-3 flex items-center gap-2 text-sm text-muted">
+      <p className="mt-1 flex items-center gap-2 text-[16px] text-muted">
         <LocalTime />
-        <Cat />
+        <Eyes />
       </p>
     </section>
   );
@@ -122,24 +122,7 @@ function Contact() {
         I would love to partner with teams to help clarify the complexities,
         find elegant solutions and deliver the best result.
       </p>
-      <div className="mt-6 flex flex-wrap gap-3">
-        <a
-          href={social.email}
-          className="rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-opacity duration-200 hover:opacity-90"
-        >
-          Get in touch
-        </a>
-        <a
-          href={social.linkedin}
-          target="_blank"
-          rel="noreferrer"
-          className="rounded-full border border-border-subtle px-5 py-2.5 text-sm font-medium text-foreground transition-colors duration-200 hover:bg-card"
-        >
-          LinkedIn
-        </a>
-      </div>
-
-      <Signature className="mt-12 text-[17px]" />
+      <SocialLinks className="mt-8" />
     </section>
   );
 }
