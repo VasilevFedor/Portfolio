@@ -18,14 +18,80 @@
   --color-muted: var(--muted);
   --color-card: var(--card);
   --color-border-subtle: var(--border);
+  /* Body / UI face. Inter stands in for the paid Helvetica Now Display; keep
+     the HND names first so a licensed self-host would take over automatically. */
   --font-sans:
-    "Helvetica Now Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-serif:
-    "Helvetica Now Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    "Helvetica Now Display", var(--font-inter), "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
+  --font-serif: var(--font-sans);
 
   /* Custom easing curves (Emil Kowalski) — the CSS defaults are too weak */
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* ── Type scale ─────────────────────────────────────────────────────────────
+   Single source of truth for typography (parallel to the colour tokens),
+   measured 1:1 from the Framer reference. Every text block on the page uses one
+   of these classes — no ad-hoc font-size/weight in JSX. Sizes/tracking/leading
+   are the exact HND values from the reference; the face is Inter (see above). */
+.t-wordmark {
+  font-family: var(--font-wordmark), Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--foreground);
+}
+.t-nav {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.3px;
+  color: var(--muted);
+}
+/* Name + all body copy share the reference's "Medium 16" metrics. */
+.t-body {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.32px;
+  line-height: 24.8px;
+  color: var(--body);
+}
+.t-body-muted {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.32px;
+  line-height: 24.8px;
+  color: var(--muted);
+}
+/* Subtitle + dates. */
+.t-sub {
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  line-height: 22.5px;
+  color: var(--muted);
+}
+/* Section headings — Work / Writing / the contact CTA (all one size). */
+.t-heading {
+  font-size: 23px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 27.6px;
+  color: var(--foreground);
+}
+/* Work card titles. */
+.t-card-title {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.8px;
+  line-height: 26px;
+  color: var(--foreground);
+}
+/* Writing list-item title. */
+.t-writing-title {
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.34px;
+  color: var(--body);
 }
 
 html {
@@ -38,13 +104,6 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-}
-
-/* Size-specific tracking (apple-design): large display text wants negative
-   tracking, body stays near zero. */
-h1,
-h2 {
-  letter-spacing: -0.022em;
 }
 
 /* ── Browser surfaces ──────────────────────────────────────────────────────

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Intro from "../components/Intro";
 import SiteHeader from "../components/SiteHeader";
 import Signature from "../components/Signature";
 import FallingOrbs from "../components/FallingOrbs";
@@ -13,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function About() {
   return (
-    <Intro>
+    <>
       {/* Glass orbs rain down and settle behind the text (background layer). */}
       <FallingOrbs
         photos={aboutOrbPhotos}
@@ -55,7 +54,7 @@ export default function About() {
           </section>
         </main>
       </div>
-    </Intro>
+    </>
   );
 }
 

@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Dancing_Script } from "next/font/google";
+import { Allan, Inter, Dancing_Script } from "next/font/google";
 import "./globals.css";
 
-// Elegant serif used for the "fedor." wordmark in the header.
-const wordmarkSerif = Instrument_Serif({
+// Body / UI typeface — stands in for Helvetica Now Display (paid, not shipped).
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+// Handwritten "fedor." wordmark — matches the Framer site (Allan).
+const wordmark = Allan({
   weight: "400",
-  style: ["normal", "italic"],
   subsets: ["latin"],
   variable: "--font-wordmark",
   display: "swap",
@@ -40,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`h-full antialiased ${wordmarkSerif.variable} ${signatureScript.variable}`}
+      className={`h-full antialiased ${inter.variable} ${wordmark.variable} ${signatureScript.variable}`}
     >
       <head>
         {/* If JS is disabled, scroll-reveal elements must still be visible. */}
