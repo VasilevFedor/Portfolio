@@ -6,7 +6,7 @@ import { social } from "../data";
  */
 export default function SocialLinks({ className = "" }: { className?: string }) {
   return (
-    <div className={`flex items-center gap-4 ${className}`}>
+    <div className={`flex items-center gap-8 ${className}`}>
       <a
         href={social.linkedin}
         target="_blank"

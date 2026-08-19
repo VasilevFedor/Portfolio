@@ -1,128 +1,175 @@
-import Image from "next/image";
 import Link from "next/link";
 import LocalTime from "./components/LocalTime";
-import Eyes from "./components/Eyes";
-import Intro from "./components/Intro";
 import SocialLinks from "./components/SocialLinks";
 import SiteHeader from "./components/SiteHeader";
 import GlassOrb from "./components/GlassOrb";
-import { articles, projects } from "./data";
+import WorkCard from "./components/WorkCard";
+import ContactPreview from "./components/ContactPreview";
+import { articles, projects, social } from "./data";
 
 export default function Home() {
+  // 800px content column, centred. Horizontal padding only kicks in below the
+  // column width so the media panels stay full-bleed to the column on desktop
+  // (matching the Framer source).
   return (
-    <Intro>
-      <div className="mx-auto flex min-h-screen w-full max-w-[800px] flex-col px-6">
-        <SiteHeader />
-
-        <main className="flex-1 pb-24">
-          <Hero />
-          <Work />
-          <Writing />
-          <Contact />
-        </main>
-      </div>
-    </Intro>
+    <div className="mx-auto w-full max-w-[800px] px-6 min-[800px]:px-0">
+      <SiteHeader />
+      <main>
+        <Hero />
+        <Work />
+        <Writing />
+        <Contact />
+      </main>
+    </div>
   );
 }
 
 function Hero() {
   return (
-    <section className="rise flex flex-col items-center pt-10 text-center">
-      <GlassOrb src="/img/avatar.jpg" alt="Fedor Vasiliev" size={80} magnetic />
-      <h1 className="mt-6 text-[24px] font-medium leading-tight tracking-tight text-foreground">
-        Fedor Vasiliev
-      </h1>
-      <p className="mt-1 max-w-[540px] text-[18px] leading-snug text-muted">
-        Senior product designer with an eye on details
-      </p>
-      <p className="mt-1 flex items-center gap-2 text-[16px] text-muted">
-        <LocalTime />
-        <Eyes />
-      </p>
+    <section className="rise relative z-30 pb-12">
+      {/* Intro stack: identity row, bio, contact line — 16px rhythm, 24px below header. */}
+      <div className="mt-6 flex flex-col gap-4">
+        {/* Identity row: orb + name/role, with the local time pinned opposite. */}
+        <div className="flex items-center gap-3">
+          <GlassOrb src="/img/avatar.jpg" alt="Fedor Vasiliev" size={48} magnetic />
+          <div className="flex flex-1 items-end justify-between gap-4">
+            <div>
+              <p className="t-body">Fedor Vasiliev</p>
+              <p className="t-sub">Senior product designer</p>
+            </div>
+            <p className="t-sub whitespace-nowrap py-1.5">
+              <LocalTime />
+            </p>
+          </div>
+        </div>
+
+        {/* Bio — 650px wide, three paragraphs. Emphasis = foreground colour
+            (not bold), matching the Framer source. */}
+        <div className="max-w-[650px] space-y-4">
+          <p className="t-body">
+            Hi! I currently work at <Em>Ozon</Em> as a Senior product designer,
+            where <Em>i led design</Em> of promotional mechanics and campaigns.
+            I have <Em>over 5 years of experience</Em>, building products for the
+            audience of <Em>more than 60 million</Em> people
+          </p>
+          <p className="t-body">
+            I&rsquo;m also <Em>a co-founder of Stonks</Em> — an app that helps
+            build financial literacy
+          </p>
+          <p className="t-body">
+            What I enjoy most is taking projects from 0 to 1 — I have an
+            entrepreneurial mindset and like owning a problem end-to-end, from
+            early concept through to shipped result.
+          </p>
+        </div>
+
+        {/* Contact line — single row, each link revealing a profile preview. */}
+        <p className="t-body-muted flex flex-wrap items-center gap-x-1.5">
+          You can find me on
+          <ContactPreview variant="linkedin" href={social.linkedin}>
+            LinkedIn,
+          </ContactPreview>
+          <ContactPreview variant="x" href={social.x}>
+            X
+          </ContactPreview>
+          or reach via
+          <ContactPreview variant="gmail" href={social.email}>
+            Gmail
+          </ContactPreview>
+        </p>
+      </div>
     </section>
+  );
+}
+
+function Em({ children }: { children: React.ReactNode }) {
+  return <span className="text-foreground">{children}</span>;
+}
+
+/** File / document line icon — the exact glyph from the Framer writing card. */
+function DocIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width={32}
+      height={32}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path
+        d="M 2 14.5 L 10.5 14.5 C 11.605 14.5 12.5 13.605 12.5 12.5 L 12.5 4.25 L 8.25 0 L 2 0 C 0.895 0 0 0.895 0 2 L 0 12.5 C 0 13.605 0.895 14.5 2 14.5 Z"
+        transform="translate(5.75 4.75)"
+      />
+      <path d="M 4.25 4.25 L 0 4.25 L 0 0" transform="translate(13.75 5)" />
+      <path d="M 0 0 L 4.5 0" transform="translate(9.75 15.25)" />
+      <path d="M 0 0 L 4.5 0" transform="translate(9.75 12.25)" />
+    </svg>
   );
 }
 
 function Work() {
   return (
-    <section id="work" className="mt-24 scroll-mt-24">
-      <h2 className="text-4xl font-semibold tracking-tight">Work</h2>
-      <ul className="mt-8 space-y-12">
-        {projects.map((p) => (
-          <li key={p.slug}>
-            <Link href={`/work/${p.slug}`} className="group block">
-              <div className="relative aspect-[16/9] overflow-hidden rounded-[32px] bg-card transition-transform duration-300 ease-[var(--ease-out-strong)] group-hover:-translate-y-1">
-                <Image
-                  src={p.image}
-                  alt={p.title}
-                  fill
-                  sizes="(max-width: 800px) 100vw, 800px"
-                  className="object-cover"
-                />
-              </div>
-              <div className="mt-4">
-                <h3 className="font-medium text-foreground underline decoration-transparent decoration-1 underline-offset-4 transition-colors duration-200 group-hover:decoration-border-subtle">
-                  {p.title}
-                </h3>
-                <p className="mt-1 max-w-[650px] text-sm leading-6 text-muted">
-                  {p.description}
-                </p>
-              </div>
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <section id="cases" className="scroll-mt-24 pb-[140px]">
+      <div className="flex flex-col gap-12">
+        <h2 className="t-heading">Work</h2>
+        <ul className="flex flex-col gap-12">
+          {projects.map((p) => (
+            <li key={p.slug}>
+              <WorkCard project={p} />
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }
 
 function Writing() {
   return (
-    <section id="writing" className="mt-24 scroll-mt-24">
-      <h2 className="text-4xl font-semibold tracking-tight">Writing</h2>
-      <ul className="mt-8 space-y-4">
-        {articles.map((a) => (
-          <li key={a.slug}>
-            <Link
-              href={a.href ?? `/writing/${a.slug}`}
-              className="group relative flex min-h-[140px] items-center overflow-hidden rounded-[28px] bg-card py-6 pl-[152px] pr-6 sm:pr-10"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/img/paper.svg"
-                alt=""
-                aria-hidden="true"
-                width={112}
-                height={112}
-                className="pointer-events-none absolute bottom-4 left-5 size-28 drop-shadow-[0_12px_26px_rgba(0,0,0,0.14)] transition-transform duration-300 ease-out group-hover:-translate-y-1"
-              />
-              <div className="max-w-[560px]">
-                <h3 className="text-[22px] font-medium leading-tight tracking-tight text-foreground">
-                  {a.title}
-                </h3>
-                <p className="mt-2 text-[17px] font-medium leading-snug text-muted">
-                  {a.description}
-                </p>
-              </div>
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <section id="writing" className="scroll-mt-24">
+      <div className="flex flex-col gap-6">
+        <h2 className="t-heading">Writing</h2>
+        <ul>
+          {articles.map((a) => (
+            <li key={a.slug}>
+              <Link
+                href={a.href ?? `/writing/${a.slug}`}
+                className="group flex items-start gap-2.5"
+              >
+                {/* White rounded icon tile (48×48, r16) with a 32px document glyph. */}
+                <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-card text-foreground">
+                  <DocIcon />
+                </span>
+                <div className="pt-0.5">
+                  <h3 className="t-writing-title">{a.title}</h3>
+                  {a.date ? <p className="t-sub mt-1">{a.date}</p> : null}
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }
 
 function Contact() {
   return (
-    <section className="mt-28">
-      <h2 className="max-w-[650px] text-[44px] font-medium leading-[1.1] tracking-tight">
-        Let&apos;s connect — I&apos;m open to new opportunities
-      </h2>
-      <p className="mt-4 max-w-[650px] text-[15px] leading-7 text-muted">
-        I would love to partner with teams to help clarify the complexities,
-        find elegant solutions and deliver the best result.
-      </p>
-      <SocialLinks className="mt-8" />
+    <section className="py-[120px]">
+      <div className="flex flex-col items-start gap-4">
+        <h2 className="t-heading max-w-[600px]">
+          Let&rsquo;s connect—I&rsquo;m open to new opportunities
+        </h2>
+        <p className="t-body-muted max-w-[600px]">
+          I would love to partner with teams to help clarify the complexities,
+          find elegant solutions and deliver the best result
+        </p>
+        <SocialLinks className="mt-4" />
+      </div>
     </section>
   );
 }
