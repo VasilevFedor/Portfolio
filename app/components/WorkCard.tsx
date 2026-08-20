@@ -10,9 +10,12 @@ import type { Project } from "../data";
  */
 export default function WorkCard({ project }: { project: Project }) {
   return (
-    <Link href={project.href ?? `/work/${project.slug}`} className="group block">
+    <Link
+      href={project.href ?? `/work/${project.slug}`}
+      className="work-card group block"
+    >
       {/* Media panel: full column width (800), 440px tall → 20/11 aspect. */}
-      <div className="relative aspect-[20/11] overflow-hidden rounded-[32px] bg-card">
+      <div className="work-card__media relative aspect-[20/11] overflow-hidden rounded-[32px] bg-card">
         {project.video ? (
           <video
             src={project.video}
