@@ -9,6 +9,7 @@
   --body: rgb(48, 48, 52); /* Text Body — paragraphs */
   --muted: rgb(110, 110, 115); /* Text Muted — secondary */
   --foreground: rgb(20, 20, 22); /* Text Strong — headings, accents */
+  --success: rgb(52, 168, 83); /* green "winner" check on the A/B card */
 }
 
 @theme inline {
@@ -18,6 +19,7 @@
   --color-muted: var(--muted);
   --color-card: var(--card);
   --color-border-subtle: var(--border);
+  --color-success: var(--success);
   /* Body / UI face. Inter stands in for the paid Helvetica Now Display; keep
      the HND names first so a licensed self-host would take over automatically. */
   --font-sans:
@@ -94,6 +96,65 @@
   color: var(--body);
 }
 
+/* ── Case-study (article) type scale ────────────────────────────────────────
+   Second source-of-truth block, measured 1:1 from the published /ozon-ai
+   render (Framer's /Article/* text styles). Headings use the HND→Inter sans
+   stack; caption + back-link + handwritten note use their own faces. */
+.t-article-title {
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.1em;
+  color: var(--foreground);
+}
+.t-article-heading {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1.2em;
+  color: var(--foreground);
+}
+.t-article-sub {
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.3em;
+  color: var(--foreground);
+}
+.t-article-body {
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.55em;
+  color: var(--body);
+}
+/* Small grey caption under images/videos (Inter, matching the source). */
+.t-article-caption {
+  font-family: var(--font-inter), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.5em;
+  color: var(--muted);
+}
+/* "Back to home" link. */
+.t-back {
+  font-family: var(--font-inter), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2em;
+  color: var(--foreground);
+}
+/* Handwritten annotation ("Quite a lot of flows"). */
+.t-hand {
+  font-family: var(--font-hand), "Segoe Script", cursive;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  line-height: 1.5em;
+  color: var(--muted);
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -161,6 +222,31 @@ html {
   }
 }
 
+/* ── Competitor logo marquee (Discovery card) ──────────────────────────────
+   The Framer source auto-scrolls the logo strip. Track holds two copies of the
+   list and slides left by exactly one copy, so it loops seamlessly. Only
+   transform animates. */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 22s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
 /* Gentle entrance used by sections */
 @keyframes rise {
   from {
@@ -181,11 +267,75 @@ html {
    opacity (GPU-friendly). Interruptible CSS transition, not keyframes. */
 .reveal {
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(12px);
   transition:
-    opacity 0.6s var(--ease-out-strong),
-    transform 0.6s var(--ease-out-strong);
+    opacity 0.5s var(--ease-out-strong),
+    transform 0.5s var(--ease-out-strong);
   will-change: opacity, transform;
+}
+
+/* Subtle hover lift for case-study cards. Decorative, so hover-capable devices
+   only; no movement under reduced motion. Only transform + box-shadow animate. */
+@media (hover: hover) and (pointer: fine) {
+  .lift-card {
+    transition:
+      transform 0.2s var(--ease-out-strong),
+      box-shadow 0.2s var(--ease-out-strong);
+  }
+  .lift-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--foreground) 8%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lift-card:hover {
+    transform: none;
+  }
+}
+
+/* ── Floating "back to top" button (case pages) ─────────────────────────────
+   Hidden until scrolled, then fades up. Occasional action → standard 200ms
+   timing; entrance starts from scale(0.9) (never 0), with hover + press
+   feedback. Only opacity/transform/shadow animate. */
+.back-to-top {
+  opacity: 0;
+  transform: translateY(8px) scale(0.9);
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--foreground) 12%, transparent);
+  transition:
+    opacity 0.2s var(--ease-out-strong),
+    transform 0.2s var(--ease-out-strong),
+    box-shadow 0.2s var(--ease-out-strong),
+    color 0.2s var(--ease-out-strong);
+  pointer-events: none;
+}
+
+.back-to-top[data-shown="true"] {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .back-to-top[data-shown="true"]:hover {
+    transform: translateY(-2px) scale(1);
+    box-shadow: 0 10px 28px color-mix(in srgb, var(--foreground) 16%, transparent);
+    color: var(--foreground);
+  }
+}
+
+.back-to-top[data-shown="true"]:active {
+  transform: scale(0.95);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back-to-top,
+  .back-to-top[data-shown="true"],
+  .back-to-top[data-shown="true"]:hover,
+  .back-to-top[data-shown="true"]:active {
+    transform: none;
+    transition: opacity 0.2s var(--ease-out-strong), color 0.2s var(--ease-out-strong);
+  }
 }
 
 .reveal[data-shown="true"] {

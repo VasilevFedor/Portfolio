@@ -6,6 +6,8 @@ export type Project = {
   /** Autoplaying, muted, looped preview video (Framer uses these on the cards). */
   video?: string;
   year?: string;
+  /** Overrides the default `/work/<slug>` route (Framer uses flat paths). */
+  href?: string;
 };
 
 export type Article = {
@@ -50,6 +52,7 @@ export const projects: Project[] = [
     image: "/img/ozon-ai.png",
     video: `${CDN}/Ozon-ai-main-page.mp4`,
     year: "2025",
+    href: "/ozon-ai",
   },
   {
     slug: "search-boosting",
