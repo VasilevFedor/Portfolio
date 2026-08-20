@@ -62,6 +62,7 @@ export const projects: Project[] = [
     image:
       "https://framerusercontent.com/images/Xv98KrDiCe68HjVDjcjKQERSDY4.png",
     year: "2024",
+    href: "/search-boosting",
   },
   {
     slug: "stonks",
