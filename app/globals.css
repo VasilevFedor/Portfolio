@@ -155,10 +155,9 @@
   color: var(--muted);
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
+/* NB: no global `scroll-behavior: smooth` here — it made Next's scroll-to-top on
+   route changes animate, so cases/articles opened mid-page and then glided up.
+   Smooth in-page anchor scrolling (home nav) is handled explicitly in SiteNav. */
 body {
   background: var(--background);
   color: var(--foreground);
@@ -219,6 +218,35 @@ html {
   *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Mobile full-screen menu (SiteNav) ─────────────────────────────────────
+   Fades/slides in over the page; only opacity + transform animate, and motion
+   is dropped under reduced-motion. Closed state stays interactive-inert. */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  background: var(--background);
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition:
+    opacity 0.3s var(--ease-out-strong),
+    transform 0.3s var(--ease-out-strong);
+}
+.mobile-menu[data-open="true"] {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mobile-menu {
+    transform: none;
+    transition: opacity 0.2s var(--ease-out-strong);
   }
 }
 
