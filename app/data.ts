@@ -71,6 +71,7 @@ export const projects: Project[] = [
     image: "/img/stonks.png",
     video: `${CDN}/Preview%20mobile%20compressed.mp4`,
     year: "2024",
+    href: "/stonks",
   },
 ];
 
