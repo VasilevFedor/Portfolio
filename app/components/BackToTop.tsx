@@ -30,7 +30,7 @@ export default function BackToTop() {
       onClick={toTop}
       aria-label="Back to top"
       data-shown={shown}
-      className="back-to-top fixed bottom-6 right-6 z-40 grid size-9 place-items-center rounded-full border border-border-subtle bg-card text-muted"
+      className="back-to-top fixed bottom-6 right-[max(1.5rem,calc(50vw_-_484px))] z-40 grid size-9 place-items-center rounded-full border border-border-subtle bg-card text-muted"
     >
       <svg
         viewBox="0 0 10 6.66668"
