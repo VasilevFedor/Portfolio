@@ -33,14 +33,14 @@ function Hero() {
           the whole hero arriving as one slab. */}
       <div className="mt-6 flex flex-col gap-4">
         {/* Identity row: orb + name/role, with the local time pinned opposite. */}
-        <div className="rise flex items-center gap-3">
+        <div className="rise flex items-start gap-3 sm:items-center">
           <GlassOrb src="/img/avatar.jpg" alt="Fedor Vasiliev" size={48} magnetic />
-          <div className="flex flex-1 items-end justify-between gap-4">
+          <div className="flex flex-1 flex-col sm:flex-row sm:items-end sm:justify-between sm:gap-4">
             <div>
               <p className="t-body">Fedor Vasiliev</p>
               <p className="t-sub">Senior product designer</p>
             </div>
-            <p className="t-sub whitespace-nowrap py-1.5">
+            <p className="t-sub whitespace-nowrap sm:py-1.5">
               <LocalTime />
             </p>
           </div>
