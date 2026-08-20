@@ -81,6 +81,7 @@ export const articles: Article[] = [
     title: "Search and AI Assistant in the Ozon Seller Center",
     description: "How we designed them and what the data showed.",
     date: "April, 2026",
+    href: "/article",
   },
 ];
 
