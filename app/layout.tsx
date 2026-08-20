@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { Allan, Inter, Dancing_Script } from "next/font/google";
+import {
+  Allan,
+  Inter,
+  Dancing_Script,
+  Just_Me_Again_Down_Here,
+} from "next/font/google";
 import "./globals.css";
 
 // Body / UI typeface — stands in for Helvetica Now Display (paid, not shipped).
@@ -25,6 +30,14 @@ const signatureScript = Dancing_Script({
   display: "swap",
 });
 
+// Handwritten annotation on the case pages ("Quite a lot of flows").
+const handwritten = Just_Me_Again_Down_Here({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-hand",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://fedor-vasiliev.vercel.app"),
   title: "Fedor Vasiliev — Senior Product Designer",
@@ -46,7 +59,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`h-full antialiased ${inter.variable} ${wordmark.variable} ${signatureScript.variable}`}
+      className={`h-full antialiased ${inter.variable} ${wordmark.variable} ${signatureScript.variable} ${handwritten.variable}`}
     >
       <head>
         {/* If JS is disabled, scroll-reveal elements must still be visible. */}
