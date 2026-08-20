@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { getProject, projects } from "../../data";
 
@@ -37,6 +37,9 @@ export default async function WorkCase({
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) notFound();
+  // Projects with a dedicated flat route (Framer paths) live there now — send
+  // the old /work/<slug> URL on to it instead of rendering a stale fallback.
+  if (project.href) redirect(project.href);
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-2xl flex-col px-6">
