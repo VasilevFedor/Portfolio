@@ -531,3 +531,91 @@ html {
     animation: none;
   }
 }
+
+/* ── Fan Card Carousel (/about) ──────────────────────────────────────────────
+   Fanned deck of photos. Dynamic per-card transforms are set inline in
+   FanCarousel.tsx; here live only the shared look + the two transitions:
+   `.fan-slot` animates the fan re-layout on switch, `.fan-card` the pointer
+   tilt. Tilt/parallax read CSS vars (--fan-tx/ty/px/py) the component writes
+   onto the stage; only the active card consumes them. */
+.fan-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: clamp(320px, 46vh, 460px);
+  outline: none;
+  touch-action: pan-y;
+}
+.fan-slot {
+  position: absolute;
+  width: clamp(150px, 42vw, 232px);
+  aspect-ratio: 3 / 4;
+  transform-origin: center 150%;
+  border-radius: 24px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  transition:
+    transform 0.6s var(--ease-out-strong),
+    opacity 0.4s var(--ease-out-strong);
+}
+.fan-slot[data-active="true"] {
+  cursor: default;
+}
+.fan-card {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 24px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 24px -12px
+    color-mix(in srgb, var(--foreground) 28%, transparent);
+  transition:
+    transform 0.35s var(--ease-out-strong),
+    box-shadow 0.35s var(--ease-out-strong);
+}
+.fan-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  transition: transform 0.35s var(--ease-out-strong);
+}
+/* Only the active card tilts toward the pointer + lifts. */
+.fan-slot[data-active="true"] .fan-card {
+  transform: perspective(1000px) rotateX(var(--fan-ty, 0deg))
+    rotateY(var(--fan-tx, 0deg));
+  box-shadow: 0 30px 60px -20px
+    color-mix(in srgb, var(--foreground) 40%, transparent);
+}
+.fan-slot[data-active="true"] .fan-card img {
+  transform: translate(var(--fan-px, 0), var(--fan-py, 0)) scale(1.08);
+}
+/* Idle side cards dim a touch; hovering one brightens it back. */
+.fan-slot:not([data-active="true"]) .fan-card {
+  filter: brightness(0.9);
+}
+.fan-slot:not([data-active="true"]):hover .fan-card {
+  filter: brightness(1);
+  box-shadow: 0 16px 32px -16px
+    color-mix(in srgb, var(--foreground) 34%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fan-slot,
+  .fan-card,
+  .fan-card img {
+    transition: none;
+  }
+  .fan-slot[data-active="true"] .fan-card {
+    transform: none;
+  }
+  .fan-slot[data-active="true"] .fan-card img {
+    transform: scale(1.08);
+  }
+}
