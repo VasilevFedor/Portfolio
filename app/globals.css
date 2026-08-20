@@ -350,6 +350,70 @@ html {
   }
 }
 
+/* ── Home Work card hover ───────────────────────────────────────────────────
+   Media panel lifts -2px with a soft shadow; the video/still inside eases to a
+   gentle 1.02 zoom under the rounded mask. Decorative → hover-capable only,
+   transform/box-shadow only, disabled under reduced motion. */
+.work-card__media {
+  transition:
+    transform 0.25s var(--ease-out-strong),
+    box-shadow 0.25s var(--ease-out-strong);
+}
+.work-card__media img,
+.work-card__media video {
+  transition: transform 0.4s var(--ease-out-strong);
+  will-change: transform;
+}
+@media (hover: hover) and (pointer: fine) {
+  .work-card:hover .work-card__media {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px color-mix(in srgb, var(--foreground) 10%, transparent);
+  }
+  .work-card:hover .work-card__media img,
+  .work-card:hover .work-card__media video {
+    transform: scale(1.02);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .work-card:hover .work-card__media,
+  .work-card:hover .work-card__media img,
+  .work-card:hover .work-card__media video {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* ── Home Writing row hover ─────────────────────────────────────────────────
+   The whole row nudges 3px right and the icon tile lifts a touch; title colour
+   strengthens to foreground. Movement is hover-capable only + off for reduced
+   motion; the colour shift always applies. */
+.writing-row__title {
+  transition: color 0.2s var(--ease-out-strong);
+}
+.writing-row:hover .writing-row__title {
+  color: var(--foreground);
+}
+.writing-row__icon {
+  transition: transform 0.25s var(--ease-out-strong);
+}
+@media (hover: hover) and (pointer: fine) {
+  .writing-row:hover {
+    transform: translateX(3px);
+  }
+  .writing-row {
+    transition: transform 0.25s var(--ease-out-strong);
+  }
+  .writing-row:hover .writing-row__icon {
+    transform: translateY(-2px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .writing-row:hover,
+  .writing-row:hover .writing-row__icon {
+    transform: none;
+  }
+}
+
 /* ── Glass orb (WebGL) ─────────────────────────────────────────────────── */
 .glass-orb {
   position: relative;

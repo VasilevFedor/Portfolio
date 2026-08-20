@@ -5,6 +5,7 @@ import SiteHeader from "./components/SiteHeader";
 import GlassOrb from "./components/GlassOrb";
 import WorkCard from "./components/WorkCard";
 import ContactPreview from "./components/ContactPreview";
+import Reveal from "./components/Reveal";
 import { articles, projects, social } from "./data";
 
 export default function Home() {
@@ -26,11 +27,13 @@ export default function Home() {
 
 function Hero() {
   return (
-    <section className="rise relative z-30 pb-12">
-      {/* Intro stack: identity row, bio, contact line — 16px rhythm, 24px below header. */}
+    <section className="relative z-30 pb-[96px]">
+      {/* Intro stack: identity row, bio, contact line — 16px rhythm, 24px below
+          header. Each block rises on load in sequence (~90ms stagger) instead of
+          the whole hero arriving as one slab. */}
       <div className="mt-6 flex flex-col gap-4">
         {/* Identity row: orb + name/role, with the local time pinned opposite. */}
-        <div className="flex items-center gap-3">
+        <div className="rise flex items-center gap-3">
           <GlassOrb src="/img/avatar.jpg" alt="Fedor Vasiliev" size={48} magnetic />
           <div className="flex flex-1 items-end justify-between gap-4">
             <div>
@@ -45,7 +48,7 @@ function Hero() {
 
         {/* Bio — 650px wide, three paragraphs. Emphasis = foreground colour
             (not bold), matching the Framer source. */}
-        <div className="max-w-[650px] space-y-4">
+        <div className="rise max-w-[650px] space-y-4" style={{ animationDelay: "90ms" }}>
           <p className="t-body">
             Hi! I currently work at <Em>Ozon</Em> as a Senior product designer,
             where <Em>i led design</Em> of promotional mechanics and campaigns.
@@ -64,7 +67,10 @@ function Hero() {
         </div>
 
         {/* Contact line — single row, each link revealing a profile preview. */}
-        <p className="t-body-muted flex flex-wrap items-center gap-x-1.5">
+        <p
+          className="rise t-body-muted flex flex-wrap items-center gap-x-1.5"
+          style={{ animationDelay: "180ms" }}
+        >
           You can find me on
           <ContactPreview variant="linkedin" href={social.linkedin}>
             LinkedIn,
@@ -113,13 +119,17 @@ function DocIcon() {
 
 function Work() {
   return (
-    <section id="cases" className="scroll-mt-24 pb-[140px]">
+    <section id="cases" className="scroll-mt-24">
       <div className="flex flex-col gap-12">
-        <h2 className="t-heading">Work</h2>
+        <Reveal as="h2" className="t-heading">
+          Work
+        </Reveal>
         <ul className="flex flex-col gap-12">
-          {projects.map((p) => (
+          {projects.map((p, i) => (
             <li key={p.slug}>
-              <WorkCard project={p} />
+              <Reveal delay={i * 70}>
+                <WorkCard project={p} />
+              </Reveal>
             </li>
           ))}
         </ul>
@@ -130,25 +140,29 @@ function Work() {
 
 function Writing() {
   return (
-    <section id="writing" className="scroll-mt-24">
+    <section id="writing" className="scroll-mt-24 pt-[96px]">
       <div className="flex flex-col gap-6">
-        <h2 className="t-heading">Writing</h2>
+        <Reveal as="h2" className="t-heading">
+          Writing
+        </Reveal>
         <ul>
-          {articles.map((a) => (
+          {articles.map((a, i) => (
             <li key={a.slug}>
-              <Link
-                href={a.href ?? `/writing/${a.slug}`}
-                className="group flex items-start gap-2.5"
-              >
-                {/* White rounded icon tile (48×48, r16) with a 32px document glyph. */}
-                <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-card text-foreground">
-                  <DocIcon />
-                </span>
-                <div className="pt-0.5">
-                  <h3 className="t-writing-title">{a.title}</h3>
-                  {a.date ? <p className="t-sub mt-1">{a.date}</p> : null}
-                </div>
-              </Link>
+              <Reveal delay={i * 70}>
+                <Link
+                  href={a.href ?? `/writing/${a.slug}`}
+                  className="writing-row group flex items-start gap-2.5"
+                >
+                  {/* White rounded icon tile (48×48, r16) with a 32px document glyph. */}
+                  <span className="writing-row__icon grid size-12 shrink-0 place-items-center rounded-2xl bg-card text-foreground">
+                    <DocIcon />
+                  </span>
+                  <div className="pt-0.5">
+                    <h3 className="writing-row__title t-writing-title">{a.title}</h3>
+                    {a.date ? <p className="t-sub mt-1">{a.date}</p> : null}
+                  </div>
+                </Link>
+              </Reveal>
             </li>
           ))}
         </ul>
@@ -159,16 +173,18 @@ function Writing() {
 
 function Contact() {
   return (
-    <section className="py-[120px]">
+    <section className="pt-[96px] pb-[120px]">
       <div className="flex flex-col items-start gap-4">
-        <h2 className="t-heading max-w-[600px]">
+        <Reveal as="h2" className="t-heading max-w-[600px]">
           Let&rsquo;s connect—I&rsquo;m open to new opportunities
-        </h2>
-        <p className="t-body-muted max-w-[600px]">
+        </Reveal>
+        <Reveal as="p" delay={70} className="t-body-muted max-w-[600px]">
           I would love to partner with teams to help clarify the complexities,
           find elegant solutions and deliver the best result
-        </p>
-        <SocialLinks className="mt-4" />
+        </Reveal>
+        <Reveal delay={140} className="mt-4">
+          <SocialLinks />
+        </Reveal>
       </div>
     </section>
   );
