@@ -26,7 +26,11 @@ const takeaways = [
 ];
 
 // Hypotheses. Concept 1 shows two stacked mockups; the others one each.
-const concepts = [
+const concepts: {
+  n: string;
+  body: string;
+  images: { src: string; ratio?: string }[];
+}[] = [
   {
     n: "Concept 1",
     body: "I combined three promotions with boosting into one so that users could participate in a single promotion and have the opportunity to set a wide range of discounts",
