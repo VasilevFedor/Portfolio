@@ -49,6 +49,17 @@ export const metadata: Metadata = {
       "Senior product designer with 5+ years of experience. Currently at Ozon, co-founder of Stonks.",
     type: "website",
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icons/favicon-16.png", type: "image/png", sizes: "16x16" },
+      { url: "/icons/favicon-32.png", type: "image/png", sizes: "32x32" },
+      { url: "/icons/favicon-48.png", type: "image/png", sizes: "48x48" },
+    ],
+    apple: [
+      { url: "/icons/apple-touch-180.png", type: "image/png", sizes: "180x180" },
+    ],
+  },
 };
 
 export default function RootLayout({
