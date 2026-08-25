@@ -31,38 +31,35 @@ function Hero() {
       {/* Intro stack: identity row, bio, contact line — 16px rhythm, 24px below
           header. Each block rises on load in sequence (~90ms stagger) instead of
           the whole hero arriving as one slab. */}
-      <div className="mt-6 flex flex-col gap-4">
-        {/* Identity row: orb + name/role, with the local time pinned opposite. */}
-        <div className="rise flex items-start gap-3 sm:items-center">
+      <div className="hero-copy mt-6 flex flex-col gap-4">
+        {/* Identity row: orb + name/role. */}
+        <div className="rise flex items-center gap-3">
           <GlassOrb src="/img/avatar.jpg" alt="Fedor Vasiliev" size={48} magnetic />
-          <div className="flex flex-1 flex-col sm:flex-row sm:items-end sm:justify-between sm:gap-4">
-            <div>
-              <p className="t-body">Fedor Vasiliev</p>
-              <p className="t-sub">Senior product designer</p>
-            </div>
-            <p className="t-sub whitespace-nowrap sm:py-1.5">
-              <LocalTime />
-            </p>
+          <div>
+            <p className="t-body">Fedor Vasiliev</p>
+            <p className="t-sub">Senior product designer</p>
           </div>
         </div>
 
         {/* Bio — 650px wide, three paragraphs. Emphasis = foreground colour
             (not bold), matching the Framer source. */}
         <div className="rise max-w-[650px] space-y-4" style={{ animationDelay: "90ms" }}>
-          <p className="t-body">
-            Hi! I currently work at <Em>Ozon</Em> as a Senior product designer,
-            where <Em>i led design</Em> of promotional mechanics and campaigns.
-            I have <Em>over 5 years of experience</Em>, building products for the
-            audience of <Em>more than 60 million</Em> people
+          <p className="t-body-muted">
+            Hi! I currently work at{" "}
+            <Em>Ozon as a Senior product designer</Em>, where i{" "}
+            <Em>led design of promotional mechanics and campaigns</Em>. I have{" "}
+            <Em>over 5 years</Em> of experience, building products for the
+            audience of more than <Em>60 million</Em> people
           </p>
-          <p className="t-body">
-            I&rsquo;m also <Em>a co-founder of Stonks</Em> — an app that helps
+          <p className="t-body-muted">
+            I&rsquo;m also a <Em>co-founder of Stonks</Em> — an app that helps
             build financial literacy
           </p>
-          <p className="t-body">
-            What I enjoy most is taking projects from 0 to 1 — I have an
-            entrepreneurial mindset and like owning a problem end-to-end, from
-            early concept through to shipped result.
+          <p className="t-body-muted">
+            What I enjoy most is taking projects from <Em>0 to 1</Em> — I have
+            an entrepreneurial mindset and{" "}
+            <Em>like owning a problem end-to-end</Em>, from early concept
+            through to shipped result.
           </p>
         </div>
 
@@ -82,6 +79,11 @@ function Hero() {
           <ContactPreview variant="gmail" href={social.email}>
             Gmail
           </ContactPreview>
+        </p>
+
+        {/* Local time — its own line under the contact row. */}
+        <p className="rise t-sub" style={{ animationDelay: "270ms" }}>
+          <LocalTime />
         </p>
       </div>
     </section>
