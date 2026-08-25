@@ -33,7 +33,7 @@ export default function ContactPreview({
         {children}
       </a>
       <span
-        className="pointer-events-none absolute left-1/2 top-full z-20 mt-3 hidden -translate-x-1/2 -translate-y-1 scale-95 opacity-0 transition-[opacity,transform] duration-200 ease-[var(--ease-out-strong)] group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:scale-100 group-focus-within:opacity-100 min-[900px]:block"
+        className="pointer-events-none absolute left-1/2 top-full z-20 mt-3 hidden -translate-x-1/2 -translate-y-1 scale-95 opacity-0 transition-[opacity,transform] duration-200 ease-[var(--ease-out-strong)] group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:scale-100 group-focus-within:opacity-100 min-[900px]:block"
         aria-hidden="true"
       >
         {variant === "linkedin" && <LinkedInCard />}
@@ -180,7 +180,7 @@ function GmailCard() {
         </span>
         <a
           href={social.email}
-          className="pointer-events-auto inline-flex items-center justify-center rounded-[27px] bg-foreground px-6 py-3 text-[20px] font-semibold text-white"
+          className="inline-flex items-center justify-center rounded-[27px] bg-foreground px-6 py-3 text-[20px] font-semibold text-white"
         >
           Say hi
         </a>

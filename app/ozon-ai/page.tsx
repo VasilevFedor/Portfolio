@@ -122,7 +122,7 @@ const results = [
   { value: "30%", label: "DAU" },
   { value: "35%", label: "7-day retention" },
   { value: "£ 3.1 М", label: "Contribution margin" },
-  { value: "1,5 month", label: "Delivery time" },
+  { value: "16%", label: "Decrease in support workload" },
 ];
 
 // Stagger step between items that enter together (Emil: 30–80ms).

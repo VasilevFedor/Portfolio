@@ -64,6 +64,11 @@
   line-height: 24.8px;
   color: var(--muted);
 }
+/* Home hero only: slightly tighter leading than the rest of the site's body copy. */
+.hero-copy .t-body,
+.hero-copy .t-body-muted {
+  line-height: 23.4px;
+}
 /* Subtitle + dates. */
 .t-sub {
   font-size: 15px;
