@@ -65,7 +65,7 @@ function Hero() {
 
         {/* Contact line — single row, each link revealing a profile preview. */}
         <p
-          className="rise t-body-muted flex flex-wrap items-center gap-x-1.5"
+          className="rise t-body-muted relative z-10 flex flex-wrap items-center gap-x-1.5"
           style={{ animationDelay: "180ms" }}
         >
           You can find me on
