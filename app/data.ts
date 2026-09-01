@@ -48,7 +48,7 @@ export const projects: Project[] = [
     slug: "ozon-ai",
     title: "Ozon AI assistant",
     description:
-      "Created a little mate to help sellers increase revenue & reduce the workload on technical support",
+      "Designed an AI assistant 0 to 1 and reduced the workload on technical support by 16%",
     image: "/img/ozon-ai.png",
     video: `${CDN}/Ozon-ai-main-page.mp4`,
     year: "2025",

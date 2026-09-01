@@ -15,6 +15,11 @@ const links = [
   { href: "/#cases", label: "work" },
   { href: "/#writing", label: "writing" },
   { href: "/about", label: "about" },
+  {
+    href: "https://drive.google.com/file/d/1VhIAwtcIrYt81S_Fvp3tD3HEYQLsIixA/view?usp=drive_link",
+    label: "cv",
+    external: true,
+  },
 ];
 
 export default function SiteNav() {
@@ -65,6 +70,9 @@ export default function SiteNav() {
             key={l.href}
             href={l.href}
             onClick={handleClick(l.href)}
+            {...(l.external
+              ? { target: "_blank", rel: "noopener noreferrer" }
+              : {})}
             className="t-nav transition-colors hover:text-foreground"
           >
             {l.label}
@@ -131,6 +139,9 @@ export default function SiteNav() {
               key={l.href}
               href={l.href}
               onClick={handleClick(l.href)}
+              {...(l.external
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
               className="text-2xl font-medium text-foreground transition-opacity active:opacity-60"
             >
               {l.label}

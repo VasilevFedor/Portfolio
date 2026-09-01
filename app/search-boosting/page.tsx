@@ -147,13 +147,13 @@ export default function SearchBoostingCase() {
             <h3 className="t-article-sub">Interviews and takeaways</h3>
             <p className="t-article-body max-w-[650px]">{takeawaysIntro}</p>
           </Reveal>
-          <div className="flex flex-col gap-2">
+          <ul className="t-article-body max-w-[650px] list-disc space-y-2 pl-5 marker:text-muted">
             {takeaways.map((t, i) => (
-              <Reveal key={i} as="p" delay={i * STAGGER} className="t-article-body max-w-[650px]">
+              <Reveal key={i} as="li" delay={i * STAGGER}>
                 {t}
               </Reveal>
             ))}
-          </div>
+          </ul>
         </section>
 
         {/* Hypotheses */}
@@ -286,7 +286,7 @@ export default function SearchBoostingCase() {
 function BackLink() {
   return (
     <Link
-      href="/"
+      href="/#search-boosting"
       className="flex w-fit items-center gap-1.5 rounded-full py-2 transition duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] hover:opacity-70 active:scale-[0.97]"
     >
       <svg

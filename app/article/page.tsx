@@ -315,7 +315,7 @@ function BlockView({ block }: { block: Block }) {
 function BackLink() {
   return (
     <Link
-      href="/"
+      href="/#ozon-search-ai"
       className="flex w-fit items-center gap-1.5 rounded-full py-2 transition duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] hover:opacity-70 active:scale-[0.97]"
     >
       <svg

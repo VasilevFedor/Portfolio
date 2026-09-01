@@ -46,7 +46,7 @@ function Hero() {
         <div className="rise max-w-[650px] space-y-4" style={{ animationDelay: "90ms" }}>
           <p className="t-body-muted">
             Hi! I currently work at{" "}
-            <Em>Ozon as a Senior product designer</Em>, where i{" "}
+            <Em>Ozon as a Senior product designer</Em>, where I{" "}
             <Em>led design of promotional mechanics and campaigns</Em>. I have{" "}
             <Em>over 5 years</Em> of experience, building products for the
             audience of more than <Em>60 million</Em> people
@@ -128,7 +128,7 @@ function Work() {
         </Reveal>
         <ul className="flex flex-col gap-12">
           {projects.map((p, i) => (
-            <li key={p.slug}>
+            <li key={p.slug} id={p.slug} className="scroll-mt-24">
               <Reveal delay={i * 70}>
                 <WorkCard project={p} />
               </Reveal>
@@ -149,7 +149,7 @@ function Writing() {
         </Reveal>
         <ul>
           {articles.map((a, i) => (
-            <li key={a.slug}>
+            <li key={a.slug} id={a.slug} className="scroll-mt-24">
               <Reveal delay={i * 70}>
                 <Link
                   href={a.href ?? `/writing/${a.slug}`}

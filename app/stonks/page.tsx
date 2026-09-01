@@ -6,7 +6,7 @@ import BackToTop from "../components/BackToTop";
 
 export const metadata: Metadata = {
   title: "Stonks app — Fedor Vasiliev",
-  description: "Design experiment made for 2 weeks.",
+  description: "Fully vibecoded iOS app on SwiftUI for 2 weeks.",
 };
 
 /* ── Media host ──────────────────────────────────────────────────────────── */
@@ -64,20 +64,20 @@ export default function StonksCase() {
         <header className="rise flex flex-col gap-1">
           <h1 className="t-article-title">Stonks app</h1>
           <p className="t-article-body max-w-[600px]">
-            Design experiment made for 2 weeks
+            Fully vibecoded iOS app on SwiftUI for 2 weeks
           </p>
         </header>
 
-        {/* A Little About the Project */}
+        {/* A little about the project */}
         <section className="flex flex-col gap-4">
           <Reveal as="h2" className="t-article-heading">
-            A Little About the Project
+            A little about the project
           </Reveal>
           <Reveal as="p" className="t-article-body max-w-[600px]">
             I worked on this project with my co-founder, who is a backend
             developer. I was responsible for the entire product side, UX, and
             user interaction. I built this project using Claude Code, and the
-            whole process took about three weeks. We are currently in the active
+            whole process took about two weeks. We are currently in the active
             testing phase leading up to the release.
           </Reveal>
         </section>
@@ -119,7 +119,7 @@ export default function StonksCase() {
 function BackLink() {
   return (
     <Link
-      href="/"
+      href="/#stonks"
       className="flex w-fit items-center gap-1.5 rounded-full py-2 transition duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] hover:opacity-70 active:scale-[0.97]"
     >
       <svg
