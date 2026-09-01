@@ -154,9 +154,9 @@ export default function GlassOrb({
       return; // no effect — orb stays centered
     }
 
-    const TRIGGER = 150 + size / 2; // 150px from the orb's edge → from its center
-    const STRENGTH = 0.3;
-    const MAX = 60;
+    const TRIGGER = 60 + size / 2; // 60px from the orb's edge → from its center
+    const STRENGTH = 0.12;
+    const MAX = 40;
     const EASE = 0.15;
 
     let cursorX = 0;

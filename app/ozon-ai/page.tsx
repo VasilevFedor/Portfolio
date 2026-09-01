@@ -54,12 +54,18 @@ const principles = [
   },
 ];
 
+// Each source PNG frames its glyph with a different amount of empty margin, so
+// object-contain alone makes them look wildly different sizes. `fill` is the
+// measured fraction of the canvas the actual glyph occupies (max side ÷ canvas);
+// we scale each logo by TARGET_FILL / fill so every glyph lands at ~the same
+// visual size regardless of its source padding.
+const TARGET_FILL = 0.8;
 const competitors = [
-  { name: "Shopify", src: `${IMG}/ZKCWew65B5NS0s5NJEaThr2D20.png` },
-  { name: "Gemini", src: `${IMG}/feVeBFe8p1Z1cCtHXRcanC2bBU.png` },
-  { name: "GPT", src: `${IMG}/s9ga6o9gEApEu7UG9Yi9uhO8rWY.png` },
-  { name: "Alice AI", src: `${IMG}/rvTODm2Xqd3uas68oFjmlcfc.png` },
-  { name: "Whoop", src: `${IMG}/podhaFy3hix1UlO6tjMkibkoBlk.png` },
+  { name: "Shopify", src: "/img/ozon-ai/Shopify.png", fill: 0.504 },
+  { name: "Gemini", src: `${IMG}/feVeBFe8p1Z1cCtHXRcanC2bBU.png`, fill: 0.661 },
+  { name: "GPT", src: `${IMG}/s9ga6o9gEApEu7UG9Yi9uhO8rWY.png`, fill: 0.9 },
+  { name: "Alice AI", src: `${IMG}/rvTODm2Xqd3uas68oFjmlcfc.png`, fill: 1 },
+  { name: "Whoop", src: `${IMG}/podhaFy3hix1UlO6tjMkibkoBlk.png`, fill: 0.966 },
 ];
 
 const concepts = [
@@ -144,8 +150,8 @@ export default function OzonAiCase() {
         <header className="rise flex flex-col gap-1">
           <h1 className="t-article-title">Ozon AI assistant</h1>
           <p className="t-article-body max-w-[600px]">
-            Created a little mate to help sellers increase revenue and reduce
-            the workload on technical support
+            Designed an AI assistant 0 to 1 and reduced the workload on
+            technical support by 16%
           </p>
         </header>
 
@@ -186,26 +192,46 @@ export default function OzonAiCase() {
               Sellers are constantly asking for tips on how to boost their
               sales, and personal account managers and support staff can&apos;t
               keep up with all the requests. Here are a few reasons why we
-              decided to address these issues with an AI assistant: we will
-              provide a single point of access for all help and support
-              information regarding a seller&apos;s personal account; we can
-              increase Ozon&apos;s GMV through personalized sales
-              recommendations; and during interviews, sellers mentioned several
-              times that they use AI, which is a good reason to move some of
-              these tasks to our interface.
+              decided to address these issues with an AI assistant:
             </p>
+            <ul className="t-article-body max-w-[650px] list-disc space-y-2 pl-5 marker:text-muted">
+              <li>
+                We will provide a single point of access for all help and
+                support information regarding a seller&apos;s personal account
+              </li>
+              <li>
+                We can increase Ozon&apos;s GMV through personalized sales
+                recommendations
+              </li>
+              <li>
+                During interviews, sellers mentioned several times that they use
+                AI, which is a good reason to move some of these tasks to our
+                interface
+              </li>
+            </ul>
           </Reveal>
           <Reveal className="flex flex-col gap-4">
             <h3 className="t-article-sub">Why AI-assistant?</h3>
-            <p className="t-article-body max-w-[650px]">
-              We already have a production ML model that works with all the data
-              sellers need. It can provide a single point of access for all help
-              and support information regarding a seller&apos;s personal account,
-              and increase Ozon&apos;s GMV through personalized sales
-              recommendations. During interviews, sellers mentioned several times
-              that they use AI, which is a good reason to move some of these
-              tasks to our interface.
-            </p>
+            <p className="t-article-body max-w-[650px]">There are several reasons:</p>
+            <ul className="t-article-body max-w-[650px] list-disc space-y-2 pl-5 marker:text-muted">
+              <li>
+                We already have a production ML model that works with all the
+                data sellers need
+              </li>
+              <li>
+                It can provide a single point of access for all help and support
+                information regarding a seller&apos;s personal account
+              </li>
+              <li>
+                It can increase Ozon&apos;s GMV through personalized sales
+                recommendations
+              </li>
+              <li>
+                During interviews, sellers mentioned several times that they use
+                AI, which is a good reason to move some of these tasks to our
+                interface
+              </li>
+            </ul>
           </Reveal>
         </section>
 
@@ -262,6 +288,7 @@ export default function OzonAiCase() {
                       src={c.src}
                       alt={c.name}
                       className="size-20 object-contain"
+                      style={{ transform: `scale(${TARGET_FILL / c.fill})` }}
                     />
                   </div>
                 ))}
@@ -276,8 +303,9 @@ export default function OzonAiCase() {
             <h2 className="t-article-heading">Early concepts</h2>
             <h3 className="t-article-sub">Current user experience</h3>
             <p className="t-article-body max-w-[650px]">
-              Together with the product manager, we conducted a competitor
-              analysis that included both direct and indirect competitors
+              Ozon currently offers the ability to look up information in its
+              knowledge base, but this feature does not meet all user and
+              business needs
             </p>
           </Reveal>
 
@@ -338,12 +366,10 @@ export default function OzonAiCase() {
           </Reveal>
         </section>
 
-        {/* What the final design looks like */}
+        {/* High fidelity designs */}
         <section className="flex flex-col gap-8">
           <Reveal className="flex flex-col gap-5">
-            <h2 className="t-article-heading">
-              What the final design looks like
-            </h2>
+            <h2 className="t-article-heading">High fidelity designs</h2>
             <p className="t-article-body max-w-[650px]">
               I have prepared design mockups and prototypes of the AI
               assistant&rsquo;s core features to review them with C-level
@@ -441,11 +467,8 @@ export default function OzonAiCase() {
           <Reveal className="flex flex-col gap-4">
             <h3 className="t-article-sub">A/B test results</h3>
             <p className="t-article-body max-w-[650px]">
-              Since there was already an entry point to the help window in the
-              interface, we decided to conduct an A/B test of entry points to the
-              AI assistant, because I hypothesized that the conversion rate would
-              be higher in the header. The A/B test lasted 35 days, and based on
-              the results, the floating button option won.
+              The A/B test lasted 35 days, and based on the results, the floating
+              button option won.
             </p>
           </Reveal>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -466,10 +489,10 @@ export default function OzonAiCase() {
           </div>
         </section>
 
-        {/* Results */}
+        {/* Impact */}
         <section className="flex flex-col gap-8">
           <Reveal className="flex flex-col gap-5">
-            <h2 className="t-article-heading">Results</h2>
+            <h2 className="t-article-heading">Impact</h2>
             <p className="t-article-body max-w-[650px]">
               After several months, the AI assistant produced the following
               results
@@ -498,7 +521,7 @@ export default function OzonAiCase() {
 function BackLink() {
   return (
     <Link
-      href="/"
+      href="/#ozon-ai"
       className="flex w-fit items-center gap-1.5 rounded-full py-2 transition duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] hover:opacity-70 active:scale-[0.97]"
     >
       <svg
