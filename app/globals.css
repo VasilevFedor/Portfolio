@@ -232,7 +232,9 @@ html {
 .mobile-menu {
   position: fixed;
   inset: 0;
-  z-index: 50;
+  /* Above the About fan-carousel cards (zIndex up to 100) so the menu
+     covers them, not the other way around. */
+  z-index: 200;
   display: flex;
   flex-direction: column;
   background: var(--background);
