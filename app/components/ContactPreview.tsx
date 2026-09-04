@@ -1,4 +1,7 @@
+"use client";
+
 import { social } from "../data";
+import { track } from "../analytics";
 
 /**
  * Hover/focus profile-preview popover for the "You can find me on …" links.
@@ -8,6 +11,14 @@ import { social } from "../data";
  */
 
 type Variant = "linkedin" | "x" | "gmail";
+
+// Custom-event network taxonomy is shared with SocialLinks: the Gmail link is a
+// mailto, so it reports as `email`, not `gmail`.
+const NETWORK: Record<Variant, string> = {
+  linkedin: "linkedin",
+  x: "x",
+  gmail: "email",
+};
 
 const AVATAR = "/img/avatar.jpg";
 const GMAIL_G =
@@ -28,6 +39,12 @@ export default function ContactPreview({
       <a
         href={href}
         {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+        onClick={() =>
+          track("social_click", {
+            network: NETWORK[variant],
+            location: "hero",
+          })
+        }
         className="text-foreground underline decoration-border-subtle underline-offset-2 transition-colors hover:decoration-foreground"
       >
         {children}

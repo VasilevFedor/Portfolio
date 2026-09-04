@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import SiteHeader from "../components/SiteHeader";
 import Reveal from "../components/Reveal";
 import BackToTop from "../components/BackToTop";
+import CaseViewTracker from "../components/CaseViewTracker";
 
 export const metadata: Metadata = {
   title: "Ozon AI assistant — Fedor Vasiliev",
@@ -140,6 +141,7 @@ export default function OzonAiCase() {
   return (
     <div className="mx-auto w-full max-w-[800px] px-6 min-[800px]:px-0">
       <SiteHeader />
+      <CaseViewTracker slug="ozon-ai" title="Ozon AI assistant" />
 
       {/* 80px between top-level sections. */}
       <main className="flex flex-col gap-20 pt-10 pb-24">

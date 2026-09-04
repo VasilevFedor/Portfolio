@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type MouseEvent } from "react";
+import { track } from "../analytics";
 
 /**
  * Site navigation. On sm+ it's the inline row (work / writing / about); below sm
@@ -27,7 +28,13 @@ export default function SiteNav() {
   const [open, setOpen] = useState(false);
 
   const handleClick =
-    (href: string) => (e: MouseEvent<HTMLAnchorElement>) => {
+    (href: string, label: string, external?: boolean) =>
+    (e: MouseEvent<HTMLAnchorElement>) => {
+      track("nav_click", {
+        nav_label: label,
+        nav_href: href,
+        is_external: !!external,
+      });
       setOpen(false);
       // Smooth-scroll to an on-page section when we're already on the home page.
       if (pathname === "/" && href.startsWith("/#")) {
@@ -69,7 +76,7 @@ export default function SiteNav() {
           <Link
             key={l.href}
             href={l.href}
-            onClick={handleClick(l.href)}
+            onClick={handleClick(l.href, l.label, l.external)}
             {...(l.external
               ? { target: "_blank", rel: "noopener noreferrer" }
               : {})}
@@ -138,7 +145,7 @@ export default function SiteNav() {
             <Link
               key={l.href}
               href={l.href}
-              onClick={handleClick(l.href)}
+              onClick={handleClick(l.href, l.label, l.external)}
               {...(l.external
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}

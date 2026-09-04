@@ -1,10 +1,18 @@
+"use client";
+
 import { social } from "../data";
+import { track } from "../analytics";
 
 /**
  * Row of 24px social icons (LinkedIn, X, Email) for the page footer. Icons use
  * `currentColor`, so the link colour (muted → foreground on hover) drives them.
+ * Each click sends `social_click` with a `contact` location (the hero text
+ * links send the same event with a `hero` location — see ContactPreview).
  */
 export default function SocialLinks({ className = "" }: { className?: string }) {
+  const onSocial = (network: string) => () =>
+    track("social_click", { network, location: "contact" });
+
   return (
     <div className={`flex items-center gap-8 ${className}`}>
       <a
@@ -12,6 +20,7 @@ export default function SocialLinks({ className = "" }: { className?: string }) 
         target="_blank"
         rel="noreferrer"
         aria-label="LinkedIn"
+        onClick={onSocial("linkedin")}
         className="text-muted transition-colors duration-200 hover:text-foreground"
       >
         <LinkedInIcon />
@@ -21,6 +30,7 @@ export default function SocialLinks({ className = "" }: { className?: string }) 
         target="_blank"
         rel="noreferrer"
         aria-label="X"
+        onClick={onSocial("x")}
         className="text-muted transition-colors duration-200 hover:text-foreground"
       >
         <XIcon />
@@ -28,6 +38,7 @@ export default function SocialLinks({ className = "" }: { className?: string }) 
       <a
         href={social.email}
         aria-label="Email"
+        onClick={onSocial("email")}
         className="text-muted transition-colors duration-200 hover:text-foreground"
       >
         <EmailIcon />
