@@ -6,6 +6,7 @@ import {
   Just_Me_Again_Down_Here,
 } from "next/font/google";
 import "./globals.css";
+import PostHogProvider from "./components/PostHogProvider";
 
 // Body / UI typeface — stands in for Helvetica Now Display (paid, not shipped).
 const inter = Inter({
@@ -78,7 +79,9 @@ export default function RootLayout({
           <style>{`.reveal{opacity:1 !important;transform:none !important}.iris{clip-path:none !important}.preloader{display:none !important}`}</style>
         </noscript>
       </head>
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        <PostHogProvider>{children}</PostHogProvider>
+      </body>
     </html>
   );
 }
