@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import SiteHeader from "../components/SiteHeader";
 import Reveal from "../components/Reveal";
 import BackToTop from "../components/BackToTop";
+import CaseViewTracker from "../components/CaseViewTracker";
 
 export const metadata: Metadata = {
   title: "Elastic boosting — Fedor Vasiliev",
@@ -67,6 +68,7 @@ export default function SearchBoostingCase() {
   return (
     <div className="mx-auto w-full max-w-[800px] px-6 min-[800px]:px-0">
       <SiteHeader />
+      <CaseViewTracker slug="search-boosting" title="Search boosting" />
 
       {/* 80px between top-level sections. */}
       <main className="flex flex-col gap-20 pt-10 pb-24">

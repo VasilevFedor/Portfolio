@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import type { Project } from "../data";
+import { track } from "../analytics";
 
 /**
  * Work card matching the Framer reference: a rounded 32px media panel (an
@@ -13,6 +16,13 @@ export default function WorkCard({ project }: { project: Project }) {
     <Link
       href={project.href ?? `/work/${project.slug}`}
       className="work-card group block"
+      onClick={() =>
+        track("case_click", {
+          case_slug: project.slug,
+          case_title: project.title,
+          location: "home_work_grid",
+        })
+      }
     >
       {/* Media panel: full column width (800), 440px tall → 20/11 aspect. */}
       <div className="work-card__media relative aspect-[20/11] overflow-hidden rounded-[32px] bg-card">
