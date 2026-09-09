@@ -246,8 +246,7 @@ export default function SearchBoostingCase() {
               playsInline
               preload="auto"
               aria-hidden="true"
-              className="w-full rounded-[32px] object-cover"
-              style={{ aspectRatio: "800 / 468" }}
+              className="aspect-video w-full rounded-[20px] object-contain sm:aspect-[800/468] sm:rounded-[32px] sm:object-cover"
             />
           </Reveal>
         </section>

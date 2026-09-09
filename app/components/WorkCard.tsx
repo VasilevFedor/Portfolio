@@ -25,7 +25,11 @@ export default function WorkCard({ project }: { project: Project }) {
       }
     >
       {/* Media panel: full column width (800), 440px tall → 20/11 aspect. */}
-      <div className="work-card__media relative aspect-[20/11] overflow-hidden rounded-[32px] bg-card">
+      <div
+        className={`work-card__media relative overflow-hidden rounded-[20px] bg-card sm:rounded-[32px] ${
+          project.video ? "aspect-video sm:aspect-[20/11]" : "aspect-[20/11]"
+        }`}
+      >
         {project.video ? (
           <video
             src={project.video}
@@ -36,7 +40,7 @@ export default function WorkCard({ project }: { project: Project }) {
             playsInline
             preload="auto"
             aria-hidden="true"
-            className="h-full w-full object-cover"
+            className="h-full w-full object-contain sm:object-cover"
           />
         ) : (
           // eslint-disable-next-line @next/next/no-img-element

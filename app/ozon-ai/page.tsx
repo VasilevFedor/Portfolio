@@ -590,7 +590,7 @@ function CaseVideo({ src, caption }: { src: string; caption?: string }) {
         playsInline
         preload="auto"
         aria-hidden="true"
-        className="h-[440px] w-full rounded-[32px] object-cover"
+        className="aspect-video w-full rounded-[20px] object-contain sm:h-[440px] sm:aspect-auto sm:rounded-[32px] sm:object-cover"
       />
       {caption && (
         <span className="t-article-caption max-w-[650px]">{caption}</span>
