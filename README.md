@@ -34,3 +34,25 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Daily PostHog report in Telegram
+
+Vercel calls `/api/cron/posthog-report` every day at 06:00 UTC (09:00 Moscow
+time). The report covers the complete previous day in the `Europe/Moscow` time
+zone and compares it with the day before.
+
+Add these server-only environment variables in Vercel Project Settings:
+
+- `POSTHOG_PERSONAL_API_KEY` — a PostHog personal API key with query read access
+- `POSTHOG_PROJECT_ID` — the numeric PostHog project ID
+- `POSTHOG_HOST` — optional; defaults to `https://eu.posthog.com`
+- `TELEGRAM_BOT_TOKEN` — the token issued by BotFather
+- `TELEGRAM_CHAT_ID` — the destination user, group, or channel ID
+- `CRON_SECRET` — a random value of at least 16 characters
+
+To test the production endpoint manually:
+
+```bash
+curl -H "Authorization: Bearer $CRON_SECRET" \
+  https://YOUR_DOMAIN/api/cron/posthog-report
+```
