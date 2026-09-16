@@ -1,11 +1,12 @@
 import Link from "next/link";
+import Image from "next/image";
 import LocalTime from "./components/LocalTime";
 import SocialLinks from "./components/SocialLinks";
 import SiteHeader from "./components/SiteHeader";
-import GlassOrb from "./components/GlassOrb";
 import WorkCard from "./components/WorkCard";
 import ContactPreview from "./components/ContactPreview";
 import Reveal from "./components/Reveal";
+import { TextAnimate, TextAnimateOnce } from "./components/TextAnimate";
 import { articles, projects, social } from "./data";
 
 export default function Home() {
@@ -27,23 +28,49 @@ export default function Home() {
 
 function Hero() {
   return (
-    <section className="relative z-30 pb-[96px]">
+    <TextAnimateOnce>
+      <section className="relative z-30 pb-[96px]">
       {/* Intro stack: identity row, bio, contact line — 16px rhythm, 24px below
-          header. Each block rises on load in sequence (~90ms stagger) instead of
-          the whole hero arriving as one slab. */}
+          header. Text reveals from top to bottom with a compact character
+          stagger; the long copy overlaps so the sequence stays under 3 seconds. */}
       <div className="hero-copy mt-6 flex flex-col gap-4">
-        {/* Identity row: orb + name/role. */}
-        <div className="rise flex items-center gap-3">
-          <GlassOrb src="/img/avatar.jpg" alt="Fedor Vasiliev" size={48} magnetic />
+        {/* Identity row: portrait + name/role. */}
+        <div className="flex items-center gap-3">
+          <Image
+            src="/img/avatar.jpg"
+            alt=""
+            width={48}
+            height={48}
+            className="size-12 shrink-0 rounded-full object-cover"
+          />
           <div>
-            <p className="t-body">Fedor Vasiliev</p>
-            <p className="t-sub">Senior product designer</p>
+            <TextAnimate animation="blurInUp" by="character" once className="t-body">
+              Fedor Vasiliev
+            </TextAnimate>
+            <TextAnimate
+              animation="blurInUp"
+              by="character"
+              once
+              delay={0.12}
+              className="t-sub"
+            >
+              Senior product designer
+            </TextAnimate>
           </div>
         </div>
 
         {/* Bio — 650px wide, three paragraphs. Emphasis = foreground colour
             (not bold), matching the Framer source. */}
-        <div className="rise max-w-[650px] space-y-4" style={{ animationDelay: "90ms" }}>
+        <TextAnimate
+          animation="blurInUp"
+          by="character"
+          once
+          as="div"
+          delay={0.16}
+          duration={0.45}
+          stagger={0.003}
+          className="max-w-[650px] space-y-4"
+        >
           <p className="t-body-muted">
             Hi! I currently work at{" "}
             <Em>Ozon as a Senior product designer</Em>, where I{" "}
@@ -61,12 +88,17 @@ function Hero() {
             <Em>like owning a problem end-to-end</Em>, from early concept
             through to shipped result.
           </p>
-        </div>
+        </TextAnimate>
 
         {/* Contact line — single row, each link revealing a profile preview. */}
-        <p
-          className="rise t-body-muted relative z-10 flex flex-wrap items-center gap-x-1.5"
-          style={{ animationDelay: "180ms" }}
+        <TextAnimate
+          animation="blurInUp"
+          by="character"
+          once
+          delay={1}
+          duration={0.45}
+          stagger={0.008}
+          className="t-body-muted relative z-10 flex flex-wrap items-center gap-x-1.5"
         >
           You can find me on
           <ContactPreview variant="linkedin" href={social.linkedin}>
@@ -79,14 +111,22 @@ function Hero() {
           <ContactPreview variant="gmail" href={social.email}>
             Gmail
           </ContactPreview>
-        </p>
+        </TextAnimate>
 
         {/* Local time — its own line under the contact row. */}
-        <p className="rise t-sub" style={{ animationDelay: "270ms" }}>
+        <TextAnimate
+          animation="blurInUp"
+          by="character"
+          once
+          delay={1.1}
+          duration={0.45}
+          className="t-sub"
+        >
           <LocalTime />
-        </p>
+        </TextAnimate>
       </div>
-    </section>
+      </section>
+    </TextAnimateOnce>
   );
 }
 

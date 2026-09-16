@@ -4,6 +4,7 @@ import SiteHeader from "../components/SiteHeader";
 import Reveal from "../components/Reveal";
 import BackToTop from "../components/BackToTop";
 import CaseViewTracker from "../components/CaseViewTracker";
+import CaseContents, { type CaseContentsItem } from "../components/CaseContents";
 
 export const metadata: Metadata = {
   title: "Stonks app — Fedor Vasiliev",
@@ -21,32 +22,50 @@ const VID = "https://videos-for-portfolio.b-cdn.net/Stonks%20app%20case";
 // left in "Purchase freeze .mp4").
 const features = [
   {
+    id: "onboarding",
     src: `${VID}/First%20touch.mp4`,
     label: "Onboarding flow",
     caption:
       "When a user opens the app for the first time, the AI assistant shows the user the available features",
   },
   {
+    id: "add-expenses",
     src: `${VID}/Add%20expense.mp4`,
     label: "Add expenses",
     caption:
       "Users can add expenses in two ways: manually or by uploading a screenshot from their bank",
   },
   {
+    id: "purchase-freeze",
     src: `${VID}/Purchase%20freeze%20.mp4`,
     label: "Purchase freeze",
     caption: "To reduce impulse purchases, a user can freeze spending",
   },
   {
+    id: "achievements",
     src: `${VID}/Achievement.mp4`,
     label: "Achievement for completing lessons",
     caption: "Users can take financial literacy lessons and earn achievements",
   },
   {
+    id: "analytics",
     src: `${VID}/Analytics.mp4`,
     label: "Spending analytics",
     caption: "Users can view their spending in detailed analytics",
   },
+];
+
+const contents: CaseContentsItem[] = [
+  {
+    id: "about-project",
+    title: "A little about the project",
+    description: "The team, responsibilities, and two-week build process.",
+  },
+  ...features.map((feature) => ({
+    id: feature.id,
+    title: feature.label,
+    description: feature.caption,
+  })),
 ];
 
 /* ── Page ────────────────────────────────────────────────────────────────── */
@@ -56,6 +75,7 @@ export default function StonksCase() {
     <div className="mx-auto w-full max-w-[800px] px-6 min-[800px]:px-0">
       <SiteHeader />
       <CaseViewTracker slug="stonks" title="Stonks app" />
+      <CaseContents items={contents} />
 
       {/* 80px between top-level sections. */}
       <main className="flex flex-col gap-20 pt-10 pb-24">
@@ -71,7 +91,7 @@ export default function StonksCase() {
         </header>
 
         {/* A little about the project */}
-        <section className="flex flex-col gap-4">
+        <section id="about-project" className="scroll-mt-24 flex flex-col gap-4">
           <Reveal as="h2" className="t-article-heading">
             A little about the project
           </Reveal>
@@ -87,26 +107,28 @@ export default function StonksCase() {
         {/* Feature demos */}
         <section className="flex flex-col gap-16">
           {features.map((f) => (
-            <Reveal key={f.label}>
-              <figure className="flex flex-col gap-4">
-                <video
-                  src={f.src}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="auto"
-                  aria-hidden="true"
-                  className="h-[468px] w-full rounded-[32px] object-cover"
-                />
-                <figcaption className="flex flex-col gap-1">
-                  <span className="t-article-body">{f.label}</span>
-                  <span className="t-article-caption max-w-[600px]">
-                    {f.caption}
-                  </span>
-                </figcaption>
-              </figure>
-            </Reveal>
+            <div id={f.id} className="scroll-mt-24" key={f.id}>
+              <Reveal>
+                <figure className="flex flex-col gap-4">
+                  <video
+                    src={f.src}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    aria-hidden="true"
+                    className="h-[468px] w-full rounded-[32px] object-cover"
+                  />
+                  <figcaption className="flex flex-col gap-1">
+                    <span className="t-article-body">{f.label}</span>
+                    <span className="t-article-caption max-w-[600px]">
+                      {f.caption}
+                    </span>
+                  </figcaption>
+                </figure>
+              </Reveal>
+            </div>
           ))}
         </section>
       </main>

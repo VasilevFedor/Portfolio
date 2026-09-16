@@ -4,6 +4,7 @@ import SiteHeader from "../components/SiteHeader";
 import Reveal from "../components/Reveal";
 import BackToTop from "../components/BackToTop";
 import CaseViewTracker from "../components/CaseViewTracker";
+import CaseContents, { type CaseContentsItem } from "../components/CaseContents";
 
 export const metadata: Metadata = {
   title: "Elastic boosting — Fedor Vasiliev",
@@ -62,6 +63,44 @@ const results = [
 // Stagger step between items that enter together (Emil: 30–80ms).
 const STAGGER = 60;
 
+const contents: CaseContentsItem[] = [
+  {
+    id: "team-context",
+    title: "What our team does",
+    description: "How the team helps sellers grow through promotions.",
+  },
+  {
+    id: "problem",
+    title: "Problem",
+    description: "Fixed discount tiers gave sellers no reason to offer more.",
+  },
+  {
+    id: "research",
+    title: "Research",
+    description: "Analytics, seller interviews, and the main takeaways.",
+  },
+  {
+    id: "hypotheses",
+    title: "Hypotheses",
+    description: "Three concepts for making search boosting more flexible.",
+  },
+  {
+    id: "test",
+    title: "Test",
+    description: "Prototype testing before the feature was developed.",
+  },
+  {
+    id: "final-result",
+    title: "Final result",
+    description: "The finished promotion flow with reference prices.",
+  },
+  {
+    id: "impact",
+    title: "A/B test & Impact",
+    description: "Experiment results for discounts, sales, and total GMV.",
+  },
+];
+
 /* ── Page ────────────────────────────────────────────────────────────────── */
 
 export default function SearchBoostingCase() {
@@ -69,6 +108,7 @@ export default function SearchBoostingCase() {
     <div className="mx-auto w-full max-w-[800px] px-6 min-[800px]:px-0">
       <SiteHeader />
       <CaseViewTracker slug="search-boosting" title="Search boosting" />
+      <CaseContents items={contents} />
 
       {/* 80px between top-level sections. */}
       <main className="flex flex-col gap-20 pt-10 pb-24">
@@ -92,7 +132,7 @@ export default function SearchBoostingCase() {
         </Reveal>
 
         {/* What our team does */}
-        <section className="flex flex-col gap-5">
+        <section id="team-context" className="scroll-mt-24 flex flex-col gap-5">
           <Reveal as="h2" className="t-article-heading">
             What our team does
           </Reveal>
@@ -105,7 +145,7 @@ export default function SearchBoostingCase() {
         </section>
 
         {/* Problem */}
-        <section className="flex flex-col gap-8">
+        <section id="problem" className="scroll-mt-24 flex flex-col gap-8">
           <Reveal className="flex flex-col gap-5">
             <h2 className="t-article-heading">Problem</h2>
             <p className="t-article-body max-w-[650px]">
@@ -126,7 +166,7 @@ export default function SearchBoostingCase() {
         </section>
 
         {/* Research */}
-        <section className="flex flex-col gap-8">
+        <section id="research" className="scroll-mt-24 flex flex-col gap-8">
           <Reveal className="flex flex-col gap-5">
             <h2 className="t-article-heading">Research</h2>
             <p className="t-article-body max-w-[650px]">
@@ -159,7 +199,7 @@ export default function SearchBoostingCase() {
         </section>
 
         {/* Hypotheses */}
-        <section className="flex flex-col gap-8">
+        <section id="hypotheses" className="scroll-mt-24 flex flex-col gap-8">
           <Reveal className="flex flex-col gap-5">
             <h2 className="t-article-heading">Hypotheses</h2>
             <p className="t-article-body max-w-[650px]">
@@ -206,7 +246,7 @@ export default function SearchBoostingCase() {
         </section>
 
         {/* Test */}
-        <section className="flex flex-col gap-8">
+        <section id="test" className="scroll-mt-24 flex flex-col gap-8">
           <Reveal className="flex flex-col gap-5">
             <h2 className="t-article-heading">Test</h2>
             <p className="t-article-body max-w-[650px]">
@@ -229,7 +269,7 @@ export default function SearchBoostingCase() {
         </section>
 
         {/* Final result */}
-        <section className="flex flex-col gap-8">
+        <section id="final-result" className="scroll-mt-24 flex flex-col gap-8">
           <Reveal className="flex flex-col gap-5">
             <h2 className="t-article-heading">Final result</h2>
             <p className="t-article-body max-w-[650px]">
@@ -252,7 +292,7 @@ export default function SearchBoostingCase() {
         </section>
 
         {/* A/B test & Impact */}
-        <section className="flex flex-col gap-8">
+        <section id="impact" className="scroll-mt-24 flex flex-col gap-8">
           <Reveal className="flex flex-col gap-5">
             <h2 className="t-article-heading">A/B test &amp; Impact</h2>
             <p className="t-article-body max-w-[650px]">

@@ -4,6 +4,7 @@ import SiteHeader from "../components/SiteHeader";
 import Reveal from "../components/Reveal";
 import BackToTop from "../components/BackToTop";
 import CaseViewTracker from "../components/CaseViewTracker";
+import CaseContents, { type CaseContentsItem } from "../components/CaseContents";
 
 export const metadata: Metadata = {
   title: "Ozon AI assistant — Fedor Vasiliev",
@@ -135,6 +136,54 @@ const results = [
 // Stagger step between items that enter together (Emil: 30–80ms).
 const STAGGER = 60;
 
+const contents: CaseContentsItem[] = [
+  {
+    id: "team",
+    title: "Meet the team",
+    description: "The cross-functional team behind the AI assistant.",
+  },
+  {
+    id: "problem",
+    title: "Problem",
+    description: "Why seller support needed a new single point of access.",
+  },
+  {
+    id: "discovery",
+    title: "Discovery",
+    description: "Research principles and competitive analysis.",
+  },
+  {
+    id: "early-concepts",
+    title: "Early concepts",
+    description: "The first directions presented to C-level executives.",
+  },
+  {
+    id: "main-flows",
+    title: "Main flows",
+    description: "Recommendations, sales analysis, and knowledge-base answers.",
+  },
+  {
+    id: "high-fidelity",
+    title: "High fidelity designs",
+    description: "Production-ready designs for the assistant's core features.",
+  },
+  {
+    id: "test",
+    title: "Test",
+    description: "Usability testing with eight sellers before rollout.",
+  },
+  {
+    id: "launch",
+    title: "A/B test & launch",
+    description: "Gradual rollout, failed ideas, and entry-point experiments.",
+  },
+  {
+    id: "impact",
+    title: "Impact",
+    description: "The product and support results after launch.",
+  },
+];
+
 /* ── Page ────────────────────────────────────────────────────────────────── */
 
 export default function OzonAiCase() {
@@ -142,6 +191,7 @@ export default function OzonAiCase() {
     <div className="mx-auto w-full max-w-[800px] px-6 min-[800px]:px-0">
       <SiteHeader />
       <CaseViewTracker slug="ozon-ai" title="Ozon AI assistant" />
+      <CaseContents items={contents} />
 
       {/* 80px between top-level sections. */}
       <main className="flex flex-col gap-20 pt-10 pb-24">
@@ -163,7 +213,7 @@ export default function OzonAiCase() {
         </Reveal>
 
         {/* Meet the team */}
-        <section className="flex flex-col gap-8">
+        <section id="team" className="scroll-mt-24 flex flex-col gap-8">
           <Reveal as="h2" className="t-article-heading">
             Meet the team
           </Reveal>
@@ -186,7 +236,7 @@ export default function OzonAiCase() {
         </section>
 
         {/* Problem */}
-        <section className="flex flex-col gap-8">
+        <section id="problem" className="scroll-mt-24 flex flex-col gap-8">
           <Reveal className="flex flex-col gap-5">
             <h2 className="t-article-heading">Problem</h2>
             <p className="t-article-body max-w-[650px]">
@@ -238,7 +288,7 @@ export default function OzonAiCase() {
         </section>
 
         {/* Discovery */}
-        <section className="flex flex-col gap-8">
+        <section id="discovery" className="scroll-mt-24 flex flex-col gap-8">
           <Reveal className="flex flex-col gap-5">
             <h2 className="t-article-heading">Discovery</h2>
             <p className="t-article-body max-w-[650px]">
@@ -300,7 +350,7 @@ export default function OzonAiCase() {
         </section>
 
         {/* Early concepts */}
-        <section className="flex flex-col gap-8">
+        <section id="early-concepts" className="scroll-mt-24 flex flex-col gap-8">
           <Reveal className="flex flex-col gap-5">
             <h2 className="t-article-heading">Early concepts</h2>
             <h3 className="t-article-sub">Current user experience</h3>
@@ -343,7 +393,7 @@ export default function OzonAiCase() {
         </section>
 
         {/* Main flows */}
-        <section className="flex flex-col gap-8">
+        <section id="main-flows" className="scroll-mt-24 flex flex-col gap-8">
           <Reveal className="flex flex-col gap-5">
             <h2 className="t-article-heading">Main flows</h2>
             <p className="t-article-body max-w-[650px]">
@@ -369,7 +419,7 @@ export default function OzonAiCase() {
         </section>
 
         {/* High fidelity designs */}
-        <section className="flex flex-col gap-8">
+        <section id="high-fidelity" className="scroll-mt-24 flex flex-col gap-8">
           <Reveal className="flex flex-col gap-5">
             <h2 className="t-article-heading">High fidelity designs</h2>
             <p className="t-article-body max-w-[650px]">
@@ -393,7 +443,7 @@ export default function OzonAiCase() {
         </section>
 
         {/* Test */}
-        <section className="flex flex-col gap-8">
+        <section id="test" className="scroll-mt-24 flex flex-col gap-8">
           <Reveal className="flex flex-col gap-5">
             <h2 className="t-article-heading">Test</h2>
             <p className="t-article-body max-w-[650px]">
@@ -413,7 +463,7 @@ export default function OzonAiCase() {
         </section>
 
         {/* A/B test & launch */}
-        <section className="flex flex-col gap-8">
+        <section id="launch" className="scroll-mt-24 flex flex-col gap-8">
           <Reveal className="flex flex-col gap-5">
             <h2 className="t-article-heading">A/B test &amp; launch</h2>
             <p className="t-article-body max-w-[650px]">
@@ -492,7 +542,7 @@ export default function OzonAiCase() {
         </section>
 
         {/* Impact */}
-        <section className="flex flex-col gap-8">
+        <section id="impact" className="scroll-mt-24 flex flex-col gap-8">
           <Reveal className="flex flex-col gap-5">
             <h2 className="t-article-heading">Impact</h2>
             <p className="t-article-body max-w-[650px]">
