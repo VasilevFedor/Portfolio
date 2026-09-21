@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const TZ = "Europe/Moscow"; // St. Petersburg shares Moscow time
+const TZ = "Asia/Tbilisi";
 
 function format() {
   return new Intl.DateTimeFormat("en-US", {
@@ -24,7 +24,7 @@ export default function LocalTime() {
 
   return (
     <span className="tabular-nums">
-      {time ?? "—"} in St. Petersburg
+      {time ?? "—"} in Georgia
     </span>
   );
 }
