@@ -7,13 +7,14 @@ import CaseViewTracker from "../components/CaseViewTracker";
 import CaseContents, { type CaseContentsItem } from "../components/CaseContents";
 
 export const metadata: Metadata = {
-  title: "Elastic boosting — Fedor Vasiliev",
+  title: "Search boosting — Fedor Vasiliev",
   description: "Increased items sold by 40% and Ozon's total GMV by 1.6%",
 };
 
 /* ── Media host ──────────────────────────────────────────────────────────── */
 const IMG = "https://framerusercontent.com/images";
 const ASSET = "https://framerusercontent.com/assets";
+const CASE_IMG = "https://videos-for-portfolio.b-cdn.net/Search%20boosting";
 
 /* ── Content (mirrors the published Framer /search-boosting 1:1) ─────────── */
 
@@ -37,19 +38,19 @@ const concepts: {
     n: "Concept 1",
     body: "I combined three promotions with boosting into one so that users could participate in a single promotion and have the opportunity to set a wide range of discounts",
     images: [
-      { src: `${IMG}/0iKMEMtGHxB4uM7pSy85nyB8wk.png`, ratio: "800 / 696" },
-      { src: `${IMG}/fXN0Td8pTPoSz70pSZ11Kl89Ils.png`, ratio: "800 / 528" },
+      { src: `${CASE_IMG}/Concept%201.1.png`, ratio: "2400 / 1983" },
+      { src: `${CASE_IMG}/Concept%201.2.png`, ratio: "2400 / 1578" },
     ],
   },
   {
     n: "Concept 2",
     body: "When adding products to a promotion, I added a column showing the boost level. Clicking on it allows you to flexibly adjust the discount",
-    images: [{ src: `${IMG}/lGGYsfPG3YZxlL9tI8rHjhQF4.png` }],
+    images: [{ src: `${CASE_IMG}/Concept%204.png` }],
   },
   {
     n: "Concept 3",
     body: "I added a scale that changes depending on the discount level. The higher the discount, the greater the boost",
-    images: [{ src: `${IMG}/x1OK7lJT0OdaM8kVn84qraQQAI.png` }],
+    images: [{ src: `${CASE_IMG}/Concept%205.png` }],
   },
 ];
 
@@ -117,7 +118,7 @@ export default function SearchBoostingCase() {
 
         {/* Hero heading */}
         <header className="rise flex flex-col gap-1">
-          <h1 className="t-article-title">Elastic boosting</h1>
+          <h1 className="t-article-title">Search boosting</h1>
           <p className="t-article-body max-w-[600px]">
             Increased items sold by 40% and Ozon&apos;s total GMV by 1.6%
           </p>
@@ -158,7 +159,7 @@ export default function SearchBoostingCase() {
           </Reveal>
           <Reveal>
             <CaseImage
-              src={`${IMG}/jycqoJtBPn3eviGsFtqHUayCJOc.png`}
+              src={`${CASE_IMG}/Current%20experience.png`}
               alt="Three near-identical promotions differing only by the discount they require"
               ratio="800 / 400"
             />
@@ -177,10 +178,9 @@ export default function SearchBoostingCase() {
           </Reveal>
           <Reveal>
             <CaseImage
-              src={`${IMG}/syIcaUJaFPKRo088DiO86szp8pY.png`}
+              src={`${CASE_IMG}/Analytics.png`}
               alt="Analytics on seller participation across the discount tiers"
-              ratio="800 / 351"
-              bordered={false}
+              ratio="2 / 1"
             />
           </Reveal>
 
@@ -255,16 +255,10 @@ export default function SearchBoostingCase() {
             </p>
           </Reveal>
           <Reveal>
-            <div className="rounded-[32px] border border-border-subtle p-8">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={`${IMG}/Jl7xyCahkdZ8uIJfnjpdCHtqCY.png`}
-                alt="Prototypes prepared for usability testing"
-                className="w-full rounded-2xl object-cover"
-                style={{ aspectRatio: "737 / 253" }}
-                loading="lazy"
-              />
-            </div>
+            <CaseImage
+              src={`${IMG}/Jl7xyCahkdZ8uIJfnjpdCHtqCY.png`}
+              alt="Prototypes prepared for usability testing"
+            />
           </Reveal>
         </section>
 
@@ -353,12 +347,10 @@ function CaseImage({
   src,
   alt,
   ratio,
-  bordered = true,
 }: {
   src: string;
   alt: string;
   ratio?: string;
-  bordered?: boolean;
 }) {
   return (
     /* eslint-disable-next-line @next/next/no-img-element */
@@ -367,9 +359,7 @@ function CaseImage({
       alt={alt}
       loading="lazy"
       style={ratio ? { aspectRatio: ratio } : undefined}
-      className={`w-full rounded-[32px] ${
-        ratio ? "object-cover" : "h-auto"
-      } ${bordered ? "border border-border-subtle" : ""}`}
+      className={`w-full rounded-[32px] ${ratio ? "object-cover" : "h-auto"}`}
     />
   );
 }

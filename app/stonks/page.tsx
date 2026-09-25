@@ -118,7 +118,7 @@ export default function StonksCase() {
                     playsInline
                     preload="auto"
                     aria-hidden="true"
-                    className="h-[468px] w-full rounded-[32px] object-cover"
+                    className="h-[468px] w-full rounded-[32px] border border-border-subtle object-cover"
                   />
                   <figcaption className="flex flex-col gap-1">
                     <span className="t-article-body">{f.label}</span>

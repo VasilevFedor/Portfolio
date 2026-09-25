@@ -31,8 +31,8 @@ export default function Intro({ children }: { children: React.ReactNode }) {
       "(prefers-reduced-motion: reduce)",
     ).matches;
     if (reduce) {
-      setPhase("done");
-      return;
+      const reducedMotionRaf = requestAnimationFrame(() => setPhase("done"));
+      return () => cancelAnimationFrame(reducedMotionRaf);
     }
 
     let raf = 0;

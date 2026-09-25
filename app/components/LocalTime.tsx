@@ -17,9 +17,12 @@ export default function LocalTime() {
   const [time, setTime] = useState<string | null>(null);
 
   useEffect(() => {
-    setTime(format());
+    const raf = requestAnimationFrame(() => setTime(format()));
     const id = setInterval(() => setTime(format()), 30_000);
-    return () => clearInterval(id);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearInterval(id);
+    };
   }, []);
 
   return (

@@ -73,7 +73,7 @@ function Card({
 }) {
   return (
     <span
-      className={`flex flex-col items-start rounded-[32px] bg-card p-6 text-left shadow-[0_24px_60px_-24px_rgba(20,20,22,0.35)] ${
+      className={`flex flex-col items-start rounded-[32px] bg-background p-6 text-left shadow-[0_24px_60px_-24px_rgba(20,20,22,0.35)] ${
         gap ? "gap-6" : ""
       }`}
       style={{ width }}

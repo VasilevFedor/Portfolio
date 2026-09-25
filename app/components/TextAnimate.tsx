@@ -9,7 +9,7 @@ import {
   isValidElement,
   useContext,
   useLayoutEffect,
-  useState,
+  useSyncExternalStore,
   type ComponentPropsWithoutRef,
   type ElementType,
   type ReactNode,
@@ -19,17 +19,30 @@ const AnimateOnceContext = createContext(true);
 let hasAnimatedHero = false;
 const HERO_ANIMATION_STORAGE_KEY = "portfolio:hero-text-animated";
 
-export function TextAnimateOnce({ children }: { children: ReactNode }) {
-  const [shouldAnimate] = useState(() => {
-    if (typeof window === "undefined") return true;
-    if (hasAnimatedHero) return false;
+function subscribeToHeroAnimation() {
+  return () => undefined;
+}
 
-    try {
-      return !window.sessionStorage.getItem(HERO_ANIMATION_STORAGE_KEY);
-    } catch {
-      return true;
-    }
-  });
+function getHeroAnimationSnapshot() {
+  if (hasAnimatedHero) return false;
+
+  try {
+    return !window.sessionStorage.getItem(HERO_ANIMATION_STORAGE_KEY);
+  } catch {
+    return true;
+  }
+}
+
+function getHeroAnimationServerSnapshot() {
+  return true;
+}
+
+export function TextAnimateOnce({ children }: { children: ReactNode }) {
+  const shouldAnimate = useSyncExternalStore(
+    subscribeToHeroAnimation,
+    getHeroAnimationSnapshot,
+    getHeroAnimationServerSnapshot,
+  );
 
   useLayoutEffect(() => {
     hasAnimatedHero = true;

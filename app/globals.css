@@ -3,9 +3,9 @@
 /* Light theme only. Colour tokens — single source of truth. */
 :root {
   color-scheme: light;
-  --background: rgb(242, 242, 242); /* page background */
+  --background: rgb(255, 255, 255); /* page background */
   --border: rgb(214, 214, 218); /* hairlines, dividers */
-  --card: rgb(255, 255, 255); /* surface / cards */
+  --card: rgb(242, 242, 242); /* surface / cards */
   --body: rgb(48, 48, 52); /* Text Body — paragraphs */
   --muted: rgb(110, 110, 115); /* Text Muted — secondary */
   --foreground: rgb(20, 20, 22); /* Text Strong — headings, accents */
@@ -310,16 +310,13 @@ html {
 }
 
 /* Subtle hover lift for case-study cards. Decorative, so hover-capable devices
-   only; no movement under reduced motion. Only transform + box-shadow animate. */
+   only; no movement under reduced motion. */
 @media (hover: hover) and (pointer: fine) {
   .lift-card {
-    transition:
-      transform 0.2s var(--ease-out-strong),
-      box-shadow 0.2s var(--ease-out-strong);
+    transition: transform 0.2s var(--ease-out-strong);
   }
   .lift-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px color-mix(in srgb, var(--foreground) 8%, transparent);
   }
 }
 

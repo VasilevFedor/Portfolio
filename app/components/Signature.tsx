@@ -17,8 +17,8 @@ export default function Signature({ className = "" }: { className?: string }) {
     const el = ref.current;
     if (!el) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setShown(true);
-      return;
+      const reducedMotionRaf = requestAnimationFrame(() => setShown(true));
+      return () => cancelAnimationFrame(reducedMotionRaf);
     }
 
     let done = false;

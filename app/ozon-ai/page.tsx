@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 /* ── Media hosts ─────────────────────────────────────────────────────────── */
 const VID = "https://videos-for-portfolio.b-cdn.net";
-const IMG = "https://framerusercontent.com/images";
+const CASE_IMG = `${VID}/Ozon%20AI%20case`;
 
 /* ── Content (mirrors the Framer /ozon-ai source 1:1) ────────────────────── */
 
@@ -56,36 +56,31 @@ const principles = [
   },
 ];
 
-// Each source PNG frames its glyph with a different amount of empty margin, so
-// object-contain alone makes them look wildly different sizes. `fill` is the
-// measured fraction of the canvas the actual glyph occupies (max side ÷ canvas);
-// we scale each logo by TARGET_FILL / fill so every glyph lands at ~the same
-// visual size regardless of its source padding.
-const TARGET_FILL = 0.8;
 const competitors = [
-  { name: "Shopify", src: "/img/ozon-ai/Shopify.png", fill: 0.504 },
-  { name: "Gemini", src: `${IMG}/feVeBFe8p1Z1cCtHXRcanC2bBU.png`, fill: 0.661 },
-  { name: "GPT", src: `${IMG}/s9ga6o9gEApEu7UG9Yi9uhO8rWY.png`, fill: 0.9 },
-  { name: "Alice AI", src: `${IMG}/rvTODm2Xqd3uas68oFjmlcfc.png`, fill: 1 },
-  { name: "Whoop", src: `${IMG}/podhaFy3hix1UlO6tjMkibkoBlk.png`, fill: 0.966 },
+  { name: "Claude", src: "/img/ozon-ai/competitors/claude.svg" },
+  { name: "DeepSeek", src: "/img/ozon-ai/competitors/deepseek.svg" },
+  { name: "Gemini", src: "/img/ozon-ai/competitors/gemini.svg" },
+  { name: "Alice AI", src: "/img/ozon-ai/competitors/alice.svg" },
+  { name: "ChatGPT", src: "/img/ozon-ai/competitors/chatgpt.svg" },
+  { name: "Shopify", src: "/img/ozon-ai/competitors/shopify.svg" },
 ];
 
 const concepts = [
   {
     n: "Concept 1",
-    src: `${IMG}/5BDF4xzyCC1S06hdhVOb315HM.png`,
+    src: `${CASE_IMG}/Concept%201.png`,
     caption:
       "Combining the knowledge base and the AI assistant into a single driver. To ensure users retain access to the tool they're familiar with",
   },
   {
     n: "Concept 2",
-    src: `${IMG}/kP8eZl1TOEMw1gujpdqE8ziCkM.png`,
+    src: `${CASE_IMG}/Concept%202.png`,
     caption:
       "This is the same combination of two tools, but in this version we place more emphasis on the AI assistant",
   },
   {
     n: "Concept 3",
-    src: `${IMG}/GlALL4rnbS4lw5G82MHl9iUEjU.png`,
+    src: `${CASE_IMG}/Concept%203.png`,
     caption:
       "The most familiar type of AI assistant. We're integrating all the knowledge base and onboarding features directly into it",
   },
@@ -325,7 +320,7 @@ export default function OzonAiCase() {
               identical copies; the track slides left by exactly one copy
               (-50%). Spacing lives on each tile's margin-right (not flex gap)
               so -50% lands tile-on-tile — no seam, no right-hand void. One copy
-              (5 tiles × 202px = 1010px) is wider than the card, so the same
+              (6 tiles × 202px = 1212px) is wider than the card, so the same
               logo never appears twice at once. */}
           <Reveal>
             <div className="flex h-72 items-center overflow-hidden rounded-[32px] bg-card">
@@ -340,7 +335,6 @@ export default function OzonAiCase() {
                       src={c.src}
                       alt={c.name}
                       className="size-20 object-contain"
-                      style={{ transform: `scale(${TARGET_FILL / c.fill})` }}
                     />
                   </div>
                 ))}
@@ -379,7 +373,7 @@ export default function OzonAiCase() {
                 <img
                   src={c.src}
                   alt={c.n}
-                  className="w-full rounded-[32px] border border-border-subtle"
+                  className="w-full rounded-[32px]"
                 />
                 <figcaption className="flex flex-col gap-1">
                   <span className="t-article-body">{c.n}</span>
@@ -409,9 +403,9 @@ export default function OzonAiCase() {
             <figure className="flex flex-col items-center gap-2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={`${IMG}/F7EaTBoqMzEL90Q6nyxDslbh8UI.png`}
+                src={`${CASE_IMG}/Research-1.png`}
                 alt="The full flow map for the AI assistant"
-                className="w-full rounded-[32px] border border-border-subtle"
+                className="w-full rounded-[32px]"
               />
               <figcaption className="t-hand">Quite a lot of flows</figcaption>
             </figure>
@@ -455,9 +449,9 @@ export default function OzonAiCase() {
           <Reveal>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={`${IMG}/TnN1WoshPGwVTEFIOrPuA7cHmrs.png`}
+              src={`${CASE_IMG}/Research.png`}
               alt="Research guide and the usability-test flow map"
-              className="w-full rounded-[32px] border border-border-subtle"
+              className="w-full rounded-[32px]"
             />
           </Reveal>
         </section>
@@ -489,7 +483,7 @@ export default function OzonAiCase() {
           <Reveal>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={`${IMG}/PLezlxv6OkH9FFsJyYJxqd6VFPk.png`}
+              src={`${CASE_IMG}/AI%20bubble%20fail.png`}
               alt="The proactive bubble on the dashboard converted at only 1.5%"
               className="w-full rounded-3xl"
             />
@@ -509,9 +503,9 @@ export default function OzonAiCase() {
           <Reveal>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={`${IMG}/1xplFRacVNYbXdWZR32yaexJJA.png`}
+              src={`${CASE_IMG}/Header%20and%20floating%20button.png`}
               alt="The two entry points compared — the header slot and the floating button"
-              className="w-full rounded-[32px] border border-border-subtle"
+              className="w-full rounded-[32px]"
             />
           </Reveal>
 

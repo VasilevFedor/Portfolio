@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Senior product designer with 5+ years of experience. Currently at Ozon, co-founder of Stonks.",
     start_url: "/",
     display: "standalone",
-    background_color: "#f2f2f2",
-    theme_color: "#f2f2f2",
+    background_color: "#ffffff",
+    theme_color: "#ffffff",
     icons: [
       {
         src: "/icons/icon-192.png",

@@ -59,7 +59,7 @@ function Hero() {
           </div>
         </div>
 
-        {/* Bio — 650px wide, three paragraphs. Emphasis = foreground colour
+        {/* Bio — 550px wide, three paragraphs. Emphasis = foreground colour
             (not bold), matching the Framer source. */}
         <TextAnimate
           animation="blurInUp"
@@ -69,7 +69,7 @@ function Hero() {
           delay={0.16}
           duration={0.45}
           stagger={0.003}
-          className="max-w-[650px] space-y-4"
+          className="max-w-[550px] space-y-4"
         >
           <p className="t-body-muted">
             Hi! I currently work at{" "}
@@ -120,7 +120,7 @@ function Hero() {
           once
           delay={1.1}
           duration={0.45}
-          className="t-sub"
+          className="t-body-muted"
         >
           <LocalTime />
         </TextAnimate>
