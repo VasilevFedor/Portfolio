@@ -52,10 +52,16 @@ void main() {
   vec2 sampleUv = coverUv(uv);
   vec4 centre = texture(uTexture, sampleUv);
   float effect = smoothstep(0.0003, 0.012, vEdge);
-  float aberration = 0.02 * effect * (0.4 + vEdge);
-  float red = texture(uTexture, coverUv(uv + vec2(0.0, aberration))).r;
-  float blue = texture(uTexture, coverUv(uv - vec2(0.0, aberration))).b;
-  vec3 colour = mix(centre.rgb, vec3(red, centre.g, blue), effect);
+  vec3 colour = centre.rgb;
+
+  // Most pixels sit outside the lens edge. Avoid two redundant texture reads
+  // there; the branch is coherent across neighbouring fragments.
+  if (effect > 0.001) {
+    float aberration = 0.02 * effect * (0.4 + vEdge);
+    float red = texture(uTexture, coverUv(uv + vec2(0.0, aberration))).r;
+    float blue = texture(uTexture, coverUv(uv - vec2(0.0, aberration))).b;
+    colour = mix(centre.rgb, vec3(red, centre.g, blue), effect);
+  }
 
   outColor = vec4(colour, centre.a);
 }`;
@@ -185,7 +191,7 @@ export default function FanCarousel({
 
     const gl = canvas.getContext("webgl2", {
       alpha: true,
-      antialias: true,
+      antialias: false,
       premultipliedAlpha: false,
     });
     if (!gl) return;
@@ -210,8 +216,10 @@ export default function FanCarousel({
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
-    let textures: Awaited<ReturnType<typeof loadTexture>>[] = [];
+    type LoadedTexture = Awaited<ReturnType<typeof loadTexture>>;
+    const textures: (LoadedTexture | undefined)[] = new Array(photos.length);
     let frame = 0;
+    let backgroundLoadTimer = 0;
     let previousTime = performance.now();
     let stageWidth = 0;
     let stageHeight = 0;
@@ -230,7 +238,7 @@ export default function FanCarousel({
 
     const render = (time: number) => {
       frame = 0;
-      if (disposed || textures.length !== photos.length) return;
+      if (disposed) return;
 
       const delta = Math.min((time - previousTime) / 1000, 0.035);
       previousTime = time;
@@ -257,7 +265,8 @@ export default function FanCarousel({
         }
       }
 
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dprCap = stageWidth < 640 ? 1.5 : 2;
+      const dpr = Math.min(window.devicePixelRatio || 1, dprCap);
       const width = Math.round(stageWidth * dpr);
       const height = Math.round(renderHeight * dpr);
       if (canvas.width !== width || canvas.height !== height) {
@@ -278,6 +287,7 @@ export default function FanCarousel({
         x = ((((x + step) % totalWidth) + totalWidth) % totalWidth) - step;
 
         const photo = textures[index];
+        if (!photo) continue;
         const imageAspect = photo.width / photo.height;
         const cardAspect = cardWidth / cardHeight;
         const scaleX = imageAspect > cardAspect ? cardAspect / imageAspect : 1;
@@ -400,15 +410,41 @@ export default function FanCarousel({
     stage.addEventListener("pointercancel", finishDrag);
     stage.addEventListener("keydown", onKeyDown);
 
-    Promise.all(photos.map((photo) => loadTexture(gl, photo.src)))
+    const loadAt = async (index: number) => {
+      const loaded = await loadTexture(gl, photos[index].src);
+      if (disposed) {
+        gl.deleteTexture(loaded.texture);
+        return false;
+      }
+      textures[index] = loaded;
+      return true;
+    };
+
+    const priorityIndices = Array.from(
+      new Set(
+        [-2, -1, 0, 1, 2].map(
+          (delta) => (initial + delta + photos.length) % photos.length,
+        ),
+      ),
+    );
+    const backgroundIndices = photos
+      .map((_, index) => index)
+      .filter((index) => !priorityIndices.includes(index));
+
+    Promise.all(priorityIndices.map(loadAt))
       .then((loaded) => {
-        if (disposed) {
-          loaded.forEach((photo) => gl.deleteTexture(photo.texture));
-          return;
-        }
-        textures = loaded;
+        if (disposed || loaded.some((ready) => !ready)) return;
         stage.dataset.webgl = "ready";
         resize();
+
+        // Let the first WebGL frame paint before decoding the off-screen cards.
+        backgroundLoadTimer = window.setTimeout(() => {
+          void Promise.all(backgroundIndices.map(loadAt))
+            .then(() => requestRender())
+            .catch(() => {
+              delete stage.dataset.webgl;
+            });
+        }, 200);
       })
       .catch(() => {
         delete stage.dataset.webgl;
@@ -417,6 +453,7 @@ export default function FanCarousel({
     return () => {
       disposed = true;
       cancelAnimationFrame(frame);
+      window.clearTimeout(backgroundLoadTimer);
       observer.disconnect();
       stage.removeEventListener("wheel", onWheel);
       stage.removeEventListener("pointerdown", onPointerDown);
@@ -424,7 +461,9 @@ export default function FanCarousel({
       stage.removeEventListener("pointerup", finishDrag);
       stage.removeEventListener("pointercancel", finishDrag);
       stage.removeEventListener("keydown", onKeyDown);
-      textures.forEach((photo) => gl.deleteTexture(photo.texture));
+      textures.forEach((photo) => {
+        if (photo) gl.deleteTexture(photo.texture);
+      });
       gl.deleteBuffer(mesh.buffer);
       gl.deleteProgram(program);
     };
@@ -445,9 +484,23 @@ export default function FanCarousel({
       />
 
       <div className="lens-carousel__fallback" aria-hidden="true">
-        {photos.map((photo) => (
+        {photos.map((photo, index) => (
           // eslint-disable-next-line @next/next/no-img-element
-          <img key={photo.src} src={photo.src} alt="" draggable={false} />
+          <img
+            key={photo.src}
+            src={photo.src}
+            alt=""
+            loading={
+              Math.min(
+                Math.abs(index - initial),
+                photos.length - Math.abs(index - initial),
+              ) <= 2
+                ? "eager"
+                : "lazy"
+            }
+            decoding="async"
+            draggable={false}
+          />
         ))}
       </div>
 

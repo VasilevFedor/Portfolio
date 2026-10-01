@@ -1,7 +1,7 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
 
 export interface VinylAlbumCardProps {
   title?: string;
@@ -22,7 +22,6 @@ export default function VinylAlbumCard({
 }: VinylAlbumCardProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const reduceMotion = useReducedMotion();
 
   const togglePlayback = () => {
     const audio = audioRef.current;
@@ -51,7 +50,10 @@ export default function VinylAlbumCard({
   );
 
   return (
-    <div className="relative h-10 w-full max-w-[420px] lg:h-[188px] lg:w-[180px]">
+    <div
+      className="vinyl-card relative h-10 w-full max-w-[420px] lg:h-[188px] lg:w-[180px]"
+      data-playing={isPlaying}
+    >
       <button
         type="button"
         className="group relative flex size-full select-none flex-row items-center text-left lg:flex-col lg:items-start"
@@ -61,15 +63,7 @@ export default function VinylAlbumCard({
       >
         <div className="relative z-10 flex h-[35px] w-[55px] shrink-0 items-center justify-start lg:size-32 lg:justify-center">
           <div className="absolute translate-x-[20px] lg:translate-x-[52px]">
-            <motion.div
-              className="relative flex size-[35px] items-center justify-center overflow-hidden rounded-full border border-neutral-800 bg-black lg:size-32"
-              animate={{ rotate: isPlaying && !reduceMotion ? 360 : 0 }}
-              transition={
-                isPlaying && !reduceMotion
-                  ? { duration: 2.4, ease: "linear", repeat: Infinity }
-                  : { duration: 0.35 }
-              }
-            >
+            <div className="vinyl-record relative flex size-[35px] items-center justify-center overflow-hidden rounded-full border border-neutral-800 bg-black lg:size-32">
               {[1, 2, 4, 6, 8, 10, 12, 16].map((inset) => (
                 <span
                   key={inset}
@@ -79,10 +73,11 @@ export default function VinylAlbumCard({
               ))}
 
               <div className="relative flex size-3 items-center justify-center overflow-hidden rounded-full bg-white lg:size-11">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={coverImage}
                   alt=""
+                  fill
+                  sizes="(min-width: 1024px) 44px, 12px"
                   className="absolute inset-0 size-full scale-105 object-cover"
                   draggable={false}
                 />
@@ -90,24 +85,19 @@ export default function VinylAlbumCard({
               </div>
 
               <span className="pointer-events-none absolute inset-0 rotate-45 bg-gradient-to-tr from-transparent via-white/10 to-transparent mix-blend-overlay" />
-            </motion.div>
+            </div>
           </div>
 
-          <motion.div
-            className="absolute z-20 size-[35px] overflow-hidden rounded-sm lg:size-32 lg:rounded-lg"
-            initial={false}
-            animate={{ rotate: -4, x: -8 }}
-            whileHover={{ rotate: -5, scale: 0.98, x: -10 }}
-            transition={{ type: "spring", stiffness: 150, damping: 20 }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+          <div className="vinyl-cover absolute z-20 size-[35px] overflow-hidden rounded-sm lg:size-32 lg:rounded-lg">
+            <Image
               src={coverImage}
               alt={`${title} cover`}
+              fill
+              sizes="(min-width: 1024px) 128px, 35px"
               className="absolute inset-0 size-full scale-105 object-cover"
               draggable={false}
             />
-          </motion.div>
+          </div>
 
           <span className="pointer-events-none relative z-30 hidden size-9 place-items-center rounded-full bg-white/90 text-foreground shadow-sm backdrop-blur-sm lg:grid">
             {playbackIcon}

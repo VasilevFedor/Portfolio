@@ -12,14 +12,14 @@ export const metadata: Metadata = {
 // Personal photos from the Framer /about page. Order interleaves travel shots
 // with photos of Fedor so the initially centred frame is him.
 const photos: FanPhoto[] = [
-  { src: "/img/about/01.jpg", alt: "Grand Palace temples in Bangkok" },
-  { src: "/img/about/03.jpg", alt: "A monk looking out over the city" },
-  { src: "/img/about/07.jpg", alt: "Turquoise beach lagoon in Thailand" },
-  { src: "/img/about/02.jpg", alt: "Fedor with a bicycle by the sea" },
-  { src: "/img/about/06.jpg", alt: "Fedor on the beach at sunset" },
-  { src: "/img/about/04.jpg", alt: "Wat Arun temple stairs" },
-  { src: "/img/about/05.jpg", alt: "On a boat with friends" },
-  { src: "/img/about/08.jpg", alt: "Walking through a resort" },
+  { src: "/img/about/01.webp", alt: "Grand Palace temples in Bangkok" },
+  { src: "/img/about/03.webp", alt: "A monk looking out over the city" },
+  { src: "/img/about/07.webp", alt: "Turquoise beach lagoon in Thailand" },
+  { src: "/img/about/02.webp", alt: "Fedor with a bicycle by the sea" },
+  { src: "/img/about/06.webp", alt: "Fedor on the beach at sunset" },
+  { src: "/img/about/04.webp", alt: "Wat Arun temple stairs" },
+  { src: "/img/about/05.webp", alt: "On a boat with friends" },
+  { src: "/img/about/08.webp", alt: "Walking through a resort" },
 ];
 
 export default function About() {

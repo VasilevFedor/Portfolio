@@ -333,6 +333,43 @@ html {
   }
 }
 
+/* The About player only needs two transforms; CSS keeps them out of the
+   client animation runtime while preserving the same interaction. */
+@keyframes vinyl-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.vinyl-record {
+  transform: rotate(0deg);
+}
+
+.vinyl-card[data-playing="true"] .vinyl-record {
+  animation: vinyl-spin 2.4s linear infinite;
+}
+
+.vinyl-cover {
+  transform: translateX(-8px) rotate(-4deg);
+  transition: transform 0.35s var(--ease-out-strong);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .vinyl-cover:hover {
+    transform: translateX(-10px) rotate(-5deg) scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vinyl-card[data-playing="true"] .vinyl-record {
+    animation: none;
+  }
+
+  .vinyl-cover {
+    transition: none;
+  }
+}
+
 /* Scroll reveal: hidden until observed, then eased in. Only transform +
    opacity (GPU-friendly). Interruptible CSS transition, not keyframes. */
 .reveal {
