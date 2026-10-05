@@ -68,19 +68,19 @@ const competitors = [
 const concepts = [
   {
     n: "Concept 1",
-    src: `${CASE_IMG}/Concept%201.png`,
+    src: `${CASE_IMG}/Concept%201%20new.png`,
     caption:
       "Combining the knowledge base and the AI assistant into a single driver. To ensure users retain access to the tool they're familiar with",
   },
   {
     n: "Concept 2",
-    src: `${CASE_IMG}/Concept%202.png`,
+    src: `${CASE_IMG}/Concept%202%20new.png`,
     caption:
       "This is the same combination of two tools, but in this version we place more emphasis on the AI assistant",
   },
   {
     n: "Concept 3",
-    src: `${CASE_IMG}/Concept%203.png`,
+    src: `${CASE_IMG}/Concept%203%20new.png`,
     caption:
       "The most familiar type of AI assistant. We're integrating all the knowledge base and onboarding features directly into it",
   },
@@ -503,7 +503,7 @@ export default function OzonAiCase() {
           <Reveal>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={`${CASE_IMG}/Header%20and%20floating%20button.png`}
+              src={`${CASE_IMG}/Header%20and%20floating%20button%20new.png`}
               alt="The two entry points compared — the header slot and the floating button"
               className="w-full rounded-[32px]"
             />
