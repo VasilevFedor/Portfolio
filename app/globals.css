@@ -744,8 +744,15 @@ html {
 .lens-carousel[data-dragging="true"] {
   cursor: grabbing;
 }
+.lens-carousel__viewport {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+}
 .lens-carousel__canvas {
   position: absolute;
+  top: 0;
   left: 0;
   display: none;
   width: 100%;

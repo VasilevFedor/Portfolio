@@ -24,9 +24,10 @@ const photos: FanPhoto[] = [
 
 export default function About() {
   return (
-    // Keep About locked to one viewport: the WebGL rail still bleeds past the
-    // centred column, but the page can no longer stop at an awkward Y offset.
-    <div className="fixed inset-0 mx-auto flex h-screen w-full max-w-[900px] flex-col px-6">
+    // Mobile stays in normal document flow: the biography scrolls vertically
+    // before the user reaches the horizontally draggable photo rail. Larger
+    // screens keep the original one-viewport composition.
+    <div className="relative mx-auto flex min-h-dvh w-full max-w-[900px] flex-col px-6 sm:fixed sm:inset-0 sm:h-screen sm:min-h-0">
       <div className="about-load">
         <SiteHeader />
       </div>

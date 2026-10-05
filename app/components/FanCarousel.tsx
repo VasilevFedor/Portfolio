@@ -179,12 +179,14 @@ export default function FanCarousel({
   initial?: number;
 }) {
   const stageRef = useRef<HTMLDivElement>(null);
+  const canvasViewportRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const stage = stageRef.current;
+    const canvasViewport = canvasViewportRef.current;
     const canvas = canvasRef.current;
-    if (!stage || !canvas || photos.length === 0) return;
+    if (!stage || !canvasViewport || !canvas || photos.length === 0) return;
 
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (media.matches) return;
@@ -342,7 +344,13 @@ export default function FanCarousel({
       gap = Math.max(10, Math.min(18, stageWidth * 0.015));
       overscan = Math.ceil(cardHeight * 0.36);
       renderHeight = stageHeight + overscan * 2;
-      canvas.style.top = `${-overscan}px`;
+      canvasViewport.style.top = `${-overscan}px`;
+      canvasViewport.style.height = `${
+        stageWidth < 640
+          ? overscan + stageHeight - (stageHeight - cardHeight) / 2
+          : renderHeight
+      }px`;
+      canvasViewport.style.overflow = stageWidth < 640 ? "clip" : "visible";
       canvas.style.height = `${renderHeight}px`;
       offset = stageWidth / 2 - initial * (cardWidth + gap) - cardWidth / 2;
       requestRender();
@@ -477,11 +485,13 @@ export default function FanCarousel({
       aria-label="Photos"
       tabIndex={0}
     >
-      <canvas
-        ref={canvasRef}
-        className="lens-carousel__canvas"
+      <div
+        ref={canvasViewportRef}
+        className="lens-carousel__viewport"
         aria-hidden="true"
-      />
+      >
+        <canvas ref={canvasRef} className="lens-carousel__canvas" />
+      </div>
 
       <div className="lens-carousel__fallback" aria-hidden="true">
         {photos.map((photo, index) => (
