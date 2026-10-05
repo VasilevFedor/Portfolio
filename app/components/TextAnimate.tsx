@@ -1,6 +1,5 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
 import {
   Children,
   createContext,
@@ -9,7 +8,7 @@ import {
   isValidElement,
   useContext,
   useLayoutEffect,
-  useSyncExternalStore,
+  useState,
   type ComponentPropsWithoutRef,
   type ElementType,
   type ReactNode,
@@ -19,32 +18,22 @@ const AnimateOnceContext = createContext(true);
 let hasAnimatedHero = false;
 const HERO_ANIMATION_STORAGE_KEY = "portfolio:hero-text-animated";
 
-function subscribeToHeroAnimation() {
-  return () => undefined;
-}
-
-function getHeroAnimationSnapshot() {
-  if (hasAnimatedHero) return false;
-
-  try {
-    return !window.sessionStorage.getItem(HERO_ANIMATION_STORAGE_KEY);
-  } catch {
-    return true;
-  }
-}
-
-function getHeroAnimationServerSnapshot() {
-  return true;
-}
-
 export function TextAnimateOnce({ children }: { children: ReactNode }) {
-  const shouldAnimate = useSyncExternalStore(
-    subscribeToHeroAnimation,
-    getHeroAnimationSnapshot,
-    getHeroAnimationServerSnapshot,
-  );
+  // Keep the server and first client render identical. If this session has
+  // already played the hero, disable it on the next frame after hydration.
+  const [shouldAnimate, setShouldAnimate] = useState(true);
 
   useLayoutEffect(() => {
+    let hasPlayed = hasAnimatedHero;
+
+    try {
+      hasPlayed ||= Boolean(
+        window.sessionStorage.getItem(HERO_ANIMATION_STORAGE_KEY),
+      );
+    } catch {
+      // The in-memory flag still covers client-side case navigation.
+    }
+
     hasAnimatedHero = true;
 
     try {
@@ -52,6 +41,11 @@ export function TextAnimateOnce({ children }: { children: ReactNode }) {
     } catch {
       // The in-memory flag still covers client-side case navigation.
     }
+
+    if (!hasPlayed) return;
+
+    const raf = requestAnimationFrame(() => setShouldAnimate(false));
+    return () => cancelAnimationFrame(raf);
   }, []);
 
   return (
@@ -83,9 +77,8 @@ export function TextAnimate({
   stagger = 0.025,
   ...props
 }: TextAnimateProps) {
-  const prefersReducedMotion = useReducedMotion();
   const shouldAnimateOnce = useContext(AnimateOnceContext);
-  const shouldAnimate = !prefersReducedMotion && (!once || shouldAnimateOnce);
+  const shouldAnimate = !once || shouldAnimateOnce;
   let segmentIndex = 0;
 
   // These props intentionally mirror the Magic UI call site used in the hero.
@@ -96,23 +89,24 @@ export function TextAnimate({
     const index = segmentIndex++;
 
     return (
-      <motion.span
-        className="inline-block"
-        initial={
-          !shouldAnimate
-            ? false
-            : { opacity: 0, y: 8, filter: "blur(6px)" }
+      <span
+        className={
+          shouldAnimate
+            ? "text-animate-segment inline-block"
+            : "inline-block"
         }
-        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        transition={{
-          delay: delay + index * stagger,
-          duration: shouldAnimate ? duration : 0,
-          ease: [0.23, 1, 0.32, 1],
-        }}
+        style={
+          shouldAnimate
+            ? {
+                animationDelay: `${delay + index * stagger}s`,
+                animationDuration: `${duration}s`,
+              }
+            : undefined
+        }
         key={key}
       >
         {content}
-      </motion.span>
+      </span>
     );
   }
 

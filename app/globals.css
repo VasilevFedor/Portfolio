@@ -171,6 +171,34 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Home hero text reveal. Each character keeps the existing stagger and upward
+   motion, while native CSS replaces hundreds of JS-driven Motion animations.
+   Opacity + transform stay on the compositor; blur is intentionally omitted. */
+.text-animate-segment {
+  animation-name: text-reveal-up;
+  animation-timing-function: var(--ease-out-strong);
+  animation-fill-mode: both;
+}
+
+@keyframes text-reveal-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-animate-segment {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* ── Browser surfaces ──────────────────────────────────────────────────────
    The parts we don't draw still carry the design: selection, focus ring, and
    scrollbar are themed from tokens instead of shipping browser defaults. */
