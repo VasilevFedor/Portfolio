@@ -8,20 +8,26 @@ import ContactPreview from "./components/ContactPreview";
 import Reveal from "./components/Reveal";
 import { TextAnimate, TextAnimateOnce } from "./components/TextAnimate";
 import { articles, projects, social } from "./data";
+import HeroSky from "./components/HeroSky";
+import FooterGarden from "./components/FooterGarden";
 
 export default function Home() {
   // 800px content column, centred. Horizontal padding only kicks in below the
   // column width so the media panels stay full-bleed to the column on desktop
   // (matching the Framer source).
   return (
-    <div className="mx-auto w-full max-w-[800px] px-6 min-[800px]:px-0">
-      <SiteHeader />
-      <main>
-        <Hero />
-        <Work />
-        <Writing />
-        <Contact />
-      </main>
+    <div className="home-page">
+      <HeroSky />
+      <div className="home-content mx-auto w-full max-w-[800px] px-6 min-[800px]:px-0">
+        <SiteHeader />
+        <main>
+          <Hero />
+          <Work />
+          <Writing />
+          <Contact />
+        </main>
+      </div>
+      <FooterGarden />
     </div>
   );
 }
@@ -215,7 +221,7 @@ function Writing() {
 
 function Contact() {
   return (
-    <section className="pt-[96px] pb-[120px]">
+    <section className="pt-[96px] pb-10">
       <div className="flex flex-col items-start gap-4">
         <Reveal as="h2" className="t-heading max-w-[600px]">
           Let&rsquo;s connect—I&rsquo;m open to new opportunities

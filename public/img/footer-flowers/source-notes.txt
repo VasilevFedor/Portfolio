@@ -1,0 +1,10 @@
+Generated with the built-in image_gen tool, transparent_background=true, 2026-11-16.
+Asset: cosmos-source.png. Used only as a sampling source for the static ASCII canvas.
+
+Visual research:
+https://www.etsy.com/listing/872984081/small-porcelain-ikebana-stem-holder
+https://www.rhs.org.uk/plants/142725/cosmos-bipinnatus-purity/details
+User supplied white flower photographs and an ASCII botanical video.
+
+Final prompt:
+Create an isolated botanical source illustration on a completely transparent background, landscape 3:2 composition, for conversion into fine ASCII art on a white portfolio website. Three extremely delicate WHITE COSMOS / white anemone flowers with pale cool blue-gray sculptural silky petals, visible fine veins and layered overlapping curled petals, detailed golden ochre pollen centers. Tallest largest bloom upper center-right facing three-quarter toward viewer; medium bloom mid-left tilted up; smaller bloom lower far right in profile. Two tiny unopened buds. Thin gracefully curved sage green stems emerge together loosely from bottom center but spread widely, very sparse small leaves, abundant negative space. Flower heads should be substantial, at least 25% image width for largest, distinct irregular natural silhouette. Airy asymmetric ikebana arrangement, photoreal botanical studio photography quality, realistic depth and petal shadows, not clipart. All flower heads fully visible, composition fills 90% canvas height and 85% width, stems reach bottom edge. No vase, no ground, no cast backdrop shadow, no text, no borders, no labels. White petals have clearly readable cool slate-gray shadows to preserve volume in character rendering. True transparent alpha everywhere outside flowers.

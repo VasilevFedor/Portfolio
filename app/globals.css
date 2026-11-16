@@ -10,6 +10,22 @@
   --muted: rgb(110, 110, 115); /* Text Muted — secondary */
   --foreground: rgb(20, 20, 22); /* Text Strong — headings, accents */
   --success: rgb(52, 168, 83); /* green "winner" check on the A/B card */
+  --sky-blue: rgb(91, 185, 221);
+  --sky-ink: rgb(39, 125, 169);
+  --sky-cloud-ink: rgb(114, 150, 165);
+  --sky-wind: rgb(16, 82, 214);
+  --sky-cloud-tile-0: rgb(255, 255, 255);
+  --sky-cloud-tile-1: rgb(245, 248, 252);
+  --sky-cloud-tile-2: rgb(235, 241, 248);
+  --sky-cloud-tile-3: rgb(223, 232, 242);
+  --sky-cloud-glyph-0: rgb(184, 206, 224);
+  --sky-cloud-glyph-1: rgb(160, 187, 211);
+  --sky-cloud-glyph-2: rgb(138, 168, 198);
+  --sky-cloud-glyph-3: rgb(116, 150, 185);
+  --flower-petal: rgb(173, 192, 204);
+  --flower-shadow: rgb(69, 105, 130);
+  --flower-stem: rgb(73, 111, 81);
+  --flower-pollen: rgb(171, 125, 48);
 }
 
 @theme inline {
@@ -20,6 +36,22 @@
   --color-card: var(--card);
   --color-border-subtle: var(--border);
   --color-success: var(--success);
+  --color-sky-blue: var(--sky-blue);
+  --color-sky-ink: var(--sky-ink);
+  --color-sky-cloud-ink: var(--sky-cloud-ink);
+  --color-sky-wind: var(--sky-wind);
+  --color-sky-cloud-tile-0: var(--sky-cloud-tile-0);
+  --color-sky-cloud-tile-1: var(--sky-cloud-tile-1);
+  --color-sky-cloud-tile-2: var(--sky-cloud-tile-2);
+  --color-sky-cloud-tile-3: var(--sky-cloud-tile-3);
+  --color-sky-cloud-glyph-0: var(--sky-cloud-glyph-0);
+  --color-sky-cloud-glyph-1: var(--sky-cloud-glyph-1);
+  --color-sky-cloud-glyph-2: var(--sky-cloud-glyph-2);
+  --color-sky-cloud-glyph-3: var(--sky-cloud-glyph-3);
+  --color-flower-petal: var(--flower-petal);
+  --color-flower-shadow: var(--flower-shadow);
+  --color-flower-stem: var(--flower-stem);
+  --color-flower-pollen: var(--flower-pollen);
   /* Body / UI face. Inter stands in for the paid Helvetica Now Display; keep
      the HND names first so a licensed self-host would take over automatically. */
   --font-sans:
@@ -169,6 +201,173 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* Homepage ASCII sky: the white reading column opens inside the landscape. */
+.home-page {
+  position: relative;
+  isolation: isolate;
+  --sky-opening: 280px;
+}
+
+.home-content {
+  position: relative;
+  isolation: isolate;
+  padding-top: var(--sky-opening);
+}
+
+.hero-sky {
+  --sky-hero: 280;
+  --sky-column: 428;
+  --sky-faint: 480;
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 auto;
+  height: 680px;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  background: var(--background);
+  mask-image: linear-gradient(var(--foreground) 36%, transparent 100%);
+}
+
+.hero-sky canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  opacity: 0;
+  transition: opacity 700ms var(--ease-out-strong);
+}
+
+.hero-sky canvas[data-ready] { opacity: 1; }
+
+.footer-flowers {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  margin: 64px auto 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.footer-flowers:focus-visible {
+  outline: 2px solid var(--flower-petal);
+  outline-offset: 8px;
+  border-radius: 16px;
+}
+
+.footer-flowers__reveal,
+.footer-flowers__sway,
+.footer-flowers__meadow,
+.footer-flowers__canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transform-origin: 43% 100%;
+}
+
+.footer-flowers__meadow {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  opacity: 0;
+  transition: opacity 900ms var(--ease-out-strong);
+}
+.footer-flowers[data-ready][data-shown] .footer-flowers__meadow { opacity: 1; }
+.footer-flowers__stars { fill: var(--flower-pollen); font-weight: 600; opacity: 0.75; }
+
+.footer-garden {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  max-width: 1920px;
+  height: clamp(330px, 34vw, 640px);
+  margin: 24px auto 0;
+  overflow: clip;
+}
+.footer-garden__cluster {
+  position: absolute;
+  bottom: 24px;
+  width: 36%;
+  min-width: 300px;
+}
+.footer-garden__cluster .footer-flowers { margin: 0; }
+.footer-garden__cluster--left { left: 0; bottom: 44px; }
+.footer-garden__cluster--center {
+  z-index: 1;
+  left: 50%;
+  width: 44%;
+  min-width: 360px;
+  transform: translateX(-50%);
+}
+.footer-garden__cluster--right { right: 0; transform: scaleX(-1); }
+@media (max-width: 599px) {
+  .footer-garden { height: 300px; }
+  .footer-garden__cluster--left { width: 75%; min-width: 0; left: -24%; bottom: 38px; }
+  .footer-garden__cluster--center { width: 90%; min-width: 0; left: auto; right: -5%; transform: none; }
+  .footer-garden__cluster--right { display: none; }
+}
+
+.footer-flowers__reveal {
+  opacity: 0;
+  transform: translateY(24px) scale(0.97);
+  transition: opacity 900ms var(--ease-out-strong), transform 900ms var(--ease-out-strong);
+}
+
+.footer-flowers[data-ready][data-shown] .footer-flowers__reveal {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.footer-flowers__sway {
+  animation: flower-sway 6s var(--ease-in-out-strong) infinite;
+  animation-play-state: paused;
+}
+.footer-flowers__reveal:nth-child(2) .footer-flowers__sway {
+  animation-duration: 7.5s;
+  animation-delay: -2s;
+  animation-direction: reverse;
+}
+.footer-flowers__reveal:nth-child(3) .footer-flowers__sway {
+  animation-duration: 5.5s;
+  animation-delay: -3s;
+}
+.footer-flowers[data-ready][data-in-view] .footer-flowers__sway {
+  animation-play-state: running;
+}
+@keyframes flower-sway {
+  0%, 100% { transform: rotate(-1.4deg); }
+  50% { transform: rotate(1.4deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-flowers__sway { animation: none; }
+  .footer-flowers__meadow { transition-duration: 200ms; }
+  .footer-flowers__reveal {
+    transform: none;
+    transition: opacity 200ms ease;
+    transition-delay: 0ms !important;
+  }
+  .footer-flowers[data-ready][data-shown] .footer-flowers__reveal { transform: none; }
+}
+
+@media (max-width: 599px) {
+  .home-page { --sky-opening: 160px; }
+  .hero-sky { height: 520px; --sky-hero: 160; }
+}
+
+/* The renderer draws a static frame when reduced motion is requested. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-sky canvas { transition: none; }
 }
 
 /* Home hero text reveal. Each character keeps the existing stagger and upward
