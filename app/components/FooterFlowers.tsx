@@ -101,7 +101,7 @@ const spring = { mass: 1, stiffness: 100, damping: 10 };
 export default function FooterFlowers({
   mirrored = false,
   accents = true,
-  sourceUrl = "/img/footer-flowers/cosmos-source.png",
+  sourceUrl = "/img/footer-flowers/cosmos-sample.webp",
   label = "Gently sway the flowers",
 }: { mirrored?: boolean; accents?: boolean; sourceUrl?: string; label?: string }) {
   const containerRef = useRef<HTMLButtonElement>(null);
@@ -153,6 +153,7 @@ export default function FooterFlowers({
     const source = new Image();
     let disposed = false;
     let sourceReady = false;
+    let sourceRequested = false;
     let previousWidth = 0;
     const paint = () => {
       const width = Math.round(container.getBoundingClientRect().width);
@@ -243,7 +244,15 @@ export default function FooterFlowers({
       sourceReady = true;
       paint();
     };
-    source.src = sourceUrl;
+    // Do not download or rasterize an offscreen bouquet during hero startup.
+    // A hidden mobile cluster has no intersection and never requests its image.
+    const prepare = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting || sourceRequested) return;
+      sourceRequested = true;
+      source.src = sourceUrl;
+      prepare.disconnect();
+    }, { rootMargin: "600px 0px" });
+    prepare.observe(container);
     const observer = new ResizeObserver(paint);
     observer.observe(container);
     const reveal = new IntersectionObserver(([entry]) => {
@@ -256,6 +265,7 @@ export default function FooterFlowers({
     return () => {
       disposed = true;
       source.onload = null;
+      prepare.disconnect();
       observer.disconnect();
       reveal.disconnect();
     };

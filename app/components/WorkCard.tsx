@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import type { Project } from "../data";
 import { track } from "../analytics";
 
@@ -12,6 +13,23 @@ import { track } from "../analytics";
  * reliable way to start a background video across browsers.
  */
 export default function WorkCard({ project }: { project: Project }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !project.video) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        if (!video.getAttribute("src")) video.src = project.video!;
+        void video.play().catch(() => { /* Keep the poster if autoplay is denied. */ });
+      } else {
+        video.pause();
+      }
+    }, { rootMargin: "200px 0px" });
+    observer.observe(video);
+    return () => { observer.disconnect(); video.pause(); };
+  }, [project.video]);
+
   return (
     <Link
       href={project.href ?? `/work/${project.slug}`}
@@ -32,13 +50,12 @@ export default function WorkCard({ project }: { project: Project }) {
       >
         {project.video ? (
           <video
-            src={project.video}
+            ref={videoRef}
             poster={project.image}
-            autoPlay
             muted
             loop
             playsInline
-            preload="auto"
+            preload="none"
             aria-hidden="true"
             className="h-full w-full object-contain sm:object-cover"
           />
@@ -46,6 +63,7 @@ export default function WorkCard({ project }: { project: Project }) {
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={project.image}
+            loading="lazy"
             alt={project.title}
             className="absolute inset-0 h-full w-full object-cover"
           />
