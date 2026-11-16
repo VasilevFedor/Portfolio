@@ -1,3 +1,5 @@
+import OptimizedImage from "../components/CaseImage";
+import OptimizedVideo from "../components/CaseVideo";
 import Link from "next/link";
 import type { Metadata } from "next";
 import SiteHeader from "../components/SiteHeader";
@@ -284,8 +286,7 @@ function BlockView({ block }: { block: Block }) {
     case "img":
       return (
         <Reveal>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <OptimizedImage
             src={block.src}
             alt={block.alt}
             width={block.w}
@@ -297,14 +298,8 @@ function BlockView({ block }: { block: Block }) {
     case "video":
       return (
         <Reveal>
-          <video
+          <OptimizedVideo
             src={block.src}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            aria-hidden="true"
             className="h-[440px] w-full rounded-[32px] object-cover"
           />
         </Reveal>

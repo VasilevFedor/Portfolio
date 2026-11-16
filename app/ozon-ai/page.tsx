@@ -1,3 +1,5 @@
+import OptimizedImage from "../components/CaseImage";
+import OptimizedVideo from "../components/CaseVideo";
 import Link from "next/link";
 import type { Metadata } from "next";
 import SiteHeader from "../components/SiteHeader";
@@ -204,7 +206,7 @@ export default function OzonAiCase() {
 
         {/* Hero video */}
         <Reveal>
-          <CaseVideo src={`${VID}/Main%20page/Ozon-ai-main-page.mp4`} />
+          <CaseVideo src={`${VID}/Main%20page/Ozon-ai-main-page.mp4`} eager />
         </Reveal>
 
         {/* Meet the team */}
@@ -330,9 +332,10 @@ export default function OzonAiCase() {
                     key={`${c.name}-${i}`}
                     className="mr-[112px] grid size-[90px] shrink-0 place-items-center rounded-3xl bg-card"
                   >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+
+                    <OptimizedImage
                       src={c.src}
+                      sizes="80px"
                       alt={c.name}
                       className="size-20 object-contain"
                     />
@@ -369,8 +372,7 @@ export default function OzonAiCase() {
           {concepts.map((c) => (
             <Reveal key={c.n}>
               <figure className="flex flex-col gap-4">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <OptimizedImage
                   src={c.src}
                   alt={c.n}
                   className="w-full rounded-[32px]"
@@ -401,8 +403,7 @@ export default function OzonAiCase() {
 
           <Reveal>
             <figure className="flex flex-col items-center gap-2">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <OptimizedImage
                 src={`${CASE_IMG}/Research-1.png`}
                 alt="The full flow map for the AI assistant"
                 className="w-full rounded-[32px]"
@@ -447,8 +448,7 @@ export default function OzonAiCase() {
             </p>
           </Reveal>
           <Reveal>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <OptimizedImage
               src={`${CASE_IMG}/Research.png`}
               alt="Research guide and the usability-test flow map"
               className="w-full rounded-[32px]"
@@ -481,8 +481,7 @@ export default function OzonAiCase() {
             </p>
           </Reveal>
           <Reveal>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <OptimizedImage
               src={`${CASE_IMG}/AI%20bubble%20fail.png`}
               alt="The proactive bubble on the dashboard converted at only 1.5%"
               className="w-full rounded-3xl"
@@ -501,8 +500,7 @@ export default function OzonAiCase() {
           </Reveal>
 
           <Reveal>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <OptimizedImage
               src={`${CASE_IMG}/Header%20and%20floating%20button%20new.png`}
               alt="The two entry points compared — the header slot and the floating button"
               className="w-full rounded-[32px]"
@@ -611,9 +609,9 @@ function WinnerCheck() {
 function TeamMember({ label, avatar }: { label: string; avatar: string }) {
   return (
     <div className="flex flex-col items-center gap-4">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <OptimizedImage
         src={avatar}
+        sizes="40px"
         alt=""
         aria-hidden="true"
         className="size-10 rounded-full bg-card object-cover"
@@ -623,17 +621,12 @@ function TeamMember({ label, avatar }: { label: string; avatar: string }) {
   );
 }
 
-function CaseVideo({ src, caption }: { src: string; caption?: string }) {
+function CaseVideo({ src, caption, eager }: { src: string; caption?: string; eager?: boolean }) {
   return (
     <div className="flex flex-col gap-4">
-      <video
+      <OptimizedVideo
+        eager={eager}
         src={src}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        aria-hidden="true"
         className="aspect-video w-full rounded-[20px] object-contain sm:h-[440px] sm:aspect-auto sm:rounded-[32px] sm:object-cover"
       />
       {caption && (

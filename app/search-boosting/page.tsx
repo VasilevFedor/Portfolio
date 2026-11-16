@@ -1,3 +1,5 @@
+import OptimizedImage from "../components/CaseImage";
+import OptimizedVideo from "../components/CaseVideo";
 import Link from "next/link";
 import type { Metadata } from "next";
 import SiteHeader from "../components/SiteHeader";
@@ -127,6 +129,7 @@ export default function SearchBoostingCase() {
         {/* Hero image */}
         <Reveal>
           <CaseImage
+            eager
             src={`${IMG}/VMxI7yOseupZG5jKimHH0uA3Kw.png`}
             alt="The final elastic-boosting promotion in the Ozon Seller center"
           />
@@ -272,14 +275,8 @@ export default function SearchBoostingCase() {
             </p>
           </Reveal>
           <Reveal>
-            <video
+            <OptimizedVideo
               src={`${ASSET}/ZVv6TQfOEMWUgW4I9S1vFl2PewU.mp4`}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-              aria-hidden="true"
               className="aspect-video w-full rounded-[20px] object-contain sm:aspect-[800/468] sm:rounded-[32px] sm:object-cover"
             />
           </Reveal>
@@ -347,17 +344,19 @@ function CaseImage({
   src,
   alt,
   ratio,
+  eager = false,
 }: {
   src: string;
   alt: string;
   ratio?: string;
+  eager?: boolean;
 }) {
   return (
-    /* eslint-disable-next-line @next/next/no-img-element */
-    <img
+    <OptimizedImage
       src={src}
       alt={alt}
-      loading="lazy"
+      loading={eager ? "eager" : "lazy"}
+      fetchPriority={eager ? "high" : "auto"}
       style={ratio ? { aspectRatio: ratio } : undefined}
       className={`w-full rounded-[32px] ${ratio ? "object-cover" : "h-auto"}`}
     />

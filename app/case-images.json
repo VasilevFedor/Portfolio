@@ -1,0 +1,140 @@
+{
+  "/img/ozon-ai/team/lead.png": {
+    "width": 396,
+    "height": 396,
+    "src": "/media/cases/d3faeb52ab72-120.webp",
+    "srcSet": "/media/cases/d3faeb52ab72-80.webp 80w, /media/cases/d3faeb52ab72-120.webp 120w"
+  },
+  "/img/ozon-ai/team/managers.png": {
+    "width": 396,
+    "height": 396,
+    "src": "/media/cases/b12adb69becd-120.webp",
+    "srcSet": "/media/cases/b12adb69becd-80.webp 80w, /media/cases/b12adb69becd-120.webp 120w"
+  },
+  "/img/ozon-ai/team/director.png": {
+    "width": 396,
+    "height": 396,
+    "src": "/media/cases/d216d3e127f6-120.webp",
+    "srcSet": "/media/cases/d216d3e127f6-80.webp 80w, /media/cases/d216d3e127f6-120.webp 120w"
+  },
+  "/img/ozon-ai/team/researcher.png": {
+    "width": 396,
+    "height": 396,
+    "src": "/media/cases/d828ce24cd2d-120.webp",
+    "srcSet": "/media/cases/d828ce24cd2d-80.webp 80w, /media/cases/d828ce24cd2d-120.webp 120w"
+  },
+  "/img/ozon-ai/team/engineers.png": {
+    "width": 396,
+    "height": 396,
+    "src": "/media/cases/3d8fc5588350-120.webp",
+    "srcSet": "/media/cases/3d8fc5588350-80.webp 80w, /media/cases/3d8fc5588350-120.webp 120w"
+  },
+  "/img/ozon-ai/team/mobile.png": {
+    "width": 396,
+    "height": 396,
+    "src": "/media/cases/9a78bbd21521-120.webp",
+    "srcSet": "/media/cases/9a78bbd21521-80.webp 80w, /media/cases/9a78bbd21521-120.webp 120w"
+  },
+  "https://videos-for-portfolio.b-cdn.net/Ozon%20AI%20case/Concept%201%20new.png": {
+    "width": 2400,
+    "height": 1860,
+    "src": "/media/cases/e720097dae0e-1600.webp",
+    "srcSet": "/media/cases/e720097dae0e-640.webp 640w, /media/cases/e720097dae0e-960.webp 960w, /media/cases/e720097dae0e-1600.webp 1600w"
+  },
+  "https://videos-for-portfolio.b-cdn.net/Ozon%20AI%20case/Concept%202%20new.png": {
+    "width": 2400,
+    "height": 1860,
+    "src": "/media/cases/f419c74615ff-1600.webp",
+    "srcSet": "/media/cases/f419c74615ff-640.webp 640w, /media/cases/f419c74615ff-960.webp 960w, /media/cases/f419c74615ff-1600.webp 1600w"
+  },
+  "https://videos-for-portfolio.b-cdn.net/Ozon%20AI%20case/Concept%203%20new.png": {
+    "width": 2400,
+    "height": 1860,
+    "src": "/media/cases/8958a8fc2ffb-1600.webp",
+    "srcSet": "/media/cases/8958a8fc2ffb-640.webp 640w, /media/cases/8958a8fc2ffb-960.webp 960w, /media/cases/8958a8fc2ffb-1600.webp 1600w"
+  },
+  "https://videos-for-portfolio.b-cdn.net/Ozon%20AI%20case/Research-1.png": {
+    "width": 2400,
+    "height": 762,
+    "src": "/media/cases/3ea4f6bfda4a-1600.webp",
+    "srcSet": "/media/cases/3ea4f6bfda4a-640.webp 640w, /media/cases/3ea4f6bfda4a-960.webp 960w, /media/cases/3ea4f6bfda4a-1600.webp 1600w"
+  },
+  "https://videos-for-portfolio.b-cdn.net/Ozon%20AI%20case/Research.png": {
+    "width": 2400,
+    "height": 1065,
+    "src": "/media/cases/0ad5eb5db512-1600.webp",
+    "srcSet": "/media/cases/0ad5eb5db512-640.webp 640w, /media/cases/0ad5eb5db512-960.webp 960w, /media/cases/0ad5eb5db512-1600.webp 1600w"
+  },
+  "https://videos-for-portfolio.b-cdn.net/Ozon%20AI%20case/AI%20bubble%20fail.png": {
+    "width": 2400,
+    "height": 1510,
+    "src": "/media/cases/0a8c3c16781d-1600.webp",
+    "srcSet": "/media/cases/0a8c3c16781d-640.webp 640w, /media/cases/0a8c3c16781d-960.webp 960w, /media/cases/0a8c3c16781d-1600.webp 1600w"
+  },
+  "https://videos-for-portfolio.b-cdn.net/Ozon%20AI%20case/Header%20and%20floating%20button%20new.png": {
+    "width": 2400,
+    "height": 1734,
+    "src": "/media/cases/595cf8db7103-1600.webp",
+    "srcSet": "/media/cases/595cf8db7103-640.webp 640w, /media/cases/595cf8db7103-960.webp 960w, /media/cases/595cf8db7103-1600.webp 1600w"
+  },
+  "https://framerusercontent.com/images/VMxI7yOseupZG5jKimHH0uA3Kw.png": {
+    "width": 1600,
+    "height": 885,
+    "src": "/media/cases/86c1b479b462-1600.webp",
+    "srcSet": "/media/cases/86c1b479b462-640.webp 640w, /media/cases/86c1b479b462-960.webp 960w, /media/cases/86c1b479b462-1600.webp 1600w"
+  },
+  "https://videos-for-portfolio.b-cdn.net/Search%20boosting/Current%20experience.png": {
+    "width": 2400,
+    "height": 1200,
+    "src": "/media/cases/a640e37965ff-1600.webp",
+    "srcSet": "/media/cases/a640e37965ff-640.webp 640w, /media/cases/a640e37965ff-960.webp 960w, /media/cases/a640e37965ff-1600.webp 1600w"
+  },
+  "https://videos-for-portfolio.b-cdn.net/Search%20boosting/Analytics.png": {
+    "width": 2400,
+    "height": 1200,
+    "src": "/media/cases/47a000a15e43-1600.webp",
+    "srcSet": "/media/cases/47a000a15e43-640.webp 640w, /media/cases/47a000a15e43-960.webp 960w, /media/cases/47a000a15e43-1600.webp 1600w"
+  },
+  "https://videos-for-portfolio.b-cdn.net/Search%20boosting/Concept%201.1.png": {
+    "width": 2400,
+    "height": 1983,
+    "src": "/media/cases/cff1a970a605-1600.webp",
+    "srcSet": "/media/cases/cff1a970a605-640.webp 640w, /media/cases/cff1a970a605-960.webp 960w, /media/cases/cff1a970a605-1600.webp 1600w"
+  },
+  "https://videos-for-portfolio.b-cdn.net/Search%20boosting/Concept%201.2.png": {
+    "width": 2400,
+    "height": 1578,
+    "src": "/media/cases/2fbac20bf43e-1600.webp",
+    "srcSet": "/media/cases/2fbac20bf43e-640.webp 640w, /media/cases/2fbac20bf43e-960.webp 960w, /media/cases/2fbac20bf43e-1600.webp 1600w"
+  },
+  "https://videos-for-portfolio.b-cdn.net/Search%20boosting/Concept%204.png": {
+    "width": 2400,
+    "height": 1326,
+    "src": "/media/cases/064d0e1201ed-1600.webp",
+    "srcSet": "/media/cases/064d0e1201ed-640.webp 640w, /media/cases/064d0e1201ed-960.webp 960w, /media/cases/064d0e1201ed-1600.webp 1600w"
+  },
+  "https://videos-for-portfolio.b-cdn.net/Search%20boosting/Concept%205.png": {
+    "width": 2400,
+    "height": 1410,
+    "src": "/media/cases/75c63a4c15a9-1600.webp",
+    "srcSet": "/media/cases/75c63a4c15a9-640.webp 640w, /media/cases/75c63a4c15a9-960.webp 960w, /media/cases/75c63a4c15a9-1600.webp 1600w"
+  },
+  "https://framerusercontent.com/images/Jl7xyCahkdZ8uIJfnjpdCHtqCY.png": {
+    "width": 1632,
+    "height": 560,
+    "src": "/media/cases/01fcd0c93bb5-1600.webp",
+    "srcSet": "/media/cases/01fcd0c93bb5-640.webp 640w, /media/cases/01fcd0c93bb5-960.webp 960w, /media/cases/01fcd0c93bb5-1600.webp 1600w"
+  },
+  "https://framerusercontent.com/images/ClVTjOuyes4EzJBYjIwxxm6W2WQ.png": {
+    "width": 1908,
+    "height": 2844,
+    "src": "/media/cases/295ab2f8f256-1600.webp",
+    "srcSet": "/media/cases/295ab2f8f256-640.webp 640w, /media/cases/295ab2f8f256-960.webp 960w, /media/cases/295ab2f8f256-1600.webp 1600w"
+  },
+  "https://framerusercontent.com/images/tpHcbNjETT9mPYuwcBCZIfohLc.png": {
+    "width": 2058,
+    "height": 1278,
+    "src": "/media/cases/9670ed009034-1600.webp",
+    "srcSet": "/media/cases/9670ed009034-640.webp 640w, /media/cases/9670ed009034-960.webp 960w, /media/cases/9670ed009034-1600.webp 1600w"
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "https://videos-for-portfolio.b-cdn.net/Main%20page/Ozon-ai-main-page.mp4": {
+    "src": "/media/cases/e21f550cf0b2-1600.mp4",
+    "poster": "/media/cases/e21f550cf0b2-poster.jpg",
+    "originalBytes": 14501467,
+    "bytes": 7631325,
+    "duration": 30.8
+  },
+  "https://videos-for-portfolio.b-cdn.net/Ozon%20AI%20case/current%20experience.mp4": {
+    "src": "/media/cases/2d39ac499e10-1600.mp4",
+    "poster": "/media/cases/2d39ac499e10-poster.jpg",
+    "originalBytes": 35396099,
+    "bytes": 2522147,
+    "duration": 16.683333
+  },
+  "https://videos-for-portfolio.b-cdn.net/Ozon%20AI%20case/AI_bubble.mp4": {
+    "src": "/media/cases/2b2862209c37-1600.mp4",
+    "poster": "/media/cases/2b2862209c37-poster.jpg",
+    "originalBytes": 41438746,
+    "bytes": 2434831,
+    "duration": 11.783333
+  },
+  "https://videos-for-portfolio.b-cdn.net/Ozon%20AI%20case/User%20sales%20analysis.mp4": {
+    "src": "/media/cases/8890daed9dc8-1600.mp4",
+    "poster": "/media/cases/8890daed9dc8-poster.jpg",
+    "originalBytes": 12651975,
+    "bytes": 1662359,
+    "duration": 24.633008
+  },
+  "https://videos-for-portfolio.b-cdn.net/Ozon%20AI%20case/knowledge%20base.mp4": {
+    "src": "/media/cases/e1d6c0c81b48-1600.mp4",
+    "poster": "/media/cases/e1d6c0c81b48-poster.jpg",
+    "originalBytes": 47187090,
+    "bytes": 3309986,
+    "duration": 16.783333
+  },
+  "https://videos-for-portfolio.b-cdn.net/Ozon%20AI%20case/Review.mp4": {
+    "src": "/media/cases/6732f1141ca0-1600.mp4",
+    "poster": "/media/cases/6732f1141ca0-poster.jpg",
+    "originalBytes": 47777664,
+    "bytes": 3528642,
+    "duration": 16.216667
+  },
+  "https://framerusercontent.com/assets/ZVv6TQfOEMWUgW4I9S1vFl2PewU.mp4": {
+    "src": "/media/cases/d6a89e2e3f39-1600.mp4",
+    "poster": "/media/cases/d6a89e2e3f39-poster.jpg",
+    "originalBytes": 7392342,
+    "bytes": 3793666,
+    "duration": 29.383333
+  },
+  "https://videos-for-portfolio.b-cdn.net/Stonks%20app%20case/First%20touch.mp4": {
+    "src": "/media/cases/6797db946b6b-1600.mp4",
+    "poster": "/media/cases/6797db946b6b-poster.jpg",
+    "originalBytes": 8722503,
+    "bytes": 688566,
+    "duration": 18.266667
+  },
+  "https://videos-for-portfolio.b-cdn.net/Stonks%20app%20case/Add%20expense.mp4": {
+    "src": "/media/cases/3ec81ebf2c28-1600.mp4",
+    "poster": "/media/cases/3ec81ebf2c28-poster.jpg",
+    "originalBytes": 6568464,
+    "bytes": 623078,
+    "duration": 10.933333
+  },
+  "https://videos-for-portfolio.b-cdn.net/Stonks%20app%20case/Purchase%20freeze%20.mp4": {
+    "src": "/media/cases/ec643cf7a7d7-1600.mp4",
+    "poster": "/media/cases/ec643cf7a7d7-poster.jpg",
+    "originalBytes": 7659672,
+    "bytes": 837524,
+    "duration": 16.1
+  },
+  "https://videos-for-portfolio.b-cdn.net/Stonks%20app%20case/Achievement.mp4": {
+    "src": "/media/cases/67731d00a551-1600.mp4",
+    "poster": "/media/cases/67731d00a551-poster.jpg",
+    "originalBytes": 2128428,
+    "bytes": 245023,
+    "duration": 6.666667
+  },
+  "https://videos-for-portfolio.b-cdn.net/Stonks%20app%20case/Analytics.mp4": {
+    "src": "/media/cases/cc24ed229453-1600.mp4",
+    "poster": "/media/cases/cc24ed229453-poster.jpg",
+    "originalBytes": 7206224,
+    "bytes": 599984,
+    "duration": 18.733333
+  },
+  "https://videos-for-portfolio.b-cdn.net/Article/Search.Success%2001.43.00.mp4": {
+    "src": "/media/cases/69a98d8ed58b-1600.mp4",
+    "poster": "/media/cases/69a98d8ed58b-poster.jpg",
+    "originalBytes": 22294910,
+    "bytes": 1902385,
+    "duration": 19.816667
+  },
+  "https://videos-for-portfolio.b-cdn.net/Article/Search.Unsuccess.mp4": {
+    "src": "/media/cases/cda2f6bf760f-1600.mp4",
+    "poster": "/media/cases/cda2f6bf760f-poster.jpg",
+    "originalBytes": 10444114,
+    "bytes": 1371072,
+    "duration": 13.366667
+  }
+}

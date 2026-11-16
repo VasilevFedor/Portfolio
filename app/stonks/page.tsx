@@ -1,3 +1,4 @@
+import OptimizedVideo from "../components/CaseVideo";
 import Link from "next/link";
 import type { Metadata } from "next";
 import SiteHeader from "../components/SiteHeader";
@@ -110,14 +111,8 @@ export default function StonksCase() {
             <div id={f.id} className="scroll-mt-24" key={f.id}>
               <Reveal>
                 <figure className="flex flex-col gap-4">
-                  <video
+                  <OptimizedVideo
                     src={f.src}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="auto"
-                    aria-hidden="true"
                     className="h-[468px] w-full rounded-[32px] border border-border-subtle object-cover"
                   />
                   <figcaption className="flex flex-col gap-1">
