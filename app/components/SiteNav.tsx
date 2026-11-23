@@ -120,6 +120,13 @@ export default function SiteNav() {
         aria-hidden={!open}
         inert={!open}
       >
+        {open && (
+          <>
+            {/* Safari samples the background of fixed elements at each screen edge. */}
+            <div aria-hidden="true" className="fixed inset-x-0 top-0 z-10 h-3 bg-background" />
+            <div aria-hidden="true" className="fixed inset-x-0 bottom-0 z-10 h-3 bg-background" />
+          </>
+        )}
         <div className="flex items-center justify-between py-6 pr-6 pl-6">
           <span className="t-wordmark leading-none">fedor.</span>
           <button
