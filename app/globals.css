@@ -53,6 +53,10 @@
   --flower-pollen: rgb(211, 174, 103);
 }
 
+html {
+  background: var(--background);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -518,6 +522,7 @@ html {
 .mobile-menu {
   position: fixed;
   inset: 0;
+  padding-top: env(safe-area-inset-top);
   /* Above the About fan-carousel cards (zIndex up to 100) so the menu
      covers them, not the other way around. */
   z-index: 200;

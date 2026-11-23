@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import {
   Allan,
   Inter,
@@ -64,6 +64,13 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#ffffff",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -76,7 +83,7 @@ export default function RootLayout({
       className={`h-full antialiased ${inter.variable} ${wordmark.variable} ${signatureScript.variable} ${handwritten.variable}`}
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: `try{if(localStorage.getItem("${themeStorageKey}")==="dark")document.documentElement.dataset.theme="dark"}catch{}` }} />
+        <script dangerouslySetInnerHTML={{ __html: `try{if(localStorage.getItem("${themeStorageKey}")==="dark"){document.documentElement.dataset.theme="dark";const syncThemeColor=()=>document.querySelector('meta[name="theme-color"]')?.setAttribute("content",getComputedStyle(document.documentElement).getPropertyValue("--background").trim());if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",syncThemeColor,{once:true});else syncThemeColor()}}catch{}` }} />
         {/* If JS is disabled, scroll-reveal elements must still be visible. */}
         <noscript>
           <style>{`.reveal{opacity:1 !important;transform:none !important}.iris{clip-path:none !important}.preloader{display:none !important}`}</style>

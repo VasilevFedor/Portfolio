@@ -145,7 +145,7 @@ export default function SiteNav() {
 
         <nav className="flex flex-1 flex-col items-center justify-center gap-8">
           {links.map((l) => (
-            <div className="relative flex items-center" key={l.href}>
+            <div className="flex items-center" key={l.href}>
               <Link
                 href={l.href}
                 onClick={handleClick(l.href, l.label, l.external)}
@@ -156,12 +156,12 @@ export default function SiteNav() {
               >
                 {l.label}
               </Link>
-              {l.label === "cv" && (
-                <span className="absolute left-full ml-3"><ThemeToggle /></span>
-              )}
             </div>
           ))}
         </nav>
+        <div className="flex justify-center pb-[max(32px,env(safe-area-inset-bottom))]">
+          <ThemeToggle />
+        </div>
       </div>
     </>
   );
