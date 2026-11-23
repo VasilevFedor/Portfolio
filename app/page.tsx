@@ -32,6 +32,8 @@ export default function Home() {
   );
 }
 
+const showLocalTime = false;
+
 function Hero() {
   return (
     <TextAnimateOnce>
@@ -144,16 +146,18 @@ function Hero() {
           </ul>
         </section>
 
-        <TextAnimate
-          animation="blurInUp"
-          by="character"
-          once
-          delay={1.1}
-          duration={0.45}
-          className="t-body-muted"
-        >
-          <LocalTime />
-        </TextAnimate>
+        {showLocalTime && (
+          <TextAnimate
+            animation="blurInUp"
+            by="character"
+            once
+            delay={1.1}
+            duration={0.45}
+            className="t-body-muted"
+          >
+            <LocalTime />
+          </TextAnimate>
+        )}
       </div>
       </section>
     </TextAnimateOnce>
