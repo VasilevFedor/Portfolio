@@ -18,7 +18,7 @@ const links = [
   { href: "/#writing", label: "writing" },
   { href: "/about", label: "about" },
   {
-    href: "https://drive.google.com/file/d/1VhIAwtcIrYt81S_Fvp3tD3HEYQLsIixA/view?usp=drive_link",
+    href: "https://drive.google.com/file/d/1EN1PHaUv-meOPcjvycjXeRwWzDuBION-/view?usp=sharing",
     label: "cv",
     external: true,
   },

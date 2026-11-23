@@ -81,7 +81,7 @@ function Hero() {
             Hi! I currently work at{" "}
             <Em>Ozon as a Senior product designer</Em>, where I{" "}
             <Em>led design of promotional mechanics and campaigns</Em>. I have{" "}
-            <Em>over 5 years</Em> of experience, building products for the
+            <Em>over 6 years</Em> of experience, building products for the
             audience of more than <Em>60 million</Em> people
           </TextAnimate>
           <TextAnimate animation="blurInUp" by="character" once delay={0.7} duration={0.45} stagger={0.003} className="t-body-muted">
