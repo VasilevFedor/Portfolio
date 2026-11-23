@@ -255,6 +255,11 @@ export default function FooterFlowers({
     prepare.observe(container);
     const observer = new ResizeObserver(paint);
     observer.observe(container);
+    const themeObserver = new MutationObserver(() => {
+      previousWidth = 0;
+      paint();
+    });
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
     const reveal = new IntersectionObserver(([entry]) => {
       container.toggleAttribute("data-in-view", entry.isIntersecting);
       if (entry.isIntersecting) {
@@ -267,6 +272,7 @@ export default function FooterFlowers({
       source.onload = null;
       prepare.disconnect();
       observer.disconnect();
+      themeObserver.disconnect();
       reveal.disconnect();
     };
   }, [sourceUrl]);

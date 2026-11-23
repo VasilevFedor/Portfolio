@@ -99,7 +99,7 @@ export default function VinylAlbumCard({
             />
           </div>
 
-          <span className="pointer-events-none relative z-30 hidden size-9 place-items-center rounded-full bg-white/90 text-foreground shadow-sm backdrop-blur-sm lg:grid">
+          <span className="pointer-events-none relative z-30 hidden size-9 place-items-center rounded-full bg-background/90 text-foreground shadow-sm backdrop-blur-sm lg:grid">
             {playbackIcon}
           </span>
         </div>

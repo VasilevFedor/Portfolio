@@ -3,7 +3,7 @@
 /**
  * Adapted from the public AsciiSkyCanvas renderer at https://unvalley.me/
  * Reference asset revision: 69705852e5 (2026-11-16).
- * Integration changes: local assets, light-only palette through project tokens,
+ * Integration changes: local assets, theme palettes through project tokens,
  * and the portfolio canvas class. Keep the original glyph selection, two cloud
  * layers, noise advection, and pointer fluid field together for visual fidelity.
  */
@@ -22,6 +22,7 @@ const rgbToken = (name) => {
 let cachedPalette;
 function cloudPalette() {
   return cachedPalette ??= {
+    skyBlue: rgbToken("--sky-blue"),
     inside: " .:;o8%@",
     tile: [0, 1, 2, 3].map(i => rgbToken(`--sky-cloud-tile-${i}`)),
     glyph: [0, 1, 2, 3].map(i => rgbToken(`--sky-cloud-glyph-${i}`)),
@@ -96,7 +97,7 @@ function readingMask(cols, rows, top, left, right, cw, ch) {
             throw Error("no 2d context"); return e; }, I = new Float64Array(4097);
         for (let t = 0; t <= 4096; t++)
             I[t] = Math.sin(t / 4096 * Math.PI * 2);
-        let O = 4096 / (2 * Math.PI), F = { get light() { return rgbToken("--sky-wind"); }, get dark() { return rgbToken("--sky-wind"); } }, $ = i.indexOf("-"), S = i.indexOf("~"), B = i.indexOf("|"), P = i.indexOf("/"), L = i.indexOf("\\"), R = () => "light";
+        let O = 4096 / (2 * Math.PI), F = { get light() { return rgbToken("--sky-wind"); }, get dark() { return rgbToken("--sky-wind"); } }, $ = i.indexOf("-"), S = i.indexOf("~"), B = i.indexOf("|"), P = i.indexOf("/"), L = i.indexOf("\\"), R = () => document.documentElement.dataset.theme === "dark" ? "dark" : "light";
         async function q(t) { let e = await (await fetch(t)).blob(), r = await createImageBitmap(e, { colorSpaceConversion: "none", premultiplyAlpha: "none" }), l = document.createElement("canvas"); l.width = r.width, l.height = r.height; let a = l.getContext("2d", { willReadFrequently: !0 }); if (!a)
             throw Error("no 2d context"); return a.drawImage(r, 0, 0), { pixels: a.getImageData(0, 0, r.width, r.height).data, width: r.width, height: r.height }; }
         async function loadSkyAssets(assets) {
@@ -117,7 +118,7 @@ function readingMask(cols, rows, top, left, right, cw, ch) {
                 for (let e = 0; e < 6; e++)
                     a[e] = Math.max(a[e], t[e]); return r.forEach((t, e) => { for (let r = 0; r < 6; r++)
                 l[6 * e + r] = a[r] ? t[r] / a[r] : 0; }), l; }(); if (!l || !tw)
-                return; let ty = function (t) { let { still: e, shapes: r, near: l, far: f } = t, { columns: d, rows: p } = e, x = new Float32Array(d * p); e.text.split("\n").forEach((t, e) => { if (!(e >= p))
+                return; cachedPalette = undefined; let ty = function (t) { let { still: e, shapes: r, near: l, far: f } = t, { columns: d, rows: p } = e, x = new Float32Array(d * p); e.text.split("\n").forEach((t, e) => { if (!(e >= p))
                 for (let r = 0; r < Math.min(d, t.length); r++)
                     x[e * d + r] = Math.max(0, o.indexOf(t[r])) / (o.length - 1); }); let M = (t, e, r, l) => { let { pixels: a, width: o, height: i } = t, s = n(e / 2, o) - .5, f = Math.min(i - 1.001, Math.max(0, r / 2 - .5)), c = Math.floor(s), h = Math.floor(f), u = s - c, d = f - h, m = c < 0 ? c + o : c, p = m + 1 === o ? 0 : m + 1, g = (h * o + m) * 4, x = (h * o + p) * 4, M = g + 4 * o, w = x + 4 * o, y = (1 - u) * (1 - d), b = u * (1 - d), v = (1 - u) * d, A = u * d; l[0] = a[g] * y + a[x] * b + a[M] * v + a[w] * A, l[1] = a[g + 1] * y + a[x + 1] * b + a[M + 1] * v + a[w + 1] * A; }, w = (t, e, r) => { let { pixels: l, width: a, height: n } = t, o = new Uint8Array(a * n), i = new Uint8Array(a * n), s = Math.max(a, n), f = new Uint8Array(s), c = new Uint8Array(s), h = new Uint8Array(s + 2 * Math.max(e, r)), u = new Uint8Array(h.length), d = new Uint8Array(h.length), m = (t, e, r) => { let l = 2 * e + 1, a = t + 2 * e; for (let n = 0; n < a; n++) {
                 let a = n - e;
@@ -152,7 +153,13 @@ function readingMask(cols, rows, top, left, right, cw, ch) {
                 r[t] /= a; return r; }(), P = new Float32Array(4), L = (t, e, r) => { let l = n(t, 128), a = n(e, 128), o = 0 | l, i = 0 | a, s = l - o, f = a - i, c = o + 1 === 128 ? 0 : o + 1, h = i + 1 === 128 ? 0 : i + 1, u = (128 * i + o) * 4, d = (128 * i + c) * 4, m = (128 * h + o) * 4, p = (128 * h + c) * 4; for (let t = 0; t < 4; t++) {
                 let e = B[u + t] + (B[d + t] - B[u + t]) * s, l = B[m + t] + (B[p + t] - B[m + t]) * s;
                 r[t] = e + (l - e) * f;
-            } }, R = 0, N = 0, q = 0, D = (t, e, r, l, a) => { let n = 16 / r; L((t + 14 * R) * n / 240 + l, (e + -3 * R) * n / 120 + .7 * l, P); let o = 28 * P[0], i = 12 * P[1], s = P[2], f = P[3]; L((t + -16 * R) * n / 90 + 61.3 + l, (e + 4 * R) * n / 30 + 17.9 + l, P), a[0] = (o + 8 * P[0]) * r, a[1] = (i + 5 * P[1]) * r, a[2] = .55 * Math.max(-1, Math.min(1, .6 * f + .7 * P[2])), a[3] = .14 * s * 255; }, T = new Float32Array(4), U = new Float32Array(4), z = (t, e) => { let r = t / 255, l = (r + 4 * e * r * (1 - r)) * 255; return E[l < 0 ? 0 : l > 255 ? 255 : 0 | l]; }, G = (t, e) => { let r = t + e; return r < 0 ? 0 : r > 255 ? 255 : 0 | r; }; return { at: t => { R = t, N = g(t, 18), q = g(t, 8, 3); }, cell: (t, o, i, g, w, y, E = -1, B = 0, P = 0) => { let L, R = t + i / 2, K = o + g / 2, X = (L = n(Math.floor(R / e.cw), d), Math.min(p - 1, Math.max(0, Math.floor(K / e.ch))) * d + L), Y = e.rgb[w]; t -= B, o -= P; let _ = R - B, V = K - P, W = C(l, A, _ - N, V) >= 3, Z = C(f, j, _ - q, V) >= 3; W && (D(_ - N, V, 1, 0, T), W = C(l, b, _ - N + T[0], V + T[1]) >= 3), Z && (D(_ - q, V, .6, 37.1, U), Z = C(f, v, _ - q + U[0], V + U[1]) >= 3); let H = m[w]; y[0] = y[4] = Y[4 * X], y[1] = y[5] = Y[4 * X + 1], y[2] = y[6] = Y[4 * X + 2], y[3] = x[X]; let J = H.wash[0] + (H.wash[1] - H.wash[0]) * x[X]; if (y[7] = J, !W && !Z)
+            } }, R = 0, N = 0, q = 0, D = (t, e, r, l, a) => { let n = 16 / r; L((t + 14 * R) * n / 240 + l, (e + -3 * R) * n / 120 + .7 * l, P); let o = 28 * P[0], i = 12 * P[1], s = P[2], f = P[3]; L((t + -16 * R) * n / 90 + 61.3 + l, (e + 4 * R) * n / 30 + 17.9 + l, P), a[0] = (o + 8 * P[0]) * r, a[1] = (i + 5 * P[1]) * r, a[2] = .55 * Math.max(-1, Math.min(1, .6 * f + .7 * P[2])), a[3] = .14 * s * 255; }, T = new Float32Array(4), U = new Float32Array(4), z = (t, e) => { let r = t / 255, l = (r + 4 * e * r * (1 - r)) * 255; return E[l < 0 ? 0 : l > 255 ? 255 : 0 | l]; }, G = (t, e) => { let r = t + e; return r < 0 ? 0 : r > 255 ? 255 : 0 | r; }; return { at: t => { R = t, N = g(t, 18), q = g(t, 8, 3); }, cell: (t, o, i, g, w, y, E = -1, B = 0, P = 0) => { let L, R = t + i / 2, K = o + g / 2, X = (L = n(Math.floor(R / e.cw), d), Math.min(p - 1, Math.max(0, Math.floor(K / e.ch))) * d + L), Y = e.rgb[w]; t -= B, o -= P; let _ = R - B, V = K - P, W = C(l, A, _ - N, V) >= 3, Z = C(f, j, _ - q, V) >= 3; W && (D(_ - N, V, 1, 0, T), W = C(l, b, _ - N + T[0], V + T[1]) >= 3), Z && (D(_ - q, V, .6, 37.1, U), Z = C(f, v, _ - q + U[0], V + U[1]) >= 3); let H = m[w];
+                // Preserve the source map's tonal variation in the night palette.
+                const nightTone = 0.55 + Y[4 * X] / 255;
+                for (let channel = 0; channel < 3; channel++) {
+                    y[channel] = y[4 + channel] = w === "dark" ? H.skyBlue[channel] * nightTone : Y[4 * X + channel];
+                }
+                y[3] = x[X]; let J = H.wash[0] + (H.wash[1] - H.wash[0]) * x[X]; if (y[7] = J, !W && !Z)
                     return -3; let Q = 0, tt = 1, te = 0, tr = 0, tl = 0, ta = 0, tn = 0, to = 0, ti = 0; for (let e = 0; e < 6; e++) {
                     let r = t + h[e][0] * i, a = o + h[e][1] * g;
                     W && (M(l, r - N + T[0], a + T[1], F), ta = z(F[1], T[2]), to = G(F[0], T[3])), Z && (M(f, r - q + U[0], a + U[1], $), tn = z($[1], U[2]), ti = G($[0], U[3]));
@@ -288,4 +295,4 @@ function readingMask(cols, rows, top, left, right, cw, ch) {
                 let i = a(o, t, 71);
                 e[r + o] = i, l = Math.min(l, i), n = Math.max(n, i);
             } for (let t = 0; t < 9; t++)
-                e[r + t] = j(.25, .75, (e[r + t] - l) / (n - l || 1)); }(++t.puffs, l, o + 3), t.stirred = !0; }(U, n, o); }, tc = () => A(U), th = new ResizeObserver(ta), tu = new IntersectionObserver(([t]) => { Q = t?.isIntersecting ?? !0, ti(); }), td = new MutationObserver(() => { z = R(), tl(-1); }), th.observe(e), tu.observe(e), td.observe(document.documentElement, { attributes: !0, attributeFilter: ["class"] }), d.addEventListener("change", ti), document.addEventListener("visibilitychange", ti), window.addEventListener("pointermove", ts, { passive: !0 }), window.addEventListener("pointerdown", tf, { passive: !0 }), document.documentElement.addEventListener("pointerleave", tc), window.addEventListener("blur", tc), ta(), ti(), r = () => { tt = !0, cancelAnimationFrame(J), th.disconnect(), tu.disconnect(), td.disconnect(), d.removeEventListener("change", ti), document.removeEventListener("visibilitychange", ti), window.removeEventListener("pointermove", ts), window.removeEventListener("pointerdown", tf), document.documentElement.removeEventListener("pointerleave", tc), window.removeEventListener("blur", tc); }; })().catch((error) => { console.error("Hero sky failed to initialize", error); }), () => { l = !1, r?.(); }; }, [assets]), (0, e.jsx)("canvas", { ref: t, className: "hero-sky__canvas" }); };
+                e[r + t] = j(.25, .75, (e[r + t] - l) / (n - l || 1)); }(++t.puffs, l, o + 3), t.stirred = !0; }(U, n, o); }, tc = () => A(U), th = new ResizeObserver(ta), tu = new IntersectionObserver(([t]) => { Q = t?.isIntersecting ?? !0, ti(); }), td = new MutationObserver(() => { cachedPalette = undefined; z = R(); tl(-1); }), th.observe(e), tu.observe(e), td.observe(document.documentElement, { attributes: !0, attributeFilter: ["data-theme"] }), d.addEventListener("change", ti), document.addEventListener("visibilitychange", ti), window.addEventListener("pointermove", ts, { passive: !0 }), window.addEventListener("pointerdown", tf, { passive: !0 }), document.documentElement.addEventListener("pointerleave", tc), window.addEventListener("blur", tc), ta(), ti(), r = () => { tt = !0, cancelAnimationFrame(J), th.disconnect(), tu.disconnect(), td.disconnect(), d.removeEventListener("change", ti), document.removeEventListener("visibilitychange", ti), window.removeEventListener("pointermove", ts), window.removeEventListener("pointerdown", tf), document.documentElement.removeEventListener("pointerleave", tc), window.removeEventListener("blur", tc); }; })().catch((error) => { console.error("Hero sky failed to initialize", error); }), () => { l = !1, r?.(); }; }, [assets]), (0, e.jsx)("canvas", { ref: t, className: "hero-sky__canvas" }); };

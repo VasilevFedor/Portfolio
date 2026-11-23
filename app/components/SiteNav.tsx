@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type MouseEvent } from "react";
 import { track } from "../analytics";
+import ThemeToggle from "./ThemeToggle";
 
 /**
  * Site navigation. On sm+ it's the inline row (work / writing / about); below sm
@@ -85,6 +86,7 @@ export default function SiteNav() {
             {l.label}
           </Link>
         ))}
+        <ThemeToggle />
       </nav>
 
       {/* Mobile: burger */}
@@ -116,6 +118,7 @@ export default function SiteNav() {
         role="dialog"
         aria-modal="true"
         aria-hidden={!open}
+        inert={!open}
       >
         <div className="flex items-center justify-between py-6 pr-6 pl-6">
           <span className="t-wordmark leading-none">fedor.</span>
@@ -142,17 +145,21 @@ export default function SiteNav() {
 
         <nav className="flex flex-1 flex-col items-center justify-center gap-8">
           {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              onClick={handleClick(l.href, l.label, l.external)}
-              {...(l.external
-                ? { target: "_blank", rel: "noopener noreferrer" }
-                : {})}
-              className="text-2xl font-medium text-foreground transition-opacity active:opacity-60"
-            >
-              {l.label}
-            </Link>
+            <div className="relative flex items-center" key={l.href}>
+              <Link
+                href={l.href}
+                onClick={handleClick(l.href, l.label, l.external)}
+                {...(l.external
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+                className="text-2xl font-medium text-foreground transition-opacity active:opacity-60"
+              >
+                {l.label}
+              </Link>
+              {l.label === "cv" && (
+                <span className="absolute left-full ml-3"><ThemeToggle /></span>
+              )}
+            </div>
           ))}
         </nav>
       </div>

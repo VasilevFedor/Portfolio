@@ -112,7 +112,7 @@ function Button({
 }) {
   return (
     <span
-      className={`inline-flex items-center justify-center rounded-[27px] px-6 py-3 text-[20px] font-semibold text-white ${className}`}
+      className={`inline-flex items-center justify-center rounded-[27px] px-6 py-3 text-[20px] font-semibold ${className}`}
     >
       {label}
     </span>
@@ -125,7 +125,7 @@ function LinkedInCard() {
       <span className="flex w-full flex-col gap-4">
         <span className="flex w-full items-center justify-between">
           <Avatar src={AVATAR} />
-          <Button label="Connect" className="bg-[#0c65c1]" />
+          <Button label="Connect" className="bg-[#0c65c1] text-white" />
         </span>
         <span className="flex w-full flex-col">
           <span className="text-[24px] font-bold text-foreground">
@@ -158,7 +158,7 @@ function XCard() {
       <span className="flex w-full flex-col gap-4">
         <span className="flex w-full items-center justify-between">
           <Avatar src={AVATAR} />
-          <Button label="Follow" className="bg-foreground" />
+          <Button label="Follow" className="bg-foreground text-background" />
         </span>
         <span className="flex w-full flex-col">
           <span className="text-[24px] font-bold text-foreground">
@@ -197,7 +197,7 @@ function GmailCard() {
         </span>
         <a
           href={social.email}
-          className="inline-flex items-center justify-center rounded-[27px] bg-foreground px-6 py-3 text-[20px] font-semibold text-white"
+          className="inline-flex items-center justify-center rounded-[27px] bg-foreground px-6 py-3 text-[20px] font-semibold text-background"
         >
           Say hi
         </a>

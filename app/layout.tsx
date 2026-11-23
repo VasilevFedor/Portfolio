@@ -6,6 +6,7 @@ import {
   Just_Me_Again_Down_Here,
 } from "next/font/google";
 import "./globals.css";
+import { themeStorageKey } from "./theme";
 import PostHogProvider from "./components/PostHogProvider";
 
 // Body / UI typeface — stands in for Helvetica Now Display (paid, not shipped).
@@ -71,9 +72,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`h-full antialiased ${inter.variable} ${wordmark.variable} ${signatureScript.variable} ${handwritten.variable}`}
     >
       <head>
+        <script dangerouslySetInnerHTML={{ __html: `try{if(localStorage.getItem("${themeStorageKey}")==="dark")document.documentElement.dataset.theme="dark"}catch{}` }} />
         {/* If JS is disabled, scroll-reveal elements must still be visible. */}
         <noscript>
           <style>{`.reveal{opacity:1 !important;transform:none !important}.iris{clip-path:none !important}.preloader{display:none !important}`}</style>
