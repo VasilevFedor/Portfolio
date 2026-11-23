@@ -65,36 +65,30 @@ function Hero() {
           </div>
         </div>
 
-        {/* Bio — 550px wide, three paragraphs. Emphasis = foreground colour
-            (not bold), matching the Framer source. */}
-        <TextAnimate
-          animation="blurInUp"
-          by="character"
-          once
-          as="div"
-          delay={0.16}
-          duration={0.45}
-          stagger={0.003}
-          className="max-w-[550px] space-y-4"
-        >
-          <p className="t-body-muted">
+        {/* Bio and project links share the same reading width. */}
+        <div className="max-w-[550px] space-y-4">
+          <TextAnimate
+            animation="blurInUp"
+            by="character"
+            once
+            delay={0.16}
+            duration={0.45}
+            stagger={0.003}
+            className="t-body-muted"
+          >
             Hi! I currently work at{" "}
             <Em>Ozon as a Senior product designer</Em>, where I{" "}
             <Em>led design of promotional mechanics and campaigns</Em>. I have{" "}
             <Em>over 5 years</Em> of experience, building products for the
             audience of more than <Em>60 million</Em> people
-          </p>
-          <p className="t-body-muted">
-            I&rsquo;m also a <Em>co-founder of Stonks</Em> — an app that helps
-            build financial literacy
-          </p>
-          <p className="t-body-muted">
+          </TextAnimate>
+          <TextAnimate animation="blurInUp" by="character" once delay={0.7} duration={0.45} stagger={0.003} className="t-body-muted">
             What I enjoy most is taking projects from <Em>0 to 1</Em> — I have
             an entrepreneurial mindset and{" "}
             <Em>like owning a problem end-to-end</Em>, from early concept
             through to shipped result.
-          </p>
-        </TextAnimate>
+          </TextAnimate>
+        </div>
 
         {/* Contact line — single row, each link revealing a profile preview. */}
         <TextAnimate
@@ -119,7 +113,37 @@ function Hero() {
           </ContactPreview>
         </TextAnimate>
 
-        {/* Local time — its own line under the contact row. */}
+        <section aria-labelledby="built-heading" className="max-w-[550px] space-y-2">
+          <h2 id="built-heading" className="font-sans text-sm font-medium text-muted">Built</h2>
+          <ul className="flex flex-col gap-3 font-sans">
+            {[
+              {
+                id: "specimen-lab", title: "Specimen Lab", href: "https://specimenlab.vercel.app/",
+                icon: "/icons/specimen.svg", description: "An interactive ASCII playground",
+              },
+              {
+                title: "Stonks", href: "/stonks", icon: "/icons/stonks.webp",
+                description: "An app for building financial literacy", platform: "TestFlight",
+              },
+            ].map(({ id, title, href, icon, description, platform }) => (
+              <li key={href} id={id}>
+                <Link href={href} className="group inline-flex max-w-full items-center gap-2 rounded-lg align-top">
+                  <Image src={icon} width={40} height={40} alt="" className="size-10 shrink-0 rounded-lg" />
+                  <span className="min-w-0">
+                    <span className="block text-base leading-5 font-medium tracking-[-0.02em] text-foreground group-hover:underline">{title}</span>
+                    <span className="block text-sm leading-5 tracking-[-0.02em] text-muted">
+                      {description}
+                      {platform && (
+                        <span className="whitespace-nowrap"><span aria-hidden="true" className="mx-2">•</span>{platform}</span>
+                      )}
+                    </span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+
         <TextAnimate
           animation="blurInUp"
           by="character"

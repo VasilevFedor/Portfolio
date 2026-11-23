@@ -135,6 +135,10 @@
 }
 .theme-sun, [data-theme="dark"] .theme-moon { display: none; }
 [data-theme="dark"] .theme-sun { display: block; }
+[data-theme="dark"] .contact-preview-card {
+  background-color: var(--card);
+  outline: 1px solid var(--border);
+}
 [data-theme="dark"] .marquee-track img { filter: invert(1); }
 /* Name + all body copy share the reference's "Medium 16" metrics. */
 .t-body {
